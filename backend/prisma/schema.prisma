@@ -12,3 +12,86 @@ datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_PRISMA_URL")
 }
+
+
+
+
+model UserAdmin {
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String 
+  userAdminData UserAdminData[]
+}
+
+model UserAdminData {
+  id Int @id @default(autoincrement())
+  name String
+
+  books Book[]
+
+  userAdminData UserAdmin @relation(fields: [userAdminDataId], references: [id])
+  userAdminDataId Int
+
+}
+model RegularUser {
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String 
+  userData RegularUserData[]
+}
+
+model RegularUserData {
+  id Int @id @default(autoincrement())
+  userName String 
+  
+  comment Comment[]
+
+
+
+  regularUser RegularUser @relation(fields: [regularUserId], references: [id])
+  regularUserId Int
+}
+
+model Book {
+  id Int @id @default(autoincrement())
+
+  title String @unique
+  chapters Chapter[]
+
+  aurthor UserAdminData @relation(fields: [authorId], references: [id])
+  authorId Int
+
+}
+
+model Chapter {
+  id Int @id @default(autoincrement())
+
+  chapterNumber Int
+  title String @unique
+  content Paragraph[]
+  
+
+  book Book @relation(fields: [bookId], references: [id])
+  bookId Int  
+
+}
+
+model Paragraph {
+  id Int @id @default(autoincrement())
+
+  paragraphNumber Int
+  content String
+
+  chapter Chapter @relation(fields: [chapterId], references: [id])
+  chapterId Int
+
+  comments Comment[] 
+  commentId Int
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+
+
+  paragraph Paragraph[]
+}
