@@ -13,85 +13,103 @@ datasource db {
   url      = env("POSTGRES_PRISMA_URL")
 }
 
-
-
-
-model UserAdmin {
+model AdminUser {
   id Int @id @default(autoincrement())
+  
   email String @unique
-  password String 
-  userAdminData UserAdminData[]
+  password String
+
+  adminUserData AdminUserData[]
 }
 
-model UserAdminData {
+model AdminUserData {
   id Int @id @default(autoincrement())
-  name String
+  
+  role String @default("admin")
+  comments Comment[]
 
-  books Book[]
-
-  userAdminData UserAdmin @relation(fields: [userAdminDataId], references: [id])
-  userAdminDataId Int
-
+  adminUser AdminUser @relation(fields: [adminUserId], references: [id])
+  adminUserId Int
 }
+
 model RegularUser {
   id Int @id @default(autoincrement())
+
   email String @unique
-  password String 
-  userData RegularUserData[]
+  password String
+
+  regularUserData RegularUserData[]
 }
 
 model RegularUserData {
   id Int @id @default(autoincrement())
+
   userName String 
-  
-  comment Comment[]
+  imagen String?
+  role String @default("user")
 
-
+  comments Comment[]
 
   regularUser RegularUser @relation(fields: [regularUserId], references: [id])
   regularUserId Int
+
 }
 
 model Book {
   id Int @id @default(autoincrement())
 
   title String @unique
-  chapters Chapter[]
+  image String?
 
-  aurthor UserAdminData @relation(fields: [authorId], references: [id])
-  authorId Int
-
+  chapter Chapter[]
 }
 
 model Chapter {
   id Int @id @default(autoincrement())
 
-  chapterNumber Int
   title String @unique
-  content Paragraph[]
-  
+  image String? 
+  chapterNumer Int
+  paragraph Paragraph[]
 
   book Book @relation(fields: [bookId], references: [id])
-  bookId Int  
-
+  bookId Int
 }
 
 model Paragraph {
   id Int @id @default(autoincrement())
 
   paragraphNumber Int
-  content String
+  comment Comment[]
+  paragraphText String[]
 
   chapter Chapter @relation(fields: [chapterId], references: [id])
   chapterId Int
 
-  comments Comment[] 
-  commentId Int
 }
 
 model Comment {
+  id Int @id  @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  commentBody String
+
+  paragraph Paragraph @relation(fields: [paragraphId], references: [id])
+  paragraphId Int
+
+  regularUserData RegularUserData @relation(fields: [regularUserDataId], references: [id])
+  regularUserDataId Int
+
+  adminUserData AdminUserData @relation(fields: [adminUserDataId], references: [id])
+  adminUserDataId Int
+}
+
+model Blog {
   id Int @id @default(autoincrement())
 
+  title String @unique
+  imagen String?
+  blogText String[]
+  createdAt DateTime @default(now())
 
-  paragraph Paragraph[]
 }
