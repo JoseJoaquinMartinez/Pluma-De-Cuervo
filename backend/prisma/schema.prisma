@@ -44,7 +44,7 @@ model RegularUser {
 model RegularUserData {
   id Int @id @default(autoincrement())
 
-  userName String 
+  userName String? @default("Aventurero")
   imagen String?
   role String @default("user")
 
