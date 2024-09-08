@@ -8,4 +8,9 @@ export const transporter = nodemailer.createTransport({
     user: process.env.MAILER_EMAIL,
     pass: process.env.MAILER_SECRET_KEY,
   },
+
+  // TODO: ELIMINAR PARA PRODUCCIÓN
+  tls: {
+    rejectUnauthorized: false,
+  },
 });

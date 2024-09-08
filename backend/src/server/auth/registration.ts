@@ -1,50 +1,50 @@
 import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 
-import { transporter } from "../../utils/emailService";
-
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const router = Router();
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const saltRounds = 10;
+router.get("/verify-email", async (req, res) => {
+  const { token } = req.query;
 
-router.post("/registration", async (req, res) => {
-  const { email, password } = req.body;
-
+  if (!token) {
+    return res.status(400).json({ message: "Token necesario" });
+  }
   try {
-    const existingUser = await prisma.regularUser.findFirst({
-      where: { email: email },
+    const { email, password } = jwt.verify(token as string, JWT_SECRET) as {
+      email: string;
+      password: string;
+    };
+    const newUser = await prisma.regularUser.create({
+      data: {
+        email,
+        password,
+        regularUserData: {
+          create: {},
+        },
+      },
     });
-    if (existingUser) {
-      res.status(400).json({ error: "Email ya existe" });
+
+    if (!newUser) {
+      return res.status(400).json({ message: "Error creando el usuario" });
     }
 
-    const harshedPassword = await bcrypt.hash(password, saltRounds);
-
-    const verifyEmailToken = jwt.sign(
-      { email, password: harshedPassword },
+    const authToken = jwt.sign(
+      { userId: newUser.id, email: newUser.email },
       JWT_SECRET,
-      { expiresIn: 120 }
+      { expiresIn: "1h" }
     );
-    const emailVerificationUrl = `${process.env.EMAIL_URL}/verify-email?token=${verifyEmailToken}`;
 
-    await transporter.sendMail({
-      from: process.env.MAILER_EMAIL,
-      to: email,
-      subject: "Verificación de email",
-      html: `<h2>Pluma de Cuervo</h2><br><p>Haz click en el enlace para verificar el email</p> ${emailVerificationUrl}`,
-    });
-
-    res.status(200).json({ message: "Email enviado" });
+    res
+      .status(200)
+      .json({ token: authToken, message: "Usuario creado correctamente" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Error inesperado" });
-  } finally {
-    await prisma.$disconnect();
+
+    res.status(400).json({ message: "Token no válido o caducado" });
   }
 });
 
