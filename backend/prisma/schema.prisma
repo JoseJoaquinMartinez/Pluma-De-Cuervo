@@ -69,7 +69,7 @@ model Chapter {
 
   title String @unique
   image String? 
-  chapterNumer Int
+  chapterNumber Int
   paragraph Paragraph[]
 
   book Book @relation(fields: [bookId], references: [id], onDelete: Cascade, onUpdate: Cascade)

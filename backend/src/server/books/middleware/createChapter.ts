@@ -14,17 +14,20 @@ export async function createNewChapter(
     const chapter = await prisma.chapter.create({
       data: {
         title: title,
-        chapterNumer: chapterNumber,
+        chapterNumber: parseInt(chapterNumber),
         image: image || null,
-        bookId: bookId,
+        bookId: parseInt(bookId),
       },
     });
     if (!chapter) {
       return res.status(500).json({ error: "Error creando el capítulo" });
     }
     req.body.chapterId = chapter.id;
+
     next();
   } catch (error) {
-    return res.status(500).json({ error: "Error creando el capítulo" });
+    return res
+      .status(500)
+      .json({ error: `Error creando el capítulo ${error}` });
   }
 }

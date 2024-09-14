@@ -12,8 +12,9 @@ export async function extractContentFromPDF(filePath: string) {
   paragraphs.forEach((paragraph) => {
     content.push({ type: "paragraph", value: paragraph.trim() });
   });
-
-  const extractedTables = await new Promise<{ type: string; value: string }[]>(
+  // TODO create a conditional to check if there are any tables in the document, if so run this part first then the other one
+  //TODO else, run the pdf-parse
+  /* const extractedTables = await new Promise<{ type: string; value: string }[]>(
     (resolve, reject) => {
       pdf2table.parse(filePath, (err: Error | null, rows: string[][]) => {
         if (err) {
@@ -25,11 +26,13 @@ export async function extractContentFromPDF(filePath: string) {
           value: row.join("|"),
         }));
 
+        console.log("las tablas:", tables);
+
         resolve(tables);
       });
     }
   );
-  content.push(...extractedTables);
+  content.push(...extractedTables); */
 
   return content;
 }

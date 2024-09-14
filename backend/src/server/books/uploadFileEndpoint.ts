@@ -16,7 +16,7 @@ router.post(
   createNewChapter,
   async (req, res) => {
     const file = req.file;
-    const { chapterId } = req.body.chapterId;
+    const chapterId = req.body.chapterId;
 
     try {
       let content: { type: string; value: string }[] = [];
@@ -27,10 +27,19 @@ router.post(
           content = await extractContentFromPDF(file.path);
           break;
         case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-          content = await extractContentFromWord(file.path);
+          //content = await extractContentFromWord(file.path);
           break;
         default:
       }
-    } catch (error) {}
+      res
+        .status(200)
+        .json({ message: "capítulo creado correctamente", contenido: content });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: `error interno creando capitulo ${error}}` });
+    }
   }
 );
+
+export default router;
