@@ -5,7 +5,7 @@ import authValidationRoute from "./server/auth/validationEmail";
 import authRegistrationRoute from "./server/auth/registration";
 import authLoginRoute from "./server/auth/login";
 import adminUserRegistrationRoute from "./server/auth/adminUserRegistration";
-import adminUploadFileRoute from "./server/books/uploadFileEndpoint";
+import adminUploadFileRoute from "./server/books/post-put/uploadFileEndpoint";
 
 const app = express();
 

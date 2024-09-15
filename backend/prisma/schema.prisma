@@ -82,6 +82,7 @@ model Paragraph {
   paragraphNumber Int
   comment Comment[]
   paragraphText String
+  paragraphType String
 
   chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   chapterId Int
