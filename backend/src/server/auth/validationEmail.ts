@@ -12,7 +12,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const saltRounds = 10;
 
-router.post("/registration", async (req, res) => {
+router.post("/verify-email", async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -30,7 +30,7 @@ router.post("/registration", async (req, res) => {
       JWT_SECRET,
       { expiresIn: 120 }
     );
-    const emailVerificationUrl = `${process.env.EMAIL_URL}/auth/verify-email?token=${verifyEmailToken}`;
+    const emailVerificationUrl = `${process.env.EMAIL_URL}/auth/registration?token=${verifyEmailToken}`;
 
     await transporter.sendMail({
       from: process.env.MAILER_EMAIL,

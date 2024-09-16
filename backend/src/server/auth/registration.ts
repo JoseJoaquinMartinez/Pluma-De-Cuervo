@@ -7,7 +7,7 @@ const router = Router();
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-router.get("/verify-email", async (req, res) => {
+router.get("/registration", async (req, res) => {
   const { token } = req.query;
 
   if (!token) {
