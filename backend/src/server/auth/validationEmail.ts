@@ -31,7 +31,6 @@ router.post("/verify-email", async (req, res) => {
       JWT_SECRET,
       { expiresIn: 120 }
     );
-    console.log("token:", verifyEmailToken);
 
     const emailVerificationUrl = `${process.env.EMAIL_URL}/auth/registration?token=${verifyEmailToken}`;
 

@@ -1,4 +1,11 @@
-import { expect, jest, describe, it, beforeEach } from "@jest/globals";
+import {
+  expect,
+  jest,
+  describe,
+  it,
+  beforeEach,
+  afterAll,
+} from "@jest/globals";
 import { prismaMock } from "../../../singleton";
 import { transporter } from "../../../src/utils/emailService";
 import app from "../../../src/app";
@@ -26,6 +33,9 @@ describe("POST /verify-email endpoint", () => {
     process.env.MAILER_EMAIL = "test@example.com";
   });
 
+  afterAll(async () => {
+    await prismaMock.$disconnect();
+  });
   it("should recieve user's info and create a token with it and include it in the email's URL", async () => {
     const mockEmail = "test@email.com";
     const mockPassword = "password123";
@@ -62,6 +72,40 @@ describe("POST /verify-email endpoint", () => {
       to: mockEmail,
       subject: "Verificación de email",
       html: expect.stringContaining(emailVerificationUrl),
+    });
+  });
+
+  it("should return an error.status(400) if email already exists", async () => {
+    const mockExistingEmail = "existing@email.com";
+
+    prismaMock.regularUser.findFirst.mockResolvedValue({
+      email: mockExistingEmail,
+    } as any);
+
+    const response = await request(app)
+      .post("/auth/verify-email")
+      .send({ email: mockExistingEmail, password: "password123" });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ error: "Email ya existe" });
+
+    expect(prismaMock.regularUser.findFirst).toHaveBeenCalledWith({
+      where: { email: mockExistingEmail },
+    });
+  });
+
+  it("should return error 500 when something unexpected", async () => {
+    prismaMock.regularUser.findFirst.mockRejectedValue(
+      new Error("Database error")
+    );
+    const response = await request(app)
+      .post("/auth/verify-email")
+      .send({ email: "error@email.com", password: "password123" });
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({ error: "Error inesperado" });
+
+    expect(prismaMock.regularUser.findFirst).toHaveBeenCalledWith({
+      where: { email: "error@email.com" },
     });
   });
 });
