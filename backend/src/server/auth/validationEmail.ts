@@ -19,17 +19,20 @@ router.post("/verify-email", async (req, res) => {
     const existingUser = await prisma.regularUser.findFirst({
       where: { email: email },
     });
+
     if (existingUser) {
       return res.status(400).json({ error: "Email ya existe" });
     }
 
-    const harshedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const verifyEmailToken = jwt.sign(
-      { email, password: harshedPassword },
+      { email, password: hashedPassword },
       JWT_SECRET,
       { expiresIn: 120 }
     );
+    console.log("token:", verifyEmailToken);
+
     const emailVerificationUrl = `${process.env.EMAIL_URL}/auth/registration?token=${verifyEmailToken}`;
 
     await transporter.sendMail({
