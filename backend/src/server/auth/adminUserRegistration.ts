@@ -44,6 +44,8 @@ router.post("/adminUserGabriel", async (req, res) => {
     res.status(200).json({ token: authToken, message: "administrador creado" });
   } catch (error) {
     res.status(500).json({ error: `Error creando el administrador ${error}` });
+  } finally {
+    prisma.$disconnect();
   }
 });
 

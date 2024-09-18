@@ -42,9 +42,9 @@ router.get("/registration", async (req, res) => {
       .status(200)
       .json({ token: authToken, message: "Usuario creado correctamente" });
   } catch (error) {
-    console.log(error);
-
     res.status(400).json({ message: "Token no válido o caducado" });
+  } finally {
+    prisma.$disconnect();
   }
 });
 
