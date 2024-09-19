@@ -29,7 +29,7 @@ router.get("/registration", async (req, res) => {
     });
 
     if (!newUser) {
-      return res.status(400).json({ message: "Error creando el usuario" });
+      return res.status(500).json({ message: "Error creando el usuario" });
     }
 
     const authToken = jwt.sign(
