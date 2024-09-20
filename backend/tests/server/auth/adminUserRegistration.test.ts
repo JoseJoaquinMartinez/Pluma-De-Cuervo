@@ -73,4 +73,64 @@ describe("POST /adminUserRegistraon", () => {
       },
     });
   });
+
+  it("Should return status 400 if admin already exist", async () => {
+    const email = "gps.beniel@gmail.com";
+    const mockPassword = "password123";
+
+    (prismaMock.adminUser.findFirst as jest.Mock).mockReturnValue({
+      email,
+    });
+
+    const response = await request(app)
+      .post(ENDPOINT)
+      .send({ password: mockPassword });
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ message: "Ya existe un administrador" });
+
+    expect(prismaMock.adminUser.create).not.toHaveBeenCalled();
+  });
+  it("Should return status 500 if there is an internal error during admin creation", async () => {
+    const mockPassword = "password123";
+    const hashedPassword = "hashpass123";
+    const email = "gps.beniel@gmail.com";
+
+    (bcrypt.hash as jest.Mock).mockReturnValue(hashedPassword);
+    prismaMock.adminUser.findFirst.mockResolvedValue(null);
+    (prismaMock.adminUser.create as jest.Mock).mockReturnValue(null);
+
+    const response = await request(app)
+      .post(ENDPOINT)
+      .send({ password: mockPassword });
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({ error: `Error creando el ususario` });
+
+    expect(bcrypt.hash).toHaveBeenCalledWith(mockPassword, 10);
+    expect(prismaMock.adminUser.create).toHaveBeenCalled();
+  });
+
+  it("Should return status 500 if an unexpected error happens", async () => {
+    const mockPassword = "password123";
+
+    (bcrypt.hash as jest.Mock).mockImplementation(() => {
+      throw new Error("Unexpected Error");
+    });
+
+    const response = await request(app)
+      .post(ENDPOINT)
+      .send({ password: mockPassword });
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      error: `Error creando el administrador: Unexpected Error`,
+    });
+    expect(bcrypt.hash).toHaveBeenCalled();
+  });
+
+  it("Should call primsa.$disconnec after processing", async () => {
+    const mockPassword = "password123";
+
+    await request(app).post(ENDPOINT).send({ passowrd: mockPassword });
+
+    expect(prismaMock.$disconnect).toHaveBeenCalled();
+  });
 });
