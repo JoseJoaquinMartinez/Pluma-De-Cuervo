@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/app.ts</title>
+    <title>Code coverage report for extractContentFromPDF.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <link rel="stylesheet" href="prettify.css" />
+    <link rel="stylesheet" href="base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../sort-arrow-sprite.png);
+            background-image: url(sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> app.ts</h1>
+        <h1><a href="index.html">All files</a> extractContentFromPDF.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>32/38</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>32/38</span>
             </div>
         
             
@@ -88,7 +88,30 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -113,31 +136,47 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import express from "express";
-import cors from "cors";
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import fs from "fs";
+/* import { PdfReader } from "pdfreader";
+import pdf from "pdf-parse";
+import pdf2table from "pdf2table"; */
 &nbsp;
-import authValidationRoute from "./server/auth/validationEmail";
-import authRegistrationRoute from "./server/auth/registration";
-import authLoginRoute from "./server/auth/login";
-import adminUserRegistrationRoute from "./server/auth/adminUserRegistration";
-import adminUploadFileRoute from "./server/books/post-put/uploadFileEndpoint";
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export async function extractContentFromPDF(filePath: string) {</span></span>
+<span class="cstat-no" title="statement not covered" >  const dataBuffer = fs.readFileSync(filePath);</span>
+<span class="cstat-no" title="statement not covered" >  const content: { type: string; value: string }[] = [];</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  return content;</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+/* const data = await pdf(dataBuffer);
+  const paragraphs: string[] = data.text.split("\n\n");
 &nbsp;
-const app = express();
+  paragraphs.forEach((paragraph) =&gt; {
+    content.push({ type: "paragraph", value: paragraph.trim() });
+  });
+  console.log(content); */
 &nbsp;
-app.use(express.json());
+/* const extractedTables = await new Promise&lt;{ type: string; value: string }[]&gt;(
+    (resolve, reject) =&gt; {
+      pdf2table.parse(filePath, (err: Error | null, rows: string[][]) =&gt; {
+        if (err) {
+          return reject(err);
+        }
 &nbsp;
-app.use(cors());
+        const tables = rows.map((row) =&gt; ({
+          type: "row",
+          value: row.join("|"),
+        }));
 &nbsp;
-// auth routes
-app.use("/auth", authValidationRoute);
-app.use("/auth", authRegistrationRoute);
-app.use("/auth", authLoginRoute);
-app.use("/auth", adminUserRegistrationRoute);
+        console.log("las tablas:", tables);
 &nbsp;
-//book routes
-app.use("/book", adminUploadFileRoute);
-&nbsp;
-export default app;
+        resolve(tables);
+      });
+    }
+  );
+  content.push(...extractedTables); */
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -145,16 +184,16 @@ export default app;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-24T19:02:11.963Z
+                at 2024-09-26T18:33:32.721Z
             </div>
-        <script src="../prettify.js"></script>
+        <script src="prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../sorter.js"></script>
-        <script src="../block-navigation.js"></script>
+        <script src="sorter.js"></script>
+        <script src="block-navigation.js"></script>
     </body>
 </html>
     

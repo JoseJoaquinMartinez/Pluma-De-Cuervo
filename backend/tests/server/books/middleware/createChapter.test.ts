@@ -9,7 +9,6 @@ jest.mock("@prisma/client", () => ({
 jest.mock("jsonwebtoken", () => ({
   sign: jest.fn(),
 }));
-jest.mock("bcrypt");
 
 const ENDPOINT = "/book/upload-chapter";
 
