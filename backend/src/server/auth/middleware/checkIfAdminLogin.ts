@@ -36,8 +36,10 @@ export const checkIfAdminLogin = async (
       res.status(200).json({ token: authToken, message: "Admin logeado" });
     } catch (error) {
       res.status(500).json({ error: `error al logear ${error}` });
+    } finally {
+      prisma.$disconnect();
     }
+  } else {
+    next();
   }
-
-  next();
 };

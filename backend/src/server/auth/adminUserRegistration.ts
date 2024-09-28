@@ -13,14 +13,10 @@ router.post("/adminUserGabriel", async (req, res) => {
 
   try {
     const hasedPassword = await bcrypt.hash(password, 10);
-    console.log(hasedPassword);
 
     const adminAlreadyExists = await prisma.adminUser.findFirst({
       where: { email: email },
     });
-
-    console.log(adminAlreadyExists);
-
     if (adminAlreadyExists) {
       return res.status(400).json({ message: "Ya existe un administrador" });
     }
@@ -33,7 +29,6 @@ router.post("/adminUserGabriel", async (req, res) => {
         },
       },
     });
-    console.log(newAdminUser);
 
     if (!newAdminUser) {
       return res.status(500).json({ error: `Error creando el ususario` });
@@ -43,7 +38,15 @@ router.post("/adminUserGabriel", async (req, res) => {
     });
     res.status(200).json({ token: authToken, message: "administrador creado" });
   } catch (error) {
-    res.status(500).json({ error: `Error creando el administrador ${error}` });
+    if (error instanceof Error) {
+      res
+        .status(500)
+        .json({ error: `Error creando el administrador: ${error.message}` });
+    } else {
+      res.status(500).json({ error: "Error inesperado" });
+    }
+  } finally {
+    prisma.$disconnect();
   }
 });
 

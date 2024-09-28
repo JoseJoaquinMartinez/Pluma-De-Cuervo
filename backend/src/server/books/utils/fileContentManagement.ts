@@ -17,8 +17,6 @@ export async function fileContentManagement(
       content = await extractContentFromWord(filePath);
       break;
     default:
-      return response
-        .status(400)
-        .json({ message: "formato de archivo no soportado" });
+      throw new Error("formato de archivo no soportado");
   }
 }

@@ -7,7 +7,7 @@ const router = Router();
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET;
 
-router.get("/verify-email", async (req, res) => {
+router.get("/registration", async (req, res) => {
   const { token } = req.query;
 
   if (!token) {
@@ -29,7 +29,7 @@ router.get("/verify-email", async (req, res) => {
     });
 
     if (!newUser) {
-      return res.status(400).json({ message: "Error creando el usuario" });
+      return res.status(500).json({ message: "Error creando el usuario" });
     }
 
     const authToken = jwt.sign(
@@ -42,9 +42,9 @@ router.get("/verify-email", async (req, res) => {
       .status(200)
       .json({ token: authToken, message: "Usuario creado correctamente" });
   } catch (error) {
-    console.log(error);
-
     res.status(400).json({ message: "Token no válido o caducado" });
+  } finally {
+    prisma.$disconnect();
   }
 });
 

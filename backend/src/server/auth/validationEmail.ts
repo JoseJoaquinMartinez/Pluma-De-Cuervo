@@ -12,25 +12,27 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const saltRounds = 10;
 
-router.post("/registration", async (req, res) => {
+router.post("/verify-email", async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const existingUser = await prisma.regularUser.findFirst({
       where: { email: email },
     });
+
     if (existingUser) {
       return res.status(400).json({ error: "Email ya existe" });
     }
 
-    const harshedPassword = await bcrypt.hash(password, saltRounds);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const verifyEmailToken = jwt.sign(
-      { email, password: harshedPassword },
+      { email, password: hashedPassword },
       JWT_SECRET,
       { expiresIn: 120 }
     );
-    const emailVerificationUrl = `${process.env.EMAIL_URL}/auth/verify-email?token=${verifyEmailToken}`;
+
+    const emailVerificationUrl = `${process.env.EMAIL_URL}/auth/registration?token=${verifyEmailToken}`;
 
     await transporter.sendMail({
       from: process.env.MAILER_EMAIL,

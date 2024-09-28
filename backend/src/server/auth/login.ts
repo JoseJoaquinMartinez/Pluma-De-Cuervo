@@ -32,6 +32,8 @@ router.post("/login", checkIfAdminLogin, async (req, res) => {
     res.status(200).json({ token: authToken, message: "usuario logeado" });
   } catch (error) {
     res.status(500).json({ error: `Error de inicio de session: ${error}` });
+  } finally {
+    prisma.$disconnect();
   }
 });
 
