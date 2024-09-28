@@ -24,8 +24,6 @@ router.get("/get-chapter/:bookId/:chapterId", async (req, res) => {
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ error: `Error inesperado ${error.message}` });
-    } else {
-      res.status(500).json({ error: "Database error" });
     }
   } finally {
     prisma.$disconnect();
