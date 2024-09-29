@@ -80,7 +80,7 @@ router.put(
       });
       return res
         .status(200)
-        .json({ updatedChapter, message: "Capítulo creado" });
+        .json({ updatedChapter, message: "Capítulo actualizado" });
     } catch (error) {
       if (error instanceof Error) {
         return res

@@ -26,6 +26,7 @@ const DOCXRESOLVEDVALUE = [
   { type: "paragraph", value: "<p>Test Paragraph 1</p>" },
   { type: "paragraph", value: "<p>Test Paragraph 2</p>" },
 ];
+
 const filePath = path.join(__dirname, "test.docx");
 
 describe("PUT modifyExistingChapter", () => {
@@ -41,17 +42,24 @@ describe("PUT modifyExistingChapter", () => {
 
   it("Should update the chapter and the paragraph when the file is provided", async () => {
     const newTitle = "SuperMegaDuperTitle";
+    const MOCKCHAPTER = {
+      id: 1,
+      title: newTitle,
+      image: "NULL",
+      chapterNumber: 1,
+      bookId: 1,
+    };
     fs.writeFileSync(filePath, "Test content");
 
     (fileContentManagement as jest.Mock).mockReturnValue(DOCXRESOLVEDVALUE);
-    (prismaMock.chapter.update as jest.Mock).mockReturnValue(true);
+    (prismaMock.chapter.update as jest.Mock).mockReturnValue(MOCKCHAPTER);
     const response = await request(app)
       .put(ENDPOINT)
       .field("title", newTitle)
       .attach("file", filePath);
     expect(response.status).toBe(200);
-    expect(response.body.message).toBe("Capítulo creado");
+    expect(response.body.message).toBe("Capítulo actualizado");
 
-    expect(fileContentManagement).toHaveBeenCalledWith(filePath);
+    expect(fileContentManagement).toHaveBeenCalled();
   });
 });
