@@ -26,6 +26,18 @@ router.put(
     if (bookId) dataToUpdate.bookId = parseInt(bookId);
 
     try {
+      let chapterUpdated = false;
+
+      if (Object.keys(dataToUpdate).length > 0) {
+        const updateChapter = await prisma.chapter.update({
+          where: {
+            id: chapterId,
+          },
+          data: dataToUpdate,
+        });
+        chapterUpdated = true;
+      }
+
       if (file || textArea) {
         let content: { type: string; value: string }[] = [];
         if (file) {
@@ -52,20 +64,23 @@ router.put(
             },
           });
         }
+        chapterUpdated = true;
       }
 
-      const updateChapter = await prisma.chapter.update({
+      if (!chapterUpdated) {
+        return res.status(400).json({ message: "No se realizaron cambios" });
+      }
+      const updatedChapter = await prisma.chapter.findUnique({
         where: {
           id: chapterId,
         },
-        data: dataToUpdate,
+        include: {
+          paragraph: true,
+        },
       });
-
-      if (!updateChapter) {
-        return res.status(404).json({ message: "Capítulo no encontrado" });
-      }
-
-      return res.status(200).json(updateChapter);
+      return res
+        .status(200)
+        .json({ updatedChapter, message: "Capítulo creado" });
     } catch (error) {
       if (error instanceof Error) {
         return res
