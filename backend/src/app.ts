@@ -8,6 +8,7 @@ import adminUserRegistrationRoute from "./server/auth/adminUserRegistration";
 import adminUploadFileRoute from "./server/books/post-put/uploadFileEndpoint";
 import getSingleChapter from "./server/books/get/getChapter";
 import getAllChaptersFromBook from "./server/books/get/getAllChapters";
+import putExistingChapter from "./server/books/post-put/modifyExistingChapter";
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use("/auth", adminUserRegistrationRoute);
 app.use("/book", adminUploadFileRoute);
 app.use("/book", getSingleChapter);
 app.use("/book", getAllChaptersFromBook);
+app.use("/book", putExistingChapter);
 
 export default app;
