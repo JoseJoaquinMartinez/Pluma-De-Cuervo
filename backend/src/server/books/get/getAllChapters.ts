@@ -4,23 +4,21 @@ import { PrismaClient } from "@prisma/client";
 const router = Router();
 const prisma = new PrismaClient();
 
-router.get("/get-chapter/:bookId/:chapterId", async (req, res) => {
+router.get("/get-all-chapters/:bookId", async (req, res) => {
   const bookId = parseInt(req.params.bookId);
-  const chapterId = parseInt(req.params.chapterId);
+
   try {
-    const existingChapter = await prisma.chapter.findFirst({
+    const existingBook = await prisma.book.findFirst({
       where: {
-        id: chapterId,
-        bookId: bookId,
+        id: bookId,
       },
-      include: {
-        paragraph: true,
-      },
+      include: { chapter: true },
     });
-    if (!existingChapter) {
-      res.status(404).json({ message: "Capítulo no encontrado" });
+
+    if (!existingBook) {
+      res.status(404).json({ message: "Libro no encontrado" });
     }
-    return res.status(200).json(existingChapter);
+    return res.status(200).json(existingBook);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ error: `Error inesperado ${error.message}` });
@@ -29,4 +27,5 @@ router.get("/get-chapter/:bookId/:chapterId", async (req, res) => {
     prisma.$disconnect();
   }
 });
+
 export default router;
