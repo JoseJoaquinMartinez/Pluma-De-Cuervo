@@ -62,4 +62,23 @@ describe("PUT modifyExistingChapter", () => {
 
     expect(fileContentManagement).toHaveBeenCalled();
   });
+  it("Should return status 400 if no changes were made", async () => {
+    const response = await request(app).put(ENDPOINT);
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ message: "No se realizaron cambios" });
+  });
+  it("Should return status 500 if an unexpected error happens", async () => {
+    prismaMock.chapter.findUnique.mockRejectedValue(
+      new Error("Unexpected Error")
+    );
+    const response = await request(app).put(ENDPOINT).attach("file", filePath);
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      error: `Error inesperado Unexpected Error`,
+    });
+  });
+  it("Should call prisma.$disconnect after processing", async () => {
+    const response = await request(app).put(ENDPOINT);
+    expect(prismaMock.$disconnect).toHaveBeenCalled();
+  });
 });
