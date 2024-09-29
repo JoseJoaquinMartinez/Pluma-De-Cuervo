@@ -14,5 +14,6 @@ export async function extractContentFromWord(filePath: string) {
       content.push({ type: "paragraph", value: match[0] });
     }
   }
+
   return content;
 }

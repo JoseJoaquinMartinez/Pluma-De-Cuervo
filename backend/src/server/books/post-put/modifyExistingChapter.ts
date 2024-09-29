@@ -30,7 +30,7 @@ router.put(
         let content: { type: string; value: string }[] = [];
         if (file) {
           const fileExtension = file.mimetype.toLowerCase();
-          fileContentManagement(file.path, fileExtension);
+          content = await fileContentManagement(file.path, fileExtension);
           fs.unlinkSync(file.path);
         } else if (textArea) {
           content = await extractContentFromTextArea(textArea);
@@ -43,7 +43,7 @@ router.put(
           await prisma.paragraph.create({
             data: {
               chapterId: chapterId,
-              paragraphNumber: i,
+              paragraphNumber: i + 1,
               paragraphText: value,
               paragraphType: type,
               comment: {
