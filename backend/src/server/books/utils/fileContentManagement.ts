@@ -19,4 +19,5 @@ export async function fileContentManagement(
     default:
       throw new Error("formato de archivo no soportado");
   }
+  return content;
 }
