@@ -60,6 +60,7 @@ model Book {
 
   title String @unique
   image String?
+  Synopsis String @default("")
 
   chapter Chapter[]
 }
