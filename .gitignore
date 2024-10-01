@@ -24,3 +24,9 @@ postgres/
 *.njsproj
 *.sln
 *.sw?
+
+.env
+postgre/
+uploads/
+node_modules
+coverage
