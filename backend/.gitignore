@@ -1,6 +1,7 @@
 
 # Keep environment variables out of version control
 .env
-postgres/
-uploads/
-node_modules
+/postgres/
+/uploads/
+/node_modules
+/coverage
