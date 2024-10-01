@@ -3,6 +3,14 @@ declare module "pdf2table" {
   export default pdf2table;
 }
 
+export type Book = {
+  id: number;
+  title: string;
+  synopsis: string;
+  image: string;
+  chapter?: Chapter[];
+};
+
 export type Paragraph = {
   id: number;
   paragraphNumber: number;
