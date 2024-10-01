@@ -4,3 +4,4 @@
 postgre/
 uploads/
 node_modules
+coverage
