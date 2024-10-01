@@ -10,6 +10,7 @@ import getSingleChapter from "./server/books/get/getChapter";
 import getAllChaptersFromBook from "./server/books/get/getAllChapters";
 import putExistingChapter from "./server/books/post-put/modifyExistingChapter";
 import getAllBooks from "./server/books/get/getAllBooks";
+import getSingleBook from "./server/books/get/getSingleBook";
 
 const app = express();
 
@@ -31,5 +32,6 @@ app.use("/book", putExistingChapter);
 app.use("/book", getSingleChapter);
 app.use("/book", getAllChaptersFromBook);
 app.use("/book", getAllBooks);
+app.use("/book", getSingleBook);
 
 export default app;
