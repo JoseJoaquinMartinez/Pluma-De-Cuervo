@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1727806843478" clover="3.2.0">
-  <project timestamp="1727806843478" name="All files">
-    <metrics statements="676" coveredstatements="260" conditionals="6" coveredconditionals="5" methods="12" coveredmethods="6" elements="694" coveredelements="271" complexity="0" loc="676" ncloc="676" packages="8" files="17" classes="17"/>
+<coverage generated="1727623575718" clover="3.2.0">
+  <project timestamp="1727623575718" name="All files">
+    <metrics statements="639" coveredstatements="299" conditionals="14" coveredconditionals="9" methods="12" coveredmethods="6" elements="665" coveredelements="314" complexity="0" loc="639" ncloc="639" packages="8" files="16" classes="16"/>
     <package name="src">
       <metrics statements="35" coveredstatements="35" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.ts" path="C:\Users\Usuario\Documents\Programación\Proyectos\Pluma-De-Cuervo\Pluma De Cuervo\backend\src\app.ts">
