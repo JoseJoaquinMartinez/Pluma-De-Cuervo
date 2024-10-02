@@ -10,6 +10,8 @@ import getSingleChapter from "./server/books/get/getChapter";
 import getAllChaptersFromBook from "./server/books/get/getAllChapters";
 import putExistingChapter from "./server/books/post-put/modifyExistingChapter";
 import getAllBooks from "./server/books/get/getAllBooks";
+import getSingleBook from "./server/books/get/getSingleBook";
+import postNewBook from "./server/books/post-put/postNewBook";
 
 const app = express();
 
@@ -27,9 +29,12 @@ app.use("/auth", adminUserRegistrationRoute);
 //PUT routes
 app.use("/book", adminUploadFileRoute);
 app.use("/book", putExistingChapter);
+app.use("/book", postNewBook);
+
 //GET routes
 app.use("/book", getSingleChapter);
 app.use("/book", getAllChaptersFromBook);
 app.use("/book", getAllBooks);
+app.use("/book", getSingleBook);
 
 export default app;
