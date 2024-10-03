@@ -1,11 +1,13 @@
 import express from "express";
 import cors from "cors";
 
+//AUTH
 import authValidationRoute from "./server/auth/validationEmail";
 import authRegistrationRoute from "./server/auth/registration";
 import authLoginRoute from "./server/auth/login";
 import adminUserRegistrationRoute from "./server/auth/adminUserRegistration";
 import adminUploadFileRoute from "./server/books/post-put/uploadFileEndpoint";
+//BOOKS
 import getSingleChapter from "./server/books/get/getChapter";
 import getAllChaptersFromBook from "./server/books/get/getAllChapters";
 import putExistingChapter from "./server/books/post-put/modifyExistingChapter";
@@ -13,7 +15,9 @@ import getAllBooks from "./server/books/get/getAllBooks";
 import getSingleBook from "./server/books/get/getSingleBook";
 import postNewBook from "./server/books/post-put/postNewBook";
 import putExistingBook from "./server/books/post-put/putExistingBook";
+// BLOGS
 import postNewBlogPost from "./server/blogs/post-put/postNewBlogPost";
+import putExistingBlogPost from "./server/blogs/post-put/putExistingBlogPost";
 
 const app = express();
 
@@ -48,5 +52,8 @@ app.use("/book", getSingleBook);
 
 //POST
 app.use("/blog", postNewBlogPost);
+
+//PUT
+app.use("/blog", putExistingBlogPost);
 
 export default app;
