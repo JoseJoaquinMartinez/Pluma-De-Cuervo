@@ -13,6 +13,7 @@ import getAllBooks from "./server/books/get/getAllBooks";
 import getSingleBook from "./server/books/get/getSingleBook";
 import postNewBook from "./server/books/post-put/postNewBook";
 import putExistingBook from "./server/books/post-put/putExistingBook";
+import postNewBlogPost from "./server/blogs/post-put/postNewBlogPost";
 
 const app = express();
 
@@ -42,5 +43,10 @@ app.use("/book", getSingleChapter);
 app.use("/book", getAllChaptersFromBook);
 app.use("/book", getAllBooks);
 app.use("/book", getSingleBook);
+
+// BLOG ROUNTES
+
+//POST
+app.use("/blog", postNewBlogPost);
 
 export default app;

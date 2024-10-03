@@ -111,7 +111,7 @@ model Blog {
 
   title String @unique
   imagen String?
-  blogText String[]
+  blogText String
   createdAt DateTime @default(now())
 
 }
