@@ -37,3 +37,9 @@ export type Comment = {
   regularUserDataId: number;
   adminUserDataId: number;
 };
+
+export type getBlogsResponse = {
+  title: string;
+  imagen: string;
+  createdAt: Date;
+};

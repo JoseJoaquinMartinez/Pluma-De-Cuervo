@@ -19,6 +19,7 @@ import putExistingBook from "./server/books/post-put/putExistingBook";
 import postNewBlogPost from "./server/blogs/post-put/postNewBlogPost";
 import putExistingBlogPost from "./server/blogs/post-put/putExistingBlogPost";
 import getSingleBlogPost from "./server/blogs/get/getSingleBlogPost";
+import getAllBlogPosts from "./server/blogs/get/getAllBlogPosts";
 
 const app = express();
 
@@ -58,5 +59,6 @@ app.use("/blog", postNewBlogPost);
 app.use("/blog", putExistingBlogPost);
 //GET
 app.use("/blog", getSingleBlogPost);
+app.use("/blog", getAllBlogPosts);
 
 export default app;
