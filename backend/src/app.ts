@@ -20,6 +20,7 @@ import postNewBlogPost from "./server/blogs/post-put/postNewBlogPost";
 import putExistingBlogPost from "./server/blogs/post-put/putExistingBlogPost";
 import getSingleBlogPost from "./server/blogs/get/getSingleBlogPost";
 import getAllBlogPosts from "./server/blogs/get/getAllBlogPosts";
+import deleteBlogPost from "./server/blogs/delete/deleteBlogPost";
 
 const app = express();
 
@@ -60,5 +61,7 @@ app.use("/blog", putExistingBlogPost);
 //GET
 app.use("/blog", getSingleBlogPost);
 app.use("/blog", getAllBlogPosts);
+// DELETE
+app.use("/blog", deleteBlogPost);
 
 export default app;
