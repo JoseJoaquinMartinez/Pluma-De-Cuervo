@@ -53,4 +53,19 @@ describe("GET getSingleBlogPost", () => {
     expect(response.status).toBe(400);
     expect(response.body).toEqual({ message: "Id del blog no recibido" });
   });
+  it("Should return status 500 if an unexpected error happends", async () => {
+    prismaMock.blog.findFirst.mockRejectedValue(new Error("Unexpected error"));
+    const response = await request(app).get(ENDPOINT);
+    expect(response.status).toBe(500);
+    expect(response.body).toEqual({
+      error: `Error inesperado buscando el blog post Unexpected error`,
+    });
+    expect(prismaMock.blog.findFirst).toHaveBeenCalledWith({
+      where: { id: 1 },
+    });
+  });
+  it("Should call prisma.$disconnect after processing", async () => {
+    const response = await request(app).get(ENDPOINT);
+    expect(prismaMock.$disconnect).toHaveBeenCalled();
+  });
 });
