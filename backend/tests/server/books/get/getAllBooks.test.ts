@@ -17,8 +17,18 @@ jest.mock("@prisma/client", () => ({
 const ENDPOINT = "/book/get-all-books";
 
 const MOCKBOOK = [
-  { id: 1, title: "Tumormante", image: "image1.jpg" },
-  { id: 2, title: "Dreadful", image: "image2.jpg" },
+  {
+    id: 1,
+    title: "Tumormante",
+    image: "image1.jpg",
+    Synopsis: "Fancy test synopsis",
+  },
+  {
+    id: 2,
+    title: "Dreadful",
+    image: "image2.jpg",
+    Synopsis: "Fancy test synopsis",
+  },
 ];
 
 describe("GET getAllBooks", () => {
