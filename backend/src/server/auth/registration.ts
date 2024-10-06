@@ -33,7 +33,7 @@ router.get("/registration", async (req, res) => {
     }
 
     const authToken = jwt.sign(
-      { userId: newUser.id, email: newUser.email },
+      { userId: newUser.id, email: newUser.email, role: newUser.role },
       JWT_SECRET,
       { expiresIn: "1h" }
     );

@@ -29,9 +29,13 @@ export const checkIfAdminLogin = async (
         return res.status(401).json({ message: "Contraseña no válida" });
       }
 
-      const authToken = jwt.sign({ adminId: existingAdmin.id }, JWT_SECRET, {
-        expiresIn: "2h",
-      });
+      const authToken = jwt.sign(
+        { adminId: existingAdmin.id, role: existingAdmin.role },
+        JWT_SECRET,
+        {
+          expiresIn: "2h",
+        }
+      );
       res.status(200).json({ token: authToken, message: "Admin logeado" });
     } catch (error) {
       res.status(500).json({ error: `error al logear ${error}` });

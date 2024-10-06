@@ -18,14 +18,14 @@ model AdminUser {
   
   email String @unique
   password String
+  role String @default("admin")
 
   adminUserData AdminUserData[]
 }
 
 model AdminUserData {
   id Int @id @default(autoincrement())
-  
-  role String @default("admin")
+    
   comments Comment[]
 
   adminUser AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -37,6 +37,7 @@ model RegularUser {
 
   email String @unique
   password String
+  role String @default("user")
 
   regularUserData RegularUserData[]
 }
@@ -46,8 +47,7 @@ model RegularUserData {
 
   userName String? @default("Aventurero")
   imagen String?
-  role String @default("user")
-
+ 
   comments Comment[]
 
   regularUser RegularUser @relation(fields: [regularUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -99,11 +99,11 @@ model Comment {
   paragraph Paragraph @relation(fields: [paragraphId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   paragraphId Int
 
-  regularUserData RegularUserData @relation(fields: [regularUserDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  regularUserDataId Int
+  regularUserData RegularUserData? @relation(fields: [regularUserDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  regularUserDataId Int?
 
-  adminUserData AdminUserData @relation(fields: [adminUserDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  adminUserDataId Int
+  adminUserData AdminUserData? @relation(fields: [adminUserDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  adminUserDataId Int?
 }
 
 model Blog {
