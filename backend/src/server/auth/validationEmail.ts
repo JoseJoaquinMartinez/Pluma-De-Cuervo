@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../client";
 
 import { transporter } from "../../utils/emailService";
 
@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const router = Router();
-const prisma = new PrismaClient();
+
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const saltRounds = 10;

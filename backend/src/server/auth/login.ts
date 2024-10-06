@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { checkIfAdminLogin } from "./middleware/checkIfAdminLogin";
 
 const router = Router();
-const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post("/login", checkIfAdminLogin, async (req, res) => {

@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../../client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const prisma = new PrismaClient();
 const ADMIN_EMAIL = "gps.beniel@gmail.com";
 const JWT_SECRET = process.env.JWT_SECRET;
 

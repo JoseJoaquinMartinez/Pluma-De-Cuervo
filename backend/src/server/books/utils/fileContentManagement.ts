@@ -1,6 +1,5 @@
 import { extractContentFromPDF } from "./extractContentFromPDF";
 import { extractContentFromWord } from "./extractContentFromWord";
-import { response } from "express";
 
 export async function fileContentManagement(
   filePath: string,
