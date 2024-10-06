@@ -15,6 +15,7 @@ router.delete("/delete-chapter/:chapterId", async (req, res) => {
     const deletedChapter = await prisma.chapter.delete({
       where: { id: chapterId },
     });
+
     return res
       .status(200)
       .json({ message: "Capítulo eliminado correctamente" });
