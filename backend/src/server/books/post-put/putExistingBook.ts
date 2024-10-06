@@ -1,8 +1,7 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../../client";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 router.put("/put-existing-book/:bookId", async (req, res) => {
   const bookId = parseInt(req.params.bookId);

@@ -1,9 +1,8 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../../client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 router.delete("/delete-blog-post/:blogId", async (req, res) => {
   const blogId = parseInt(req.params.blogId);

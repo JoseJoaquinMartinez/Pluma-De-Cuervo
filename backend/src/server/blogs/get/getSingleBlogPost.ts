@@ -1,8 +1,7 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../../client";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 router.get("/get-single-blog-post/:blogId", async (req, res) => {
   const blogId = parseInt(req.params.blogId);

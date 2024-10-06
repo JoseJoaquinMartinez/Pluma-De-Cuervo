@@ -1,12 +1,11 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../../client";
 import multer from "multer";
 import fs from "fs";
 import { fileContentManagement } from "../utils/fileContentManagement";
 import { extractContentFromTextArea } from "../utils/extractContentFromTextArea";
 
 const router = Router();
-const prisma = new PrismaClient();
 const upload = multer({ dest: "uploads/" });
 
 router.put(
