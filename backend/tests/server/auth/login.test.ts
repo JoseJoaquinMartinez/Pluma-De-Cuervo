@@ -27,7 +27,13 @@ const ENDPOINT = "/auth/login";
 const MOCKFINDFIRST = prismaMock.regularUser.findFirst as jest.Mock;
 const MOCKPASSWORD = "password123";
 const MOCKEMAIL = "test@email.com";
-const MOCKUSER = { id: 1, email: MOCKEMAIL, password: MOCKPASSWORD };
+const MOCKROLE = "user";
+const MOCKUSER = {
+  id: 1,
+  email: MOCKEMAIL,
+  password: MOCKPASSWORD,
+  role: MOCKROLE,
+};
 
 describe("POST Login", () => {
   beforeEach(() => {
@@ -59,9 +65,13 @@ describe("POST Login", () => {
       MOCKUSER.password
     );
 
-    expect(jwt.sign).toHaveBeenCalledWith({ userId: MOCKUSER.id }, JWT_SECRET, {
-      expiresIn: "2h",
-    });
+    expect(jwt.sign).toHaveBeenCalledWith(
+      { userId: MOCKUSER.id, role: MOCKUSER.role },
+      JWT_SECRET,
+      {
+        expiresIn: "2h",
+      }
+    );
 
     expect(MOCKFINDFIRST).toHaveBeenCalledWith({ where: { email: MOCKEMAIL } });
   });

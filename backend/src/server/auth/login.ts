@@ -24,9 +24,13 @@ router.post("/login", checkIfAdminLogin, async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: "contraseña no válida" });
     }
-    const authToken = jwt.sign({ userId: existingUser.id }, JWT_SECRET, {
-      expiresIn: "2h",
-    });
+    const authToken = jwt.sign(
+      { userId: existingUser.id, role: existingUser.role },
+      JWT_SECRET,
+      {
+        expiresIn: "2h",
+      }
+    );
 
     res.status(200).json({ token: authToken, message: "usuario logeado" });
   } catch (error) {

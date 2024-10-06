@@ -33,9 +33,13 @@ router.post("/adminUserGabriel", async (req, res) => {
     if (!newAdminUser) {
       return res.status(500).json({ error: `Error creando el ususario` });
     }
-    const authToken = jwt.sign({ userId: newAdminUser.id }, JWT_SECRET, {
-      expiresIn: "2h",
-    });
+    const authToken = jwt.sign(
+      { userId: newAdminUser.id, role: newAdminUser.role },
+      JWT_SECRET,
+      {
+        expiresIn: "2h",
+      }
+    );
     res.status(200).json({ token: authToken, message: "administrador creado" });
   } catch (error) {
     if (error instanceof Error) {
