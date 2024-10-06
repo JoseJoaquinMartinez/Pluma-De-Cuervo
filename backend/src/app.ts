@@ -15,6 +15,7 @@ import getAllBooks from "./server/books/get/getAllBooks";
 import getSingleBook from "./server/books/get/getSingleBook";
 import postNewBook from "./server/books/post-put/postNewBook";
 import putExistingBook from "./server/books/post-put/putExistingBook";
+import deleteBook from "./server/books/delete/deleteBook";
 // BLOGS
 import postNewBlogPost from "./server/blogs/post-put/postNewBlogPost";
 import putExistingBlogPost from "./server/blogs/post-put/putExistingBlogPost";
@@ -50,6 +51,9 @@ app.use("/book", getSingleChapter);
 app.use("/book", getAllChaptersFromBook);
 app.use("/book", getAllBooks);
 app.use("/book", getSingleBook);
+
+//DELETE
+app.use("/book", deleteBook);
 
 // BLOG ROUNTES
 
