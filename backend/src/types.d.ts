@@ -43,3 +43,10 @@ export type getBlogsResponse = {
   imagen: string;
   createdAt: Date;
 };
+
+export interface AuthenticationRequest extends Request {
+  user?: {
+    id: number;
+    role: string;
+  };
+}

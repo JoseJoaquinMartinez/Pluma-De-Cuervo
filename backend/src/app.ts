@@ -23,6 +23,8 @@ import putExistingBlogPost from "./server/blogs/post-put/putExistingBlogPost";
 import getSingleBlogPost from "./server/blogs/get/getSingleBlogPost";
 import getAllBlogPosts from "./server/blogs/get/getAllBlogPosts";
 import deleteBlogPost from "./server/blogs/delete/deleteBlogPost";
+//COMMENTS
+import postRegularUserComment from "./server/comments/post/postCommentRegularUser";
 
 const app = express();
 
@@ -57,7 +59,7 @@ app.use("/book", getSingleBook);
 app.use("/book", deleteBook);
 app.use("/book", deleteChapter);
 
-// BLOG ROUNTES
+// BLOG ROUTES
 
 //POST
 app.use("/blog", postNewBlogPost);
@@ -69,5 +71,9 @@ app.use("/blog", getSingleBlogPost);
 app.use("/blog", getAllBlogPosts);
 // DELETE
 app.use("/blog", deleteBlogPost);
+
+//COMMENTS ROUTES
+//POST
+app.use("/comment", postRegularUserComment);
 
 export default app;
