@@ -25,6 +25,7 @@ import getAllBlogPosts from "./server/blogs/get/getAllBlogPosts";
 import deleteBlogPost from "./server/blogs/delete/deleteBlogPost";
 //COMMENTS
 import postRegularUserComment from "./server/comments/post/postCommentRegularUser";
+import getCommentsByAdmin from "./server/comments/get/getCommentsByAdmin";
 
 const app = express();
 
@@ -75,5 +76,8 @@ app.use("/blog", deleteBlogPost);
 //COMMENTS ROUTES
 //POST
 app.use("/comment", postRegularUserComment);
+
+//GET
+app.use("/comment", getCommentsByAdmin);
 
 export default app;
