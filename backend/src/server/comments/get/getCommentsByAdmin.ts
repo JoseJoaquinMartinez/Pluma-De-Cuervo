@@ -10,6 +10,8 @@ router.get("/get-comments-by-admin/:chapter", verifyToken, async (req, res) => {
     const existingChapter = await prisma.chapter.findFirst({
       where: { id: chapterId },
     });
+    console.log(existingChapter);
+
     if (!existingChapter) {
       return res.status(404).json({ error: "Capítulo no encontrado" });
     }
@@ -25,7 +27,7 @@ router.get("/get-comments-by-admin/:chapter", verifyToken, async (req, res) => {
         },
       },
     });
-    if (!paragraphs) {
+    if (!paragraphs || paragraphs.length === 0) {
       return res
         .status(404)
         .json({ error: "Párrafos con comentarios no encontrados" });
