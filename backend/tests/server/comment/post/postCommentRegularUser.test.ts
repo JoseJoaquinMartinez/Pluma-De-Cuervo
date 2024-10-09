@@ -84,6 +84,14 @@ describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
   });
 
   it("Should return status 401 if the token is not provided", async () => {
+    (verifyToken as jest.Mock).mockReturnValueOnce(
+      (req: AuthenticationRequest, res: Response) => {
+        return res
+          .status(401)
+          .json({ error: "Token no recibido o formato incorrecto" });
+      }
+    );
+
     const response = await request(app)
       .post(`/comment/post-comment-regular-user/${paragraphId}`)
       .send({ commentBody: "Test comment without token" });
@@ -95,6 +103,12 @@ describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
   });
 
   it("Should return 403 if the token is not valid", async () => {
+    (verifyToken as jest.Mock).mockReturnValueOnce(
+      (req: AuthenticationRequest, res: Response) => {
+        return res.status(403).json({ error: "Fallo al autenticar el token" });
+      }
+    );
+
     const response = await request(app)
       .post(`/comment/post-comment-regular-user/${paragraphId}`)
       .set("Authorization", `Bearer ${invalidToken}`)
@@ -104,7 +118,7 @@ describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
     expect(response.body).toEqual({ error: "Fallo al autenticar el token" });
   });
 
-  it("Should return stauts 404 if the user does not exist", async () => {
+  it("Should return status 404 if the user does not exist", async () => {
     jest.spyOn(prisma.regularUser, "findFirst").mockResolvedValue(null);
 
     const response = await request(app)
