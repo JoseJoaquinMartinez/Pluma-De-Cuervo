@@ -22,15 +22,18 @@ export const verifyToken = (
       .json({ error: "Token no recibido o formato incorrecto" });
   }
   const token = authHeader.split(" ")[1];
+
   if (!token) {
     return res.status(401).json({ error: "Formato de token no válido" });
   }
   try {
-    const { id, role } = jwt.verify(token, JWT_SECRET) as {
-      id: number;
+    const { userId, role } = jwt.verify(token, JWT_SECRET) as {
+      userId: number;
       role: string;
     };
-    req.user = { id: id, role: role };
+
+    req.user = { id: userId, role: role };
+
     next();
   } catch (error) {
     return res.status(403).json({ error: "Fallo al autenticar el token" });
