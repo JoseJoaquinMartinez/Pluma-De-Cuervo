@@ -12,25 +12,37 @@ import prisma from "../../../../client";
 import jwt from "jsonwebtoken";
 import { Response, NextFunction } from "express";
 import { AuthenticationRequest } from "../../../../src/utils/verifyToken";
-import { verifyToken } from "../../../../src/utils/verifyToken";
+
+jest.mock("../../../../src/utils/verifyToken", () => {
+  const verifyTokenMock = jest.fn(
+    (req: AuthenticationRequest, res: Response, next: NextFunction) => {
+      const authHeader = req.headers["authorization"];
+
+      if (!authHeader) {
+        return res
+          .status(401)
+          .json({ error: "Token no recibido o formato incorrecto" });
+      }
+
+      const token = authHeader.split(" ")[1];
+
+      if (token === "invalid-token") {
+        return res.status(403).json({ error: "Fallo al autenticar el token" });
+      }
+
+      req.user = { id: 1, role: "user" };
+      next();
+    }
+  );
+  return { verifyToken: verifyTokenMock };
+});
 
 const JWT_SECRET = process.env.JWT_SECRET || "testsecret";
-jest.mock("../../../../src/utils/verifyToken", () => ({
-  verifyToken: (
-    req: AuthenticationRequest,
-    res: Response,
-    next: NextFunction
-  ) => {
-    req.user = { id: 1, role: "user" };
-    next();
-  },
-}));
 
 describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
   const validToken = jwt.sign({ userId: 1, role: "user" }, JWT_SECRET, {
     expiresIn: "1h",
   });
-  const invalidToken = "invalid-token";
   const paragraphId = 1;
 
   beforeEach(() => {
@@ -84,14 +96,6 @@ describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
   });
 
   it("Should return status 401 if the token is not provided", async () => {
-    (verifyToken as jest.Mock).mockReturnValueOnce(
-      (req: AuthenticationRequest, res: Response) => {
-        return res
-          .status(401)
-          .json({ error: "Token no recibido o formato incorrecto" });
-      }
-    );
-
     const response = await request(app)
       .post(`/comment/post-comment-regular-user/${paragraphId}`)
       .send({ commentBody: "Test comment without token" });
@@ -103,16 +107,10 @@ describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
   });
 
   it("Should return 403 if the token is not valid", async () => {
-    (verifyToken as jest.Mock).mockReturnValueOnce(
-      (req: AuthenticationRequest, res: Response) => {
-        return res.status(403).json({ error: "Fallo al autenticar el token" });
-      }
-    );
-
     const response = await request(app)
       .post(`/comment/post-comment-regular-user/${paragraphId}`)
-      .set("Authorization", `Bearer ${invalidToken}`)
-      .send({ commentBody: "Este es un comentario con token inválido" });
+      .set("Authorization", `Bearer invalid-token`)
+      .send({ commentBody: "Invalid token comment" });
 
     expect(response.status).toBe(403);
     expect(response.body).toEqual({ error: "Fallo al autenticar el token" });
