@@ -27,6 +27,7 @@ import deleteBlogPost from "./server/blogs/delete/deleteBlogPost";
 import postRegularUserComment from "./server/comments/post/postCommentRegularUser";
 import getCommentsByAdmin from "./server/comments/get/getCommentsByAdmin";
 import postResponseCommmentByAdmin from "./server/comments/post/postCommentResponseByAdmin";
+import getCommentsByRegularUser from "./server/comments/get/getCommetsByRegularUser";
 
 const app = express();
 
@@ -81,5 +82,6 @@ app.use("/comment", postResponseCommmentByAdmin);
 
 //GET
 app.use("/comment", getCommentsByAdmin);
+app.use("/comment", getCommentsByRegularUser);
 
 export default app;

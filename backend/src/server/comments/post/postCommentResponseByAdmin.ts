@@ -35,14 +35,20 @@ router.post(
           adminUserData: {
             connect: { id: existingAdmin.id },
           },
+          parentComment: {
+            connect: { id: commentId },
+          },
         },
       });
 
-      return res.status(200).json(adminReplyComment);
+      return res.status(201).json({
+        adminReplyComment,
+        message: "Respuesta del administrador creada con éxito",
+      });
     } catch (error) {
       if (error instanceof Error) {
         return res.status(500).json({
-          error: `Error inesperado respondiendo al comentario ${error.message}`,
+          error: `Error inesperado respondiendo al comentario: ${error.message}`,
         });
       }
     }
