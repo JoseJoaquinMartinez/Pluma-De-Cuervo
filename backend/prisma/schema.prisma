@@ -91,19 +91,18 @@ model Paragraph {
 }
 
 model Comment {
-  id Int @id  @default(autoincrement())
-
-  createdAt DateTime @default(now())
-  commentBody String
-
-  paragraph Paragraph @relation(fields: [paragraphId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  paragraphId Int
-
-  regularUserData RegularUserData? @relation(fields: [regularUserDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+   id               Int        @id @default(autoincrement())
+  commentBody      String
+  paragraph        Paragraph  @relation(fields: [paragraphId], references: [id])
+  paragraphId      Int
+  regularUserData  RegularUserData? @relation(fields: [regularUserDataId], references: [id])
   regularUserDataId Int?
-
-  adminUserData AdminUserData? @relation(fields: [adminUserDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  adminUserDataId Int?
+  adminUserData    AdminUserData? @relation(fields: [adminUserDataId], references: [id])
+  adminUserDataId  Int?
+  parentCommentId  Int?        
+  parentComment    Comment?    @relation("CommentParent", fields: [parentCommentId], references: [id])
+  replies          Comment[]   @relation("CommentParent")
+  createdAt        DateTime    @default(now())
 }
 
 model Blog {

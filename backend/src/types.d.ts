@@ -50,3 +50,46 @@ export interface AuthenticationRequest extends Request {
     role: string;
   };
 }
+export interface ParagraphComment {
+  id: string;
+  paragraphText: string;
+  chapter: {
+    title: string;
+    book: {
+      title: string;
+    };
+  };
+}
+
+export interface RegularUserData {
+  userName: string;
+  imagen: string;
+}
+
+export interface AdminUserData {
+  id: number;
+}
+
+export interface FormattedComment {
+  id: number;
+  createdAt: Date;
+  commentBody: string;
+  paragraph: {
+    id: number;
+    paragraphText: string;
+    chapter: {
+      title: string;
+      book: {
+        title: string;
+      };
+    };
+  };
+  regularUserData: RegularUserData;
+  adminUserDataId: number | null;
+  adminUserData?: AdminUserData | null;
+  replies?: {
+    id: number;
+    commentBody: string;
+    adminUserData?: AdminUserData | null;
+  }[];
+}
