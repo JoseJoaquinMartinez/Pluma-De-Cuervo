@@ -17,7 +17,7 @@ router.post(
         where: { id: adminId },
       });
       if (!existingAdmin) {
-        return res.status(404).json({ erro: "Usuario no encontrado" });
+        return res.status(404).json({ error: "Usuario no encontrado" });
       }
       const existingComment = await prisma.comment.findFirst({
         where: { id: commentId },

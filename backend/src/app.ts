@@ -77,7 +77,7 @@ app.use("/blog", deleteBlogPost);
 //COMMENTS ROUTES
 //POST
 app.use("/comment", postRegularUserComment);
-app.use("/commnet", postResponseCommmentByAdmin);
+app.use("/comment", postResponseCommmentByAdmin);
 
 //GET
 app.use("/comment", getCommentsByAdmin);
