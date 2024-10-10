@@ -12,7 +12,7 @@ router.get(
     const userId = req.user.id;
 
     try {
-      const existingUser = await prisma.regularUser.findFirst({
+      const existingUser = await prisma.regularUserData.findFirst({
         where: { id: userId },
       });
       if (!existingUser) {
@@ -30,6 +30,9 @@ router.get(
           },
         },
       });
+      if (!userComments || userComments.length === 0) {
+        return res.status(404).json({ error: "Comentarios no encontrados" });
+      }
 
       const formatted = formattedComments(userComments);
       return res.status(200).json(formatted);
