@@ -28,6 +28,7 @@ import postRegularUserComment from "./server/comments/post/postCommentRegularUse
 import getCommentsByAdmin from "./server/comments/get/getCommentsByAdmin";
 import postResponseCommmentByAdmin from "./server/comments/post/postCommentResponseByAdmin";
 import getCommentsByRegularUser from "./server/comments/get/getCommetsByRegularUser";
+import postResponseToAdminByRegularUser from "./server/comments/post/postReplyToAdminByRegularUser";
 
 const app = express();
 
@@ -79,6 +80,7 @@ app.use("/blog", deleteBlogPost);
 //POST
 app.use("/comment", postRegularUserComment);
 app.use("/comment", postResponseCommmentByAdmin);
+app.use("/comment", postResponseToAdminByRegularUser);
 
 //GET
 app.use("/comment", getCommentsByAdmin);

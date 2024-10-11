@@ -30,23 +30,25 @@ jest.mock("../../../../src/utils/verifyToken.ts", () => {
         return res.status(403).json({ error: "Fallo al autenticar el token" });
       }
 
-      req.user = { id: 1, role: "admin" };
+      req.user = { id: 1, role: "user" };
       next();
     }
   );
   return { verifyToken: verifyTokenMock };
 });
-const MCOKCOMMENTID = 1;
+
+const MOCK_COMMENT_ID = 1;
 const JWT_SECRET = process.env.JWT_SECRET || "testsecret";
-const ENDPOINT = `/comment/post-comment-response-by-admin/${MCOKCOMMENTID}`;
-const MOCKREPLYCOMMENT = {
-  commentBody: "Test reply",
+const ENDPOINT = `/comment/post-reply-to-admin/${MOCK_COMMENT_ID}`;
+const MOCK_REPLY_COMMENT = {
+  commentBody: "Test reply to admin",
   paragraphId: 294,
-  regularUserDataId: null as unknown as number,
-  adminUserDataId: 1,
+  regularUserDataId: 1,
+  adminUserDataId: null as unknown as number,
 };
-describe("POST postCommentResponseByAdmin", () => {
-  const validToken = jwt.sign({ userId: 1, role: "admin" }, JWT_SECRET, {
+
+describe("POST postReplyToAdmin", () => {
+  const validToken = jwt.sign({ userId: 1, role: "user" }, JWT_SECRET, {
     expiresIn: "1h",
   });
   const paragraphId = 1;
@@ -55,26 +57,28 @@ describe("POST postCommentResponseByAdmin", () => {
     jest.spyOn(prisma.comment, "create").mockResolvedValue({
       id: 4,
       createdAt: new Date(),
-      commentBody: "Test reply",
+      commentBody: "Test reply to admin",
       paragraphId: 294,
-      regularUserDataId: null as unknown as number,
-      adminUserDataId: 1,
+      regularUserDataId: 1,
+      adminUserDataId: null as unknown as number,
       parentCommentId: 1,
     });
 
-    jest.spyOn(prisma.adminUserData, "findFirst").mockResolvedValue({
+    jest.spyOn(prisma.regularUserData, "findFirst").mockResolvedValue({
       id: 1,
-      adminUserId: 1,
+      userName: "NombreDeUsuario",
+      imagen: null as unknown as string,
+      regularUserId: 1,
     });
 
     jest.spyOn(prisma.comment, "findFirst").mockResolvedValue({
       id: 1,
       createdAt: new Date(),
-      commentBody: "Test commentary",
-      paragraphId: 1,
-      regularUserDataId: 1,
-      adminUserDataId: null as unknown as number,
-      parentCommentId: null as unknown as number,
+      commentBody: "Admin's comment",
+      paragraphId: paragraphId,
+      regularUserDataId: null as unknown as number,
+      adminUserDataId: 1,
+      parentCommentId: null,
     });
   });
 
@@ -82,8 +86,8 @@ describe("POST postCommentResponseByAdmin", () => {
     jest.restoreAllMocks();
   });
 
-  it("Should return status 404 if the admin ID does not exist", async () => {
-    jest.spyOn(prisma.adminUserData, "findFirst").mockResolvedValue(null);
+  it("Should return status 404 if the regular user ID does not exist", async () => {
+    jest.spyOn(prisma.regularUserData, "findFirst").mockResolvedValue(null);
     const response = await request(app)
       .post(ENDPOINT)
       .set("Authorization", `Bearer ${validToken}`)
@@ -102,23 +106,15 @@ describe("POST postCommentResponseByAdmin", () => {
     expect(response.body).toEqual({ error: "Comentario no encontrado" });
   });
 
-  it("Should create a reply comment if the admin exists and the comment exists", async () => {
+  it("Should create a reply comment if the user exists and the comment exists", async () => {
     const response = await request(app)
       .post(ENDPOINT)
       .set("Authorization", `Bearer ${validToken}`)
-      .send({ commentBody: "Test reply" });
-
-    // Asegurarse de que se devuelva 201, no 200
+      .send({ commentBody: "Test reply to admin" });
     expect(response.status).toBe(201);
     expect(response.body).toMatchObject({
-      adminReplyComment: {
-        id: 4,
-        commentBody: "Test reply",
-        paragraphId: 294,
-        regularUserDataId: null,
-        adminUserDataId: 1,
-      },
-      message: "Respuesta del administrador creada con éxito",
+      regularUserReply: MOCK_REPLY_COMMENT,
+      message: "Respuesta del usuario creada con éxito",
     });
   });
 
@@ -133,7 +129,7 @@ describe("POST postCommentResponseByAdmin", () => {
     });
   });
 
-  it("Should return status 403 if the token is invalid", async () => {
+  it("Should return 403 if the token is not valid", async () => {
     const response = await request(app)
       .post(ENDPOINT)
       .set("Authorization", `Bearer invalid-token`)

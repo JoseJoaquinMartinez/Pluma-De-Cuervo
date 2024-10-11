@@ -52,14 +52,15 @@ describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
       commentBody: "Test commentary",
       paragraphId: paragraphId,
       regularUserDataId: 1,
-      adminUserDataId: null,
+      adminUserDataId: null as unknown as number,
+      parentCommentId: null as unknown as number,
     });
 
-    jest.spyOn(prisma.regularUser, "findFirst").mockResolvedValue({
+    jest.spyOn(prisma.regularUserData, "findFirst").mockResolvedValue({
       id: 1,
-      email: "test@example.com",
-      password: "hashedPassword",
-      role: "user",
+      regularUserId: 1,
+      userName: "testUser",
+      imagen: null as unknown as string,
     });
 
     jest.spyOn(prisma.paragraph, "findFirst").mockResolvedValue({
@@ -117,7 +118,7 @@ describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
   });
 
   it("Should return status 404 if the user does not exist", async () => {
-    jest.spyOn(prisma.regularUser, "findFirst").mockResolvedValue(null);
+    jest.spyOn(prisma.regularUserData, "findFirst").mockResolvedValue(null);
 
     const response = await request(app)
       .post(`/comment/post-comment-regular-user/${paragraphId}`)
