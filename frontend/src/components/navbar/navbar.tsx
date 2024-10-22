@@ -5,7 +5,7 @@ import NavHamburguerButtonAndPaths from "./NavHamburguerButtonAndPaths";
 export default function Navbar() {
   return (
     <nav className="bg-navFoot w-full z-20 top-0 start-0 border-b">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
+      <section className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
         <Link
           href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -19,7 +19,7 @@ export default function Navbar() {
           </span>
         </Link>
         <NavHamburguerButtonAndPaths />
-      </div>
+      </section>
     </nav>
   );
 }

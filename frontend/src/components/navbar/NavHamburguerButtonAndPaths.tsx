@@ -13,7 +13,7 @@ export default function NavHamburguerButtonAndPaths() {
   };
   return (
     <>
-      <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+      <article className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         <button
           type="button"
           className="text-white focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 text-center bg-botones hover:bg-botones/70 focus:ring-botones/20"
@@ -43,15 +43,15 @@ export default function NavHamburguerButtonAndPaths() {
             />
           </svg>
         </button>
-      </div>
-      <div
+      </article>
+      <article
         className={`${
           isOpen ? "block" : "hidden"
         } items-center justify-between w-full md:flex md:w-auto md:order-1`}
         id="navbar-sticky"
       >
         <NavPaths />
-      </div>
+      </article>
     </>
   );
 }
