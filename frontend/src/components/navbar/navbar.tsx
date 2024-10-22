@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "../Logo";
-import NavHamburguerButtonAndPaths from "./NavMobileButton";
+import NavHamburguerButtonAndPaths from "./NavHamburguerButtonAndPaths";
 
 export default function Navbar() {
   return (
