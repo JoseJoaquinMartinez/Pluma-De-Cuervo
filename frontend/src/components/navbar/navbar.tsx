@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "../Logo";
-import NavMobileButton from "./NavMobileButton";
+import NavHamburguerButtonAndPaths from "./NavMobileButton";
 
 export default function Navbar() {
   return (
@@ -18,7 +18,7 @@ export default function Navbar() {
             Pluma de Cuervo
           </span>
         </Link>
-        <NavMobileButton />
+        <NavHamburguerButtonAndPaths />
       </div>
     </nav>
   );

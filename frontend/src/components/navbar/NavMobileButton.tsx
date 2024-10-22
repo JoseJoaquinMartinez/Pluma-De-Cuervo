@@ -5,7 +5,7 @@ import { navItems } from "./data/nav-items";
 import Link from "next/link";
 import NavPaths from "./NavPaths";
 
-export default function NavMobileButton() {
+export default function NavHamburguerButtonAndPaths() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
