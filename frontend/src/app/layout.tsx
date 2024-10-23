@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
+import Footer from "@/components/footer/footer";
 
 const onest = localFont({
   src: "../../public/fonts/Onest-VariableFont_wght.ttf",
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={`${onest.variable} antialiased`}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

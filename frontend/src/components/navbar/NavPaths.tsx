@@ -12,8 +12,10 @@ export default function NavPaths() {
         <li key={item.name}>
           <Link
             href={item.link}
-            className={`block py-2 px-3 text-whiteText rounded md:p-0 ${
-              currentPath === item.link ? "border-b-2 border-botones" : ""
+            className={`block py-2 px-3 text-whiteText rounded md:p-0 md:text-2xl ${
+              currentPath === item.link
+                ? "border-b-2 border-botones text-botones"
+                : ""
             } `}
           >
             {item.name}
