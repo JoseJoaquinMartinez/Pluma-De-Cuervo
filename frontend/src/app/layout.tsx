@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${onest.variable} antialiased`}>
+      <body className={`${onest.variable} antialiased bg-background`}>
         <Navbar />
         {children}
         <Footer />

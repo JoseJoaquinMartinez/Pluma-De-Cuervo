@@ -14,7 +14,7 @@ export default function NavPaths() {
             href={item.link}
             className={`block py-2 px-3 text-whiteText rounded md:p-0 md:text-2xl ${
               currentPath === item.link
-                ? "border-b-2 border-botones text-botones"
+                ? "border-b-2 border-botones text-[#E57373] transition-all duration-300"
                 : ""
             } `}
           >
