@@ -1,4 +1,4 @@
 export interface ButtonProps {
-  link: string;
-  name: string;
+  link?: string;
+  name?: string;
 }
