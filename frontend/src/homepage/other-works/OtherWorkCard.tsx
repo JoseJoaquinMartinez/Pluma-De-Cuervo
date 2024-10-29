@@ -15,7 +15,12 @@ export const OtherWorksCard: React.FC<OtherWorkProps> = ({
         <h2>{title}</h2>
         <p>{text}</p>
       </article>
-      <MainButton link={buttonLink} name={buttonText} />
+      <MainButton
+        link={buttonLink}
+        name={buttonText}
+        target="_blank"
+        rel="noopener noreferrer"
+      />
       <article>
         <Image src={imageSrc} alt={title} width={500} height={500} />
       </article>
