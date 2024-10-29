@@ -7,17 +7,7 @@ import { bentoSectionData } from "./data/bentoSectionData";
 export default function HeroGrid() {
   return (
     <main className="p-10 justify-center">
-      <div
-        className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-screen-xl"
-        style={{
-          gridTemplateAreas: `
-        "plumaDeCuervo  sobreElAutor sobreElAutor"
-        "ultimosCapitulos sobreElAutor sobreElAutor" 
-        "newsletter  newsletter newsletter"`,
-          gridTemplateRows:
-            "minmax(150px, auto) minmax(200px, auto) minmax(100px, auto)",
-        }}
-      >
+      <div className="max-w-screen-xl gap-6 grid-template-mobile md:grid-template-desktop">
         {bentoSectionData.map(
           (
             {
