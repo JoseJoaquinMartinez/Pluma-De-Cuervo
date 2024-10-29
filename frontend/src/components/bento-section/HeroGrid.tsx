@@ -23,6 +23,7 @@ export default function HeroGrid() {
             index
           ) => (
             <BentoCard
+              key={title}
               title={title}
               text={text}
               buttonLink={buttonLink}

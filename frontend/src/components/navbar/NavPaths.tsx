@@ -12,10 +12,10 @@ export default function NavPaths() {
         <li key={item.name}>
           <Link
             href={item.link}
-            className={`block py-2 px-3 text-whiteText rounded md:p-0 md:text-2xl ${
+            className={`block py-2 px-3  rounded md:p-0 md:text-2xl ${
               currentPath === item.link
                 ? "border-b-2 border-navBarActiveLink text-navBarActiveLink transition-all duration-300"
-                : ""
+                : "text-whiteText"
             } `}
           >
             {item.name}

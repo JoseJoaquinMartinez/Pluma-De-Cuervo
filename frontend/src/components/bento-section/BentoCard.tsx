@@ -27,13 +27,13 @@ export const BentoCard: React.FC<BentoSectionProps> = ({
             <MainButton link={buttonLink} name={buttonText} />
           )}
         </div>
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 relative flex flex-col items-center transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
           <Image
             src={imageSrc}
             alt={title}
             width={500}
             height={500}
-            className="w-full h-full object-cover rounded-lg"
+            className="w-full h-full object-cover object-top md:scale-110 rounded-lg transition duration-500 hover:scale-100"
           />
         </div>
       </article>

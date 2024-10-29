@@ -15,7 +15,7 @@ const config: Config = {
     extend: {
       colors: {
         encabezados: "#9C1209",
-        botonesSecundarios: "#E57373",
+        botonesSecundarios: "#A3504B",
         botones: "#C27A6D",
         navBarActiveLink: "#E57373",
         bordesDecor: "#8C4F40",
