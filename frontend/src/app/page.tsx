@@ -1,7 +1,8 @@
-import HeroGrid from "@/components/bento-section/HeroGrid";
+import HeroGrid from "@/homepage/bento-section/HeroGrid";
 import { SectionComponent } from "@/homepage/components/SectionComponent";
 import { OtherWorksCard } from "@/homepage/other-works/OtherWorkCard";
 import { otherWorks } from "@/homepage/other-works/data/otherWorkData";
+import { BlogCard } from "../homepage/blogs/blogCard";
 
 export default function Home() {
   return (
@@ -11,12 +12,13 @@ export default function Home() {
         title="Otras Obras"
         content={
           <>
-            {otherWorks.map((work) => {
-              <OtherWorksCard key={work.title} {...work} />;
-            })}
+            {otherWorks.map((work) => (
+              <OtherWorksCard key={work.title} {...work} />
+            ))}
           </>
         }
       />
+      <SectionComponent title="Blogs" content={<BlogCard />} />
     </div>
   );
 }

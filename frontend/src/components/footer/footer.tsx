@@ -5,7 +5,7 @@ import SecondaryButton from "../shared/SecondaryButton";
 
 export default function Footer() {
   return (
-    <div className="bg-navFoot w-full">
+    <div className="bg-navFoot w-full mt-10">
       <section className="max-w-screen-xl flex flex-col md:flex-row items-center justify-between h-auto mx-auto">
         <Link
           href="/"

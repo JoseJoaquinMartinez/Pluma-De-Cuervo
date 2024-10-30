@@ -8,9 +8,11 @@ export const SectionComponent: React.FC<HomeSectionComponent> = ({
   content,
 }) => {
   return (
-    <section>
-      <h2>{title}</h2>
-      <div>{content}</div>
-    </section>
+    <div className="flex flex-col justify-start max-w-screen-xl gap-6">
+      <h2 className="text-encabezados text-xl text-start text-bold">{title}</h2>
+      <div className="bg-cardsBackground flex flex-col md:flex-row rounded-lg">
+        {content}
+      </div>
+    </div>
   );
 };
