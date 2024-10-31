@@ -9,6 +9,11 @@ router.get("/get-last-five-blogs", async (req, res) => {
       orderBy: { createdAt: "desc" },
       skip: 0,
       take: 5,
+      select: {
+        id: true,
+        imagen: true,
+        title: true,
+      },
     });
 
     if (!fiveLastBlogs || fiveLastBlogs.length === 0) {
