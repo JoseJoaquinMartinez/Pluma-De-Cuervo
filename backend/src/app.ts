@@ -23,6 +23,7 @@ import putExistingBlogPost from "./server/blogs/post-put/putExistingBlogPost";
 import getSingleBlogPost from "./server/blogs/get/getSingleBlogPost";
 import getAllBlogPosts from "./server/blogs/get/getAllBlogPosts";
 import deleteBlogPost from "./server/blogs/delete/deleteBlogPost";
+import getLastFiveBlogs from "./server/blogs/get/getLastFiveBlogs";
 //COMMENTS
 import postRegularUserComment from "./server/comments/post/postCommentRegularUser";
 import getCommentsByAdmin from "./server/comments/get/getCommentsByAdmin";
@@ -73,6 +74,7 @@ app.use("/blog", putExistingBlogPost);
 //GET
 app.use("/blog", getSingleBlogPost);
 app.use("/blog", getAllBlogPosts);
+app.use("/blog", getLastFiveBlogs);
 // DELETE
 app.use("/blog", deleteBlogPost);
 
