@@ -123,6 +123,6 @@ model NewsLetterSubscriber {
 
   email String @unique
   createdAt DateTime @default(now())
-  unsubcribreToken String @unique
+  unsubscribeToken String @unique
 
 }

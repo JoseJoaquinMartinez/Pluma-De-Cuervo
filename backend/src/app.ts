@@ -35,6 +35,9 @@ import postResponseCommmentByAdmin from "./server/comments/post/postCommentRespo
 import getCommentsByRegularUser from "./server/comments/get/getCommetsByRegularUser";
 import postResponseToAdminByRegularUser from "./server/comments/post/postReplyToAdminByRegularUser";
 
+//NEWSLETTER
+import postNewSubscriber from "./server/newsletter/post/postNewSubscriber";
+
 const app = express();
 
 app.use(express.json());
@@ -93,5 +96,8 @@ app.use("/comment", postResponseToAdminByRegularUser);
 //GET
 app.use("/comment", getCommentsByAdmin);
 app.use("/comment", getCommentsByRegularUser);
+
+//NEWSLETTER ROUTES
+app.use("/newsletter", postNewSubscriber);
 
 export default app;
