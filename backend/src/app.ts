@@ -38,6 +38,7 @@ import postResponseToAdminByRegularUser from "./server/comments/post/postReplyTo
 //NEWSLETTER
 import postNewSubscriber from "./server/newsletter/post/postNewSubscriber";
 import sendEmailToSubscribers from "./server/newsletter/post/postSendEmailsToSubs";
+import deleteSubscriber from "./server/newsletter/delete/deleteSubscriber";
 
 const app = express();
 
@@ -103,5 +104,8 @@ app.use("/comment", getCommentsByRegularUser);
 //POST
 app.use("/newsletter", postNewSubscriber);
 app.use("/newsletter", sendEmailToSubscribers);
+
+//DELETE
+app.use("/newsletter", deleteSubscriber);
 
 export default app;

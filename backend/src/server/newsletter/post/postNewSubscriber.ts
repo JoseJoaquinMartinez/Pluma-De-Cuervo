@@ -30,7 +30,10 @@ router.post("/post-new-subscriber", async (req, res) => {
 
     return res
       .status(201)
-      .json({ message: "Usuario registrado en la newsLetter", newSubscriber });
+      .json({
+        message: "Usuario registrado en la newsLetter",
+        unsubscribeToken,
+      });
   } catch (error) {
     if (error instanceof Error) {
       return res
