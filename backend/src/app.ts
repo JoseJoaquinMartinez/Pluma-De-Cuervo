@@ -37,6 +37,7 @@ import postResponseToAdminByRegularUser from "./server/comments/post/postReplyTo
 
 //NEWSLETTER
 import postNewSubscriber from "./server/newsletter/post/postNewSubscriber";
+import sendEmailToSubscribers from "./server/newsletter/post/postSendEmailsToSubs";
 
 const app = express();
 
@@ -98,6 +99,9 @@ app.use("/comment", getCommentsByAdmin);
 app.use("/comment", getCommentsByRegularUser);
 
 //NEWSLETTER ROUTES
+
+//POST
 app.use("/newsletter", postNewSubscriber);
+app.use("/newsletter", sendEmailToSubscribers);
 
 export default app;
