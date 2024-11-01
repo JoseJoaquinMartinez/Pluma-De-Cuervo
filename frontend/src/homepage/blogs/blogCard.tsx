@@ -5,7 +5,7 @@ export const BlogCard = () => {
     <>
       {blogData.map((blog) => (
         <article className="flex flex-col items-center rounded-lg">
-          <h2>IMAGEN</h2>
+          <h2>imagenN</h2>
           <h2>titulo</h2>
           <MainButton />
           <div>

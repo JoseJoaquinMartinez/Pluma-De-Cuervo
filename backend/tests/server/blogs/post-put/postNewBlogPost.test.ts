@@ -15,23 +15,23 @@ jest.mock("@prisma/client", () => ({
 }));
 
 const MOCKTITLE = "New Blog Catchy Title";
-const MOCKIMAGE = "FancyIamge.jpg";
+const MOCKimagen = "FancyIamge.jpg";
 const MOCKBLOGTEXT = "VERY CACHY FANCY CLICK BAIT MEGA POST";
 const MOCKDATATOSEND = {
   title: MOCKTITLE,
-  image: MOCKIMAGE,
+  imagen: MOCKimagen,
   blogText: MOCKBLOGTEXT,
 };
 const MOCKDATATOBECALLEDWITH = {
   title: MOCKTITLE,
-  imagen: MOCKIMAGE,
+  imagenn: MOCKimagen,
   blogText: MOCKBLOGTEXT,
 };
 const ENDPOINT = "/blog/post-new-blog";
 const MOCKBLOGPOST = {
   id: 1,
   title: MOCKTITLE,
-  image: MOCKIMAGE,
+  imagen: MOCKimagen,
   blogText: MOCKBLOGTEXT,
   createdAt: "2024-10-03T17:58:03.172Z",
 };

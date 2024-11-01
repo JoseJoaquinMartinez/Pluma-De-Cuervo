@@ -20,13 +20,13 @@ const MOCKBOOK = [
   {
     id: 1,
     title: "Tumormante",
-    image: "image1.jpg",
+    imagen: "imagen1.jpg",
     Synopsis: "Fancy test synopsis",
   },
   {
     id: 2,
     title: "Dreadful",
-    image: "image2.jpg",
+    imagen: "imagen2.jpg",
     Synopsis: "Fancy test synopsis",
   },
 ];
@@ -39,7 +39,7 @@ describe("GET getAllBooks", () => {
     prismaMock.$disconnect();
   });
 
-  it("Should return status 200 and all existing books with id, image and title", async () => {
+  it("Should return status 200 and all existing books with id, imagen and title", async () => {
     prismaMock.book.findMany.mockResolvedValue(MOCKBOOK);
     const response = await request(app).get(ENDPOINT);
     expect(response.status).toBe(200);

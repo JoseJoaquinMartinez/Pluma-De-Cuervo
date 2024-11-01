@@ -9,7 +9,7 @@ router.get("/get-all-books", async (req, res) => {
       select: {
         id: true,
         title: true,
-        image: true,
+        imagen: true,
       },
     });
 

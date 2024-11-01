@@ -13,7 +13,7 @@ router.get("/get-single-book/:bookId", async (req, res) => {
       select: {
         id: true,
         title: true,
-        image: true,
+        imagen: true,
         Synopsis: true,
       },
     });

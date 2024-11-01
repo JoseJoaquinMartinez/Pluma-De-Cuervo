@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   myDB:
-    image: postgres
+    imagen: postgres
     container_name: pluma-de-cuervo-db
     restart: always
     ports:

@@ -19,7 +19,7 @@ const ENDPOINT = "/blog/delete-blog-post/1";
 const MOCKDELETEDBLOG = {
   id: 5,
   title: "Test blog 1",
-  imagen: "IMAGE.jpg",
+  imagenn: "imagen.jpg",
   blogText: "Very fancy and interesting blog post",
   createdAt: "2024-10-05T09:56:18.099Z",
 };

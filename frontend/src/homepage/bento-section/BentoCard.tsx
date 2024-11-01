@@ -1,4 +1,4 @@
-import Image from "next/image";
+import imagen from "next/imagen";
 import MainButton from "../../components/shared/mainButton";
 import type { BentoSectionProps } from "./interface/bentoSection";
 
@@ -7,7 +7,7 @@ export const BentoCard: React.FC<BentoSectionProps> = ({
   text,
   buttonLink,
   buttonText,
-  imageSrc,
+  imagenSrc,
   reverse,
   colSpan,
   rowSpan,
@@ -28,8 +28,8 @@ export const BentoCard: React.FC<BentoSectionProps> = ({
           )}
         </div>
         <div className="md:w-1/2 relative flex flex-col items-center transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
-          <Image
-            src={imageSrc}
+          <imagen
+            src={imagenSrc}
             alt={title}
             width={500}
             height={500}

@@ -19,17 +19,17 @@ const ENDPOINT = `/book/put-existing-book/${ID}`;
 
 const DATATOUPDATE = {
   title: "New Title",
-  image: "newImage.jpg",
+  imagen: "newimagen.jpg",
   Synopsis: "New Synopsis",
 };
 const MOCKTITLE = "New Title";
-const MOCKIMAGE = "newImage.jpg";
+const MOCKimagen = "newimagen.jpg";
 const MOCKSYNOPSIS = "New Synopsis";
 
 const MOCKUPDATEDBOOK = {
   id: ID,
   title: MOCKTITLE,
-  image: MOCKIMAGE,
+  imagen: MOCKimagen,
   Synopsis: MOCKSYNOPSIS,
 };
 

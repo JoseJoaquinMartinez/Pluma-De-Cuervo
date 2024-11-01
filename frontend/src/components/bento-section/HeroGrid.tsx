@@ -15,7 +15,7 @@ export default function HeroGrid() {
               text,
               buttonLink,
               buttonText,
-              imageSrc,
+              imagenSrc,
               reverse,
               colSpan,
               rowSpan,
@@ -28,7 +28,7 @@ export default function HeroGrid() {
               text={text}
               buttonLink={buttonLink}
               buttonText={buttonText}
-              imageSrc={imageSrc}
+              imagenSrc={imagenSrc}
               reverse={reverse}
               colSpan={colSpan}
               rowSpan={rowSpan}

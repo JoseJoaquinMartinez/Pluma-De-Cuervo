@@ -13,7 +13,7 @@ export function formattedComments(userComments: FormattedComment[]) {
     },
     user: {
       userName: comment.regularUserData?.userName || "Anónimo",
-      imagen: comment.regularUserData?.imagen || null,
+      imagenn: comment.regularUserData?.imagenn || null,
     },
     hasAdminResponse: comment.replies && comment.replies.length > 0,
     adminResponse:

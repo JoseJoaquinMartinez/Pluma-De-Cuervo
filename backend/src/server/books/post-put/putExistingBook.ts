@@ -5,11 +5,11 @@ const router = Router();
 
 router.put("/put-existing-book/:bookId", async (req, res) => {
   const bookId = parseInt(req.params.bookId);
-  const { title, image, Synopsis } = req.body;
+  const { title, imagen, Synopsis } = req.body;
 
   const dataToUpdate: any = {};
   if (title) dataToUpdate.title = title;
-  if (image) dataToUpdate.image = image;
+  if (imagen) dataToUpdate.imagen = imagen;
   if (Synopsis) dataToUpdate.Synopsis = Synopsis;
 
   try {

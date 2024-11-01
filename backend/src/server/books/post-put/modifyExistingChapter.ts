@@ -13,14 +13,14 @@ router.put(
   upload.single("file"),
   async (req, res) => {
     const chapterId = parseInt(req.params.chapterId);
-    const { title, image, chapterNumber, bookId } = req.body;
+    const { title, imagen, chapterNumber, bookId } = req.body;
     const textArea: string | null = req.body.textArea;
     const file = req.file;
 
     const dataToUpdate: any = {};
 
     if (title) dataToUpdate.title = title;
-    if (image) dataToUpdate.image = image;
+    if (imagen) dataToUpdate.imagen = imagen;
     if (chapterNumber) dataToUpdate.chapterNumber = parseInt(chapterNumber);
     if (bookId) dataToUpdate.bookId = parseInt(bookId);
 

@@ -3,7 +3,7 @@ export interface BentoSectionProps {
   text: string;
   buttonLink?: string;
   buttonText?: string;
-  imageSrc: string;
+  imagenSrc: string;
   reverse?: boolean;
   colSpan: string;
   rowSpan: string;

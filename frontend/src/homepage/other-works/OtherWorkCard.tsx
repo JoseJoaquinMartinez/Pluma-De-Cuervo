@@ -1,4 +1,4 @@
-import Image from "next/image";
+import imagen from "next/imagen";
 import MainButton from "@/components/shared/mainButton";
 import type { OtherWorkProps } from "./data/otherWorkData";
 
@@ -7,7 +7,7 @@ export const OtherWorksCard: React.FC<OtherWorkProps> = ({
   text,
   buttonLink,
   buttonText,
-  imageSrc,
+  imagenSrc,
 }) => {
   return (
     <>
@@ -24,8 +24,8 @@ export const OtherWorksCard: React.FC<OtherWorkProps> = ({
         />
       </div>
       <article className="w-full relative flex flex-col items-center transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl">
-        <Image
-          src={imageSrc}
+        <imagen
+          src={imagenSrc}
           alt={title}
           width={500}
           height={500}

@@ -18,7 +18,7 @@ const MOCKCHAPTER = [
   {
     id: 1,
     title: "Chapter Try 12 table docx",
-    image: "null",
+    imagen: "null",
     chapterNumber: 12,
     bookId: 1,
     paragraph: [

@@ -8,15 +8,19 @@ import authLoginRoute from "./server/auth/login";
 import adminUserRegistrationRoute from "./server/auth/adminUserRegistration";
 import adminUploadFileRoute from "./server/books/post-put/uploadFileEndpoint";
 //BOOKS
-import getSingleChapter from "./server/books/get/getChapter";
-import getAllChaptersFromBook from "./server/books/get/getAllChapters";
-import putExistingChapter from "./server/books/post-put/modifyExistingChapter";
 import getAllBooks from "./server/books/get/getAllBooks";
 import getSingleBook from "./server/books/get/getSingleBook";
 import postNewBook from "./server/books/post-put/postNewBook";
 import putExistingBook from "./server/books/post-put/putExistingBook";
 import deleteBook from "./server/books/delete/deleteBook";
+
+//CHAPTERS
+import getSingleChapter from "./server/books/get/getChapter";
+import getAllChaptersFromBook from "./server/books/get/getAllChapters";
+import putExistingChapter from "./server/books/post-put/modifyExistingChapter";
 import deleteChapter from "./server/books/delete/deleteChapter";
+import getLastFiveChapters from "./server/books/get/getLastFiveChapters";
+
 // BLOGS
 import postNewBlogPost from "./server/blogs/post-put/postNewBlogPost";
 import putExistingBlogPost from "./server/blogs/post-put/putExistingBlogPost";
@@ -51,14 +55,16 @@ app.use("/book", adminUploadFileRoute);
 app.use("/book", postNewBook);
 
 //PUT
-app.use("/book", putExistingChapter);
 app.use("/book", putExistingBook);
+app.use("/book", putExistingChapter);
 
 //GET
-app.use("/book", getSingleChapter);
-app.use("/book", getAllChaptersFromBook);
 app.use("/book", getAllBooks);
 app.use("/book", getSingleBook);
+
+app.use("/book", getSingleChapter);
+app.use("/book", getAllChaptersFromBook);
+app.use("/book", getLastFiveChapters);
 
 //DELETE
 app.use("/book", deleteBook);

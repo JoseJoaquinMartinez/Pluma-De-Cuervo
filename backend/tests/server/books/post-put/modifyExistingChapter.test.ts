@@ -45,7 +45,7 @@ describe("PUT modifyExistingChapter", () => {
     const MOCKCHAPTER = {
       id: 1,
       title: newTitle,
-      image: "NULL",
+      imagen: "NULL",
       chapterNumber: 1,
       bookId: 1,
     };

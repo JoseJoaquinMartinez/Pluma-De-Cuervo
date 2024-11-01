@@ -8,7 +8,7 @@ router.get("/get-all-blog-posts", async (req, res) => {
     const allExistingBlogs = await prisma.blog.findMany({
       select: {
         title: true,
-        imagen: true,
+        imagenn: true,
         createdAt: true,
       },
     });

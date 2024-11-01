@@ -11,7 +11,7 @@ router.get("/get-last-five-blogs", async (req, res) => {
       take: 5,
       select: {
         id: true,
-        imagen: true,
+        imagenn: true,
         title: true,
       },
     });

@@ -58,7 +58,7 @@ const MOCKPARAGRAPHS = [
         regularUserData: {
           id: 1,
           userName: "Aventurero",
-          imagen: null as unknown as string,
+          imagenn: null as unknown as string,
           regularUserId: 1,
         },
         adminUserData: null as unknown as number,
@@ -73,7 +73,7 @@ const MOCKPARAGRAPHS = [
         regularUserData: {
           id: 1,
           userName: "Aventurero",
-          imagen: null as unknown as number,
+          imagenn: null as unknown as number,
           regularUserId: 1,
         },
         adminUserData: null as unknown as number,
@@ -92,7 +92,7 @@ describe("GET getCommentsByAdmin", () => {
     jest.spyOn(prisma.chapter, "findFirst").mockResolvedValue({
       id: 14,
       title: "Chapter Try 10",
-      image: "null",
+      imagen: "null",
       chapterNumber: 10,
       bookId: 3,
     });
@@ -116,7 +116,7 @@ describe("GET getCommentsByAdmin", () => {
             regularUserData: {
               id: 1,
               userName: "Aventurero",
-              imagen: null as unknown as string,
+              imagenn: null as unknown as string,
               regularUserId: 1,
             },
             adminUserData: null as unknown as number,
@@ -131,7 +131,7 @@ describe("GET getCommentsByAdmin", () => {
             regularUserData: {
               id: 1,
               userName: "Aventurero",
-              imagen: null as unknown as number,
+              imagenn: null as unknown as number,
               regularUserId: 1,
             },
             adminUserData: null as unknown as number,
