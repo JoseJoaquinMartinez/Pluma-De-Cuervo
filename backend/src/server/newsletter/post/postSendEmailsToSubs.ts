@@ -10,7 +10,8 @@ router.post("/send-emai-to-subscribers", async (req, res) => {
     const subscribers = await prisma.newsLetterSubscriber.findMany();
 
     for (const subscriber of subscribers) {
-      const emailUnsubscriptionUrl = `${process.env.EMAIL_URL}/newsletter/registration?token=${subscriber.unsubscribeToken}`;
+      const emailUnsubscriptionUrl = `${process.env.EMAIL_URL}/newsletter/delete-subscriber?unsubscribeToken=${subscriber.unsubscribeToken}`;
+
       await transporter.sendMail({
         from: process.env.MAILER_EMAIL,
         to: subscriber.email,
@@ -18,13 +19,12 @@ router.post("/send-emai-to-subscribers", async (req, res) => {
         html: `
         <p>${message}</p>
         <br>
-        <p>Si quieres dejar de recibir estos emails puedes cancelar la subscriptión haciendo click en el siguiente botón</p>
-        <a href: "${emailUnsubscriptionUrl}">Cancelar Subscripción</a>
+        <p>Si quieres dejar de recibir estos emails puedes cancelar la subscriptión haciendo click en el siguiente enlace</p>
+        <a href="${emailUnsubscriptionUrl}">Cancelar Subscripción</a>
       `,
       });
-
-      res.status(200).json({ message: "NewsLetter email enviado" });
     }
+    res.status(200).json({ message: "NewsLetter email enviado" });
   } catch (error) {
     if (error instanceof Error) {
       return res

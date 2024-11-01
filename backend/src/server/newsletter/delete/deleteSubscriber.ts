@@ -6,8 +6,9 @@ const router = Router();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-router.delete("/delete-subscriber", async (req, res) => {
+router.get("/delete-subscriber", async (req, res) => {
   const { unsubscribeToken } = req.query;
+  console.log(unsubscribeToken);
 
   if (!unsubscribeToken || typeof unsubscribeToken !== "string") {
     return res.status(400).json({ error: "Token inválido" });
