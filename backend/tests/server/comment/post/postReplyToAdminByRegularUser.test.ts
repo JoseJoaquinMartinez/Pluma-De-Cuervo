@@ -67,7 +67,7 @@ describe("POST postReplyToAdmin", () => {
     jest.spyOn(prisma.regularUserData, "findFirst").mockResolvedValue({
       id: 1,
       userName: "NombreDeUsuario",
-      imagenn: null as unknown as string,
+      imagen: null as unknown as string,
       regularUserId: 1,
     });
 

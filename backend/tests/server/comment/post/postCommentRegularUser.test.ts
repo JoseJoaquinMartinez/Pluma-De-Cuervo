@@ -60,7 +60,7 @@ describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
       id: 1,
       regularUserId: 1,
       userName: "testUser",
-      imagenn: null as unknown as string,
+      imagen: null as unknown as string,
     });
 
     jest.spyOn(prisma.paragraph, "findFirst").mockResolvedValue({

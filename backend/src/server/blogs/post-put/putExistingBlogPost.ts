@@ -5,13 +5,13 @@ const router = Router();
 
 router.put("/put-existing-blog/:blogId", async (req, res) => {
   const blogId = parseInt(req.params.blogId);
-  const { title, imagen, blogText } = req.body;
+  const { title, image, blogText } = req.body;
 
   const dataToUpdate: any = {
     createdAt: new Date(),
   };
   if (title) dataToUpdate.title = title;
-  if (imagen) dataToUpdate.imagenn = imagen;
+  if (image) dataToUpdate.imagen = image;
   if (blogText) dataToUpdate.blogText = blogText;
 
   try {

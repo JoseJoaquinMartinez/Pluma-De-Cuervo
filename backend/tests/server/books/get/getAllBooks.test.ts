@@ -39,7 +39,7 @@ describe("GET getAllBooks", () => {
     prismaMock.$disconnect();
   });
 
-  it("Should return status 200 and all existing books with id, imagen and title", async () => {
+  it("Should return status 200 and all existing books with id, image and title", async () => {
     prismaMock.book.findMany.mockResolvedValue(MOCKBOOK);
     const response = await request(app).get(ENDPOINT);
     expect(response.status).toBe(200);

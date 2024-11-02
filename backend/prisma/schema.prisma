@@ -46,7 +46,7 @@ model RegularUserData {
   id Int @id @default(autoincrement())
 
   userName String? @default("Aventurero")
-  imagenn String?
+  imagen String?
  
   comments Comment[]
 
@@ -111,7 +111,7 @@ model Blog {
   id Int @id @default(autoincrement())
 
   title String @unique
-  imagenn String?
+  imagen String?
   blogText String
   createdAt DateTime @default(now())
   estimatedReadTime String @default("")

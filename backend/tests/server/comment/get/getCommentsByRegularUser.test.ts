@@ -57,7 +57,7 @@ const MOCKCOMMENTS = [
     },
     user: {
       userName: "Aventurero",
-      imagenn: null as unknown as string,
+      imagen: null as unknown as string,
     },
   },
 ];
@@ -71,7 +71,7 @@ describe("GET get-comment-by-regularUser", () => {
     jest.spyOn(prisma.regularUserData, "findFirst").mockResolvedValue({
       id: 1,
       userName: "Aventurero",
-      imagenn: null as unknown as string,
+      imagen: null as unknown as string,
       regularUserId: 1,
     });
 

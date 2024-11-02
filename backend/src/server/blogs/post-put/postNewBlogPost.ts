@@ -4,12 +4,12 @@ import prisma from "../../../../client";
 const router = Router();
 
 router.post("/post-new-blog", async (req, res) => {
-  const { title, imagenn, blogText } = req.body;
+  const { title, imagen, blogText } = req.body;
   try {
     const newBlogPost = await prisma.blog.create({
       data: {
         title: title,
-        imagenn: imagenn,
+        imagen: imagen,
         blogText: blogText,
       },
     });

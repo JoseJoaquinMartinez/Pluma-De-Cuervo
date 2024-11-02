@@ -26,6 +26,9 @@ const config: Config = {
         background: "#B8A79D",
         cardsBackground: "#DCD4CC",
       },
+      screens: {
+        mlg: "965px",
+      },
     },
   },
   plugins: [

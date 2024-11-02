@@ -1,11 +1,11 @@
-import omniCeniza from "../../../../public/home-imagens/OMNI CENIZAS.webp";
+import omniCeniza from "../../../../public/home-images/OMNI CENIZAS.webp";
 
 export interface OtherWorkProps {
   title: string;
   text: string;
   buttonLink: string;
   buttonText: string;
-  imagenSrc: string;
+  imageSrc: string;
 }
 
 export const otherWorks: OtherWorkProps[] = [
@@ -15,6 +15,6 @@ export const otherWorks: OtherWorkProps[] = [
     buttonLink:
       "https://www.amazon.es/Omni-cenizas-Gabriel-Pastor-S%C3%A1nchez/dp/8412128796",
     buttonText: "Comprar",
-    imagenSrc: "/home-imagens/OMNI CENIZAS.webp",
+    imageSrc: "/home-images/OMNI CENIZAS.webp",
   },
 ];

@@ -40,7 +40,7 @@ export type Comment = {
 
 export type getBlogsResponse = {
   title: string;
-  imagenn: string;
+  imagen: string;
   createdAt: Date;
 };
 
@@ -63,7 +63,7 @@ export interface ParagraphComment {
 
 export interface RegularUserData {
   userName: string;
-  imagenn: string;
+  imagen: string;
 }
 
 export interface AdminUserData {

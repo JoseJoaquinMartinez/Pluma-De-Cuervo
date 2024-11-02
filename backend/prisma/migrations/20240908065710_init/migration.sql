@@ -29,7 +29,7 @@ CREATE TABLE "RegularUser" (
 CREATE TABLE "RegularUserData" (
     "id" SERIAL NOT NULL,
     "userName" TEXT DEFAULT 'Aventurero',
-    "imagenn" TEXT,
+    "imagen" TEXT,
     "role" TEXT NOT NULL DEFAULT 'user',
     "regularUserId" INTEGER NOT NULL,
 
@@ -40,7 +40,7 @@ CREATE TABLE "RegularUserData" (
 CREATE TABLE "Book" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
-    "imagen" TEXT,
+    "image" TEXT,
 
     CONSTRAINT "Book_pkey" PRIMARY KEY ("id")
 );
@@ -49,7 +49,7 @@ CREATE TABLE "Book" (
 CREATE TABLE "Chapter" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
-    "imagen" TEXT,
+    "image" TEXT,
     "chapterNumer" INTEGER NOT NULL,
     "bookId" INTEGER NOT NULL,
 
@@ -82,7 +82,7 @@ CREATE TABLE "Comment" (
 CREATE TABLE "Blog" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
-    "imagenn" TEXT,
+    "imagen" TEXT,
     "blogText" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

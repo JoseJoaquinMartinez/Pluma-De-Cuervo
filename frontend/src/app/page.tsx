@@ -1,8 +1,8 @@
-import HeroGrid from "@/homepage/bento-section/HeroGrid";
 import { SectionComponent } from "@/homepage/components/SectionComponent";
 import { OtherWorksCard } from "@/homepage/other-works/OtherWorkCard";
 import { otherWorks } from "@/homepage/other-works/data/otherWorkData";
 import { BlogCard } from "../homepage/blogs/blogCard";
+import HeroGrid from "@/components/bento-section/HeroGrid";
 
 export default function Home() {
   return (
@@ -18,7 +18,7 @@ export default function Home() {
           </>
         }
       />
-      <SectionComponent title="Blogs" content={<BlogCard />} />
+      {/* <SectionComponent title="Blogs" content={<BlogCard />} /> */}
     </div>
   );
 }
