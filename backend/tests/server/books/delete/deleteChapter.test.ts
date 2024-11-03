@@ -19,7 +19,7 @@ const ENDPOINT = "/book/delete-chapter/1";
 const MOCKDELETEDCHAPTER = {
   id: 1,
   title: "Chapter Try 10",
-  image: "null",
+  imagen: "null",
   chapterNumber: 10,
   bookId: 3,
 };

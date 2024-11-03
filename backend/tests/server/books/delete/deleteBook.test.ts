@@ -19,7 +19,7 @@ const ENDPOINT = "/book/delete-book/1";
 const MOCKDELETEDBOOK = {
   id: 1,
   title: "Patata caliente",
-  image: "image.jpg",
+  imagen: "image.jpg",
   Synopsis: "Quemaba mucho",
 };
 

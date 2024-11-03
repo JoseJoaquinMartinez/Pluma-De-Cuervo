@@ -20,13 +20,13 @@ const MOCKBOOK = [
   {
     id: 1,
     title: "Tumormante",
-    image: "image1.jpg",
+    imagen: "imagen1.jpg",
     Synopsis: "Fancy test synopsis",
   },
   {
     id: 2,
     title: "Dreadful",
-    image: "image2.jpg",
+    imagen: "imagen2.jpg",
     Synopsis: "Fancy test synopsis",
   },
 ];

@@ -17,19 +17,19 @@ const ENDPOINT = "/book/get-all-chapters/1";
 const ALLCHAPTERSRESPONSE = {
   id: 1,
   title: "Tumormante",
-  image: "",
+  imagen: "",
   chapter: [
     {
       id: 1,
       title: "Chapter Try 12 table docx",
-      image: "null",
+      imagen: "null",
       chapterNumber: 12,
       bookId: 1,
     },
     {
       id: 2,
       title: "Chapter Try 13 table docx",
-      image: "null",
+      imagen: "null",
       chapterNumber: 13,
       bookId: 1,
     },

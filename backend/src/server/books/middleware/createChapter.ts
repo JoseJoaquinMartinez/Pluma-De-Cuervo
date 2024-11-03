@@ -6,14 +6,14 @@ export async function createNewChapter(
   res: Response,
   next: NextFunction
 ) {
-  const { title, chapterNumber, image, bookId } = req.body;
+  const { title, chapterNumber, imagen, bookId } = req.body;
 
   try {
     const chapter = await prisma.chapter.create({
       data: {
         title: title,
         chapterNumber: parseInt(chapterNumber),
-        image: image || null,
+        imagen: imagen || null,
         bookId: parseInt(bookId),
       },
     });

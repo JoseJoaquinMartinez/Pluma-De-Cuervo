@@ -7,7 +7,7 @@ export type Book = {
   id: number;
   title: string;
   synopsis: string;
-  image: string;
+  imagen: string;
   chapter?: Chapter[];
 };
 
@@ -23,7 +23,7 @@ export type Paragraph = {
 export type Chapter = {
   id: number;
   title: string;
-  image?: string | null;
+  imagen?: string | null;
   chapterNumber: number;
   paragraph: Paragraph[];
   bookId: number;

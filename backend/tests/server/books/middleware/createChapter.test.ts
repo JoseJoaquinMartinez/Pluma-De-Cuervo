@@ -22,13 +22,13 @@ const MOCKCHAPTER = {
   id: 1,
   title: MOCKTITLE,
   chapterNumber: MOCKCHAPTERNUMBER,
-  image: null as unknown as string,
+  imagen: null as unknown as string,
   bookId: MOCKBOOKID,
 };
 const OPTIONS = {
   title: MOCKTITLE,
   chapterNumber: MOCKCHAPTERNUMBER,
-  image: null as unknown as string,
+  imagen: null as unknown as string,
   bookId: MOCKBOOKID,
 };
 
@@ -47,7 +47,7 @@ describe("Middleware createChapter", () => {
       data: {
         title: MOCKTITLE,
         chapterNumber: MOCKCHAPTERNUMBER,
-        image: null,
+        imagen: null,
         bookId: MOCKBOOKID,
       },
     });

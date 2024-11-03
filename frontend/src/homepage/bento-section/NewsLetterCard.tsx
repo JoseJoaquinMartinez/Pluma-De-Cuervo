@@ -1,5 +1,4 @@
-import React from "react";
-import MainButton from "../../components/shared/mainButton";
+import MainButton from "@/components/shared/mainButton";
 
 export const NewsLetterCard: React.FC = () => {
   return (

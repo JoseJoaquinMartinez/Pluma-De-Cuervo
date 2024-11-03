@@ -92,8 +92,10 @@ describe("GET getCommentsByAdmin", () => {
     jest.spyOn(prisma.chapter, "findFirst").mockResolvedValue({
       id: 14,
       title: "Chapter Try 10",
-      image: "null",
+      imagen: "image.jpg",
       chapterNumber: 10,
+      createdAt: new Date(),
+      estimatedReadTime: "10 ",
       bookId: 3,
     });
 

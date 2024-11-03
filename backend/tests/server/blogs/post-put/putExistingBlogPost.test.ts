@@ -17,24 +17,24 @@ jest.mock("@prisma/client", () => ({
 const blogId = 1;
 const ENDPOINT = `/blog/put-existing-blog/${blogId}`;
 const MOCKTITLE = "FANCY TEST TITLE";
-const MOCKIMAGE = "FANCY TEST IMAGE";
+const MOCKimage = "FANCY TEST image";
 const MOCKBLOGTEXT = "FANCY TEST BLOGTEXT";
 
 const MOCKDATATOUPDATE = {
   title: MOCKTITLE,
-  imagen: MOCKIMAGE,
+  imagen: MOCKimage,
   blogText: MOCKBLOGTEXT,
   createdAt: expect.any(Date),
 };
 const MOCKDATATOSEND = {
   title: MOCKTITLE,
-  image: MOCKIMAGE,
+  imagen: MOCKimage,
   blogText: MOCKBLOGTEXT,
 };
 const MOCKUPDATEDBLOG = {
   id: blogId,
   title: MOCKTITLE,
-  imagen: MOCKIMAGE,
+  imagen: MOCKimage,
   blogText: MOCKBLOGTEXT,
   createdAt: "2024-10-03T18:31:58.251Z",
 };

@@ -4,13 +4,13 @@ import prisma from "../../../../client";
 const router = Router();
 
 router.post("/new-book", async (req, res) => {
-  const { title, image, Synopsis } = req.body;
+  const { title, imagen, Synopsis } = req.body;
 
   try {
     const newBook = await prisma.book.create({
       data: {
         title: title,
-        image: image || null,
+        imagen: imagen || null,
         Synopsis: Synopsis,
       },
     });

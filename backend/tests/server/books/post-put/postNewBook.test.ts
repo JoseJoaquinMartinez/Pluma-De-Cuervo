@@ -14,18 +14,18 @@ jest.mock("@prisma/client", () => ({
   PrismaClient: jest.fn(() => prismaMock),
 }));
 const MOCKTITLE = "Omni Cenizas 2";
-const MOCKIMAGE = "image.jpg";
+const MOCKimagen = "imagen.jpg";
 const MOCKSYNOPSIS =
   "Hace más de diez milenios que la civilización quedó arrasada al llegar el omni al planeta. Esta exótica sustancia lo cambió todo para siempre; como una enfermedad, se introdujo en toda forma de vida y la transformó radicalmente.'Omni: Cenizas' nos cuenta el auge de un dios. Cómo un hombre normal, Diego, llega a convertirse en un tirano, esclavizando a todo un mundo que resurge de sus cenizas, y a un elenco de personajes que ansían, por encima de todas las cosas, una libertad que jamás han conocido. La historia se va desenvolviendo entre el pasado y el presente, utilizando la ciencia-ficción para justificar los elementos fantásticos de 'Omni: Cenizas' en una aventura que trata temas como la pérdida, la desesperanza, la locura, la tiranía o la libertad. Esta novela busca romper con los elementos más tradicionales de la fantasía y con la aparente infalibilidad de los protagonistas que encontramos en muchas obras; nadie es perfecto y queda a la vista desde el primer momento, la esperanza es un lujo que no todos pueden permitirse, y la alegría es algo que se perdió hace milenios.";
 const MOCKNEWBOOKDATA = {
   title: MOCKTITLE,
-  image: MOCKIMAGE,
+  imagen: MOCKimagen,
   Synopsis: MOCKSYNOPSIS,
 };
 const MOCKNEWBOOK = {
   id: 4,
   title: MOCKTITLE,
-  image: MOCKIMAGE,
+  imagen: MOCKimagen,
   Synopsis: MOCKSYNOPSIS,
 };
 const ENDPOINT = "/book/new-book";
@@ -49,7 +49,7 @@ describe("POST postNewBook", () => {
     expect(prismaMock.book.create).toHaveBeenCalledWith({
       data: {
         title: MOCKTITLE,
-        image: MOCKIMAGE,
+        imagen: MOCKimagen,
         Synopsis: MOCKSYNOPSIS,
       },
     });
@@ -58,7 +58,7 @@ describe("POST postNewBook", () => {
     const MOCKEXISTINGTITLE = "Existing title";
     const mockDuplicateTitleBookData = {
       title: MOCKEXISTINGTITLE,
-      image: MOCKIMAGE,
+      imagen: MOCKimagen,
       Synopsis: MOCKSYNOPSIS,
     };
     prismaMock.book.create.mockRejectedValue({
