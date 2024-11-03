@@ -24,7 +24,7 @@ export const bentoSectionData: BentoSectionProps[] = [
   {
     title: "Últimos Capítulos",
     text: 'Lee, comenta y disfruta de la novela web "Tumormante"',
-    buttonLink: "ultimos-capitulos",
+    buttonLink: "/ultimos-capitulos",
     buttonText: "Léelos Ahora",
     imagenSrc: "/home-images/last-chapters-section.webp",
     reverse: false,
