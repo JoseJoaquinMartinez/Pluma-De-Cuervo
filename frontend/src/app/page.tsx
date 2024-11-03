@@ -1,12 +1,12 @@
-import { SectionComponent } from "@/homepage/components/SectionComponent";
-import { OtherWorksCard } from "@/homepage/other-works/OtherWorkCard";
+import BlogComponent from "@/homepage/blogs/blogComponent";
 import { otherWorks } from "@/homepage/other-works/data/otherWorkData";
-import { BlogCard } from "../homepage/blogs/blogCard";
-import HeroGrid from "@/components/bento-section/HeroGrid";
-
-export default function Home() {
+import { SectionComponent } from "@/homepage/components/SectionComponent";
+import HeroGrid from "@/homepage/bento-section/HeroGrid";
+import OtherWorksCard from "@/homepage/other-works/OtherWorkCard";
+//TODO add loader in case the fetch is slow or a 404 component incase
+export default async function Home() {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center p-10">
       <HeroGrid />
       <SectionComponent
         title="Otras Obras"
@@ -18,7 +18,8 @@ export default function Home() {
           </>
         }
       />
-      {/* <SectionComponent title="Blogs" content={<BlogCard />} /> */}
+
+      <SectionComponent title="Blogs" content={<BlogComponent />} />
     </div>
   );
 }
