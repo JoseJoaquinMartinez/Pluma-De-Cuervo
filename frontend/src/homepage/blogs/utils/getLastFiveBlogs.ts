@@ -13,10 +13,6 @@ export default async function getLastFiveBlogs() {
 
     const blogData = await response.json();
 
-    if (!Array.isArray(blogData)) {
-      throw new Error("El formato de datos devuelto no es un array");
-    }
-
     return blogData.map((blog: lastFiveBlogInterface) => ({
       ...blog,
       createdAt: new Date(blog.createdAt).toLocaleDateString("es-ES", {

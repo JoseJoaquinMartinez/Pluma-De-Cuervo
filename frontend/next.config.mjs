@@ -34,6 +34,13 @@ const nextConfig = {
         protocol: "https",
         hostname: "media.es.wired.com",
       },
+      {
+        protocol: "https",
+        hostname: "img.freepik.com",
+      },
+      { protocol: "https", hostname: "th.bing.com" },
+      { protocol: "https", hostname: "1819.es" },
+      { protocol: "https", hostname: "res.cloudinary.com" },
     ],
   },
 };
