@@ -39,6 +39,17 @@ const config: Config = {
             gridTemplateRows:
               "minmax(150px, auto) minmax(200px, auto) minmax(100px, auto)",
           },
+          ".grid-template-ipad": {
+            display: "grid",
+            gridTemplateAreas: `
+              "plumaDeCuervo  sobreElAutor "
+              "ultimosCapitulos sobreElAutor " 
+              "newsletter newsletter "
+            `,
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gridTemplateRows:
+              "minmax(150px, auto) minmax(200px, auto) minmax(100px, auto)",
+          },
           ".grid-template-mobile": {
             display: "grid",
             gridTemplateAreas: `

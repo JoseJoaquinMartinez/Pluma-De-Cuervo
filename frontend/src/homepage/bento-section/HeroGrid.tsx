@@ -7,7 +7,7 @@ import { bentoSectionData } from "./data/bentoSectionData";
 export default function HeroGrid() {
   return (
     <main className=" justify-center">
-      <div className="max-w-screen-xl gap-6 grid-template-mobile mlg:grid-template-desktop">
+      <div className="max-w-screen-xl gap-6 grid-template-mobile md:grid-template-ipad mlg:grid-template-desktop">
         {bentoSectionData.map(
           (
             {
