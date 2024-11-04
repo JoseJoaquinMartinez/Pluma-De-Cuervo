@@ -12,7 +12,8 @@ const config: Config = {
         botones: "#C27A6D",
         navBarActiveLink: "#E57373",
         bordesDecor: "#8C4F40",
-        navFoot: "#554039",
+        navFoot:
+          "#591A06" /* 554039 - color marrón default 591A06  color ladrillo brillante*/,
         whiteText: "#F5F5F5",
         mainText: "#4A4A4A",
         commentBackground: "#FBEAEF",
