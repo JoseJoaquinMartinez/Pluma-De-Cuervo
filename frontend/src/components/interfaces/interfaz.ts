@@ -3,4 +3,5 @@ export interface ButtonProps {
   name?: string;
   rel?: string;
   target?: string;
+  type?: "submit" | "reset" | "button" | undefined;
 }

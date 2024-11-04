@@ -4,7 +4,7 @@ import { lastFiveBlogInterface } from "../interfaces/blog";
 export default async function getLastFiveBlogs() {
   try {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_UR + "/blog/get-last-five-blogs"
+      process.env.NEXT_PUBLIC_BACKEND_URL + "/blog/get-last-five-blogs"
     );
 
     if (!response.ok) {
