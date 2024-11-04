@@ -20,7 +20,7 @@ const BlogComponent = () => {
   }, []);
   return (
     <article className="flex flex-col gap-6">
-      <div className="flex flex-col mlg:flex-row gap-6">
+      <div className="grid grid-col-1 md:grid-cols-2  mlg:grid-cols-5 gap-6">
         {blogData.map((blog) => (
           <BlogCard key={blog.id} {...blog} />
         ))}
