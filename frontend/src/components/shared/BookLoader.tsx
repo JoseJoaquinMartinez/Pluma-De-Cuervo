@@ -8,6 +8,7 @@ export const BookLoaderComponent = () => {
         alt="Cargando..."
         width={100}
         height={100}
+        unoptimized
       />
     </>
   );

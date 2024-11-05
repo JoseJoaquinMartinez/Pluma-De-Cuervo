@@ -1,15 +1,15 @@
 import React from "react";
 import MainButton from "@/components/shared/mainButton";
-import { lastFiveBlogInterface } from "./interfaces/blog";
 import { ImageComponent } from "@/components/shared/ImageComponent";
+import { LastTenChapterProp } from "../interface/interface";
 
-const BlogCard = ({
+const ChapterCard = ({
   id,
   title,
   imagen,
   estimatedReadTime,
   createdAt,
-}: lastFiveBlogInterface) => {
+}: LastTenChapterProp) => {
   return (
     <article className="flex flex-col items-center bg-cardsBackground text-mainText rounded-xl">
       <ImageComponent
@@ -21,7 +21,7 @@ const BlogCard = ({
 
       <div className=" flex flex-col items-center mt-10">
         <h2 className="text-encabezados mb-6 text-xl">{title}</h2>
-        <MainButton name="Leer" link={`/blogs/blog/${id}`} />
+        <MainButton name="Leer" link={`/libro/capitulos/capitulo/${id}`} />
       </div>
       <div className=" text-mainText opacity-50 text-sm self-end p-2">
         <p>
@@ -31,4 +31,4 @@ const BlogCard = ({
     </article>
   );
 };
-export default React.memo(BlogCard);
+export default React.memo(ChapterCard);
