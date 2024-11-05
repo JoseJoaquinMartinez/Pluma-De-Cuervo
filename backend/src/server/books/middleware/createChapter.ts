@@ -6,7 +6,7 @@ export async function createNewChapter(
   res: Response,
   next: NextFunction
 ) {
-  const { title, chapterNumber, imagen, bookId } = req.body;
+  const { title, chapterNumber, imagen, bookId, estimatedReadTime } = req.body;
 
   try {
     const chapter = await prisma.chapter.create({
@@ -15,6 +15,7 @@ export async function createNewChapter(
         chapterNumber: parseInt(chapterNumber),
         imagen: imagen || null,
         bookId: parseInt(bookId),
+        estimatedReadTime: estimatedReadTime,
       },
     });
     if (!chapter) {

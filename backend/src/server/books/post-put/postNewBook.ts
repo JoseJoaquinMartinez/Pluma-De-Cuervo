@@ -4,7 +4,7 @@ import prisma from "../../../../client";
 const router = Router();
 
 router.post("/new-book", async (req, res) => {
-  const { title, imagen, Synopsis } = req.body;
+  const { title, imagen, Synopsis, estimatedReadTime } = req.body;
 
   try {
     const newBook = await prisma.book.create({
@@ -12,6 +12,7 @@ router.post("/new-book", async (req, res) => {
         title: title,
         imagen: imagen || null,
         Synopsis: Synopsis,
+        estimatedReadTime: estimatedReadTime,
       },
     });
     return res.status(201).json({ newBook, message: "Libro creado" });

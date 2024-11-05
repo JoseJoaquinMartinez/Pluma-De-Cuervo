@@ -13,6 +13,8 @@ router.get("/get-last-five-chapters", async (req, res) => {
         id: true,
         imagen: true,
         title: true,
+        estimatedReadTime: true,
+        createdAt: true,
       },
     });
 
