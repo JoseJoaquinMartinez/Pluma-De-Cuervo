@@ -5,11 +5,14 @@ import { lastFiveBlogInterface } from "@/homepage/blogs/interfaces/blog";
 import getLastFiveBlogs from "@/homepage/blogs/utils/getLastFiveBlogs";
 import BlogCard from "./blogCard";
 import MainButton from "@/components/shared/mainButton";
+import { BookLoaderComponent } from "@/components/shared/BookLoader";
 
 const BlogComponent = () => {
   const [blogData, setBlogData] = useState<lastFiveBlogInterface[]>([]);
+  const [loader, setLoader] = useState<boolean>(true);
 
   useEffect(() => {
+    setLoader(true);
     const getBlogData = () => {
       getLastFiveBlogs()
         .then((data) => setBlogData(data))
@@ -17,17 +20,24 @@ const BlogComponent = () => {
     };
 
     getBlogData();
+    setLoader(false);
   }, []);
   return (
     <article className="flex flex-col gap-6">
-      <div className="grid grid-col-1 md:grid-cols-2  mlg:grid-cols-5 gap-6">
-        {blogData.map((blog) => (
-          <BlogCard key={blog.id} {...blog} />
-        ))}
-      </div>
-      <div className="self-center">
-        <MainButton link="/blogs/all-blogs" name="Más Entradas" />
-      </div>
+      {loader ? (
+        <BookLoaderComponent />
+      ) : (
+        <>
+          <div className="grid grid-col-1 md:grid-cols-2  mlg:grid-cols-5 gap-6">
+            {blogData.map((blog) => (
+              <BlogCard key={blog.id} {...blog} />
+            ))}
+          </div>
+          <div className="self-center">
+            <MainButton link="/blogs/all-blogs" name="Más Entradas" />
+          </div>
+        </>
+      )}
     </article>
   );
 };

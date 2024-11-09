@@ -21,10 +21,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${onest.variable} antialiased bg-background`}>
+    <html lang="es">
+      <body
+        className={`${onest.variable} antialiased bg-background flex flex-col min-h-screen`}
+      >
         <Navbar />
-        {children}
+
+        <main className="flex-grow">{children}</main>
+
         <Footer />
       </body>
     </html>
