@@ -18,7 +18,9 @@ export const ContactForm = () => {
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-  const handleSubmit = () => {};
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="flex flex-col items-center w-full ">
