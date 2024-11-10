@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${onest.variable} antialiased bg-background flex flex-col min-h-screen`}
+        className={`${onest.variable} antialiased bg-background flex flex-col min-h-screen min-w-screen`}
       >
         <Navbar />
 

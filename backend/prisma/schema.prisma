@@ -126,3 +126,15 @@ model NewsLetterSubscriber {
   unsubscribeToken String @unique
 
 }
+
+model ContactForm {
+  id Int @id @default(autoincrement())
+  
+  email String 
+  isRead Boolean @default(false)
+  message String 
+
+  createdAt DateTime @default(now())
+  
+
+}

@@ -25,7 +25,7 @@ export const ImageComponent = ({
         alt={title}
         width={500}
         height={500}
-        className={`h-full  object-cover object-top mlg:scale-110 rounded-lg transition duration-500 hover:scale-100 ${customMinHeight} ${customMaxHeight}`}
+        className={`h-full object-cover object-top mlg:scale-110 rounded-lg transition duration-500 hover:scale-100 ${customMinHeight} ${customMaxHeight}`}
       />
     </div>
   );

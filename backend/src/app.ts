@@ -40,6 +40,11 @@ import postNewSubscriber from "./server/newsletter/post/postNewSubscriber";
 import sendEmailToSubscribers from "./server/newsletter/post/postSendEmailsToSubs";
 import deleteSubscriber from "./server/newsletter/delete/deleteSubscriber";
 
+//CONTACT FORM
+import postNewContactMessage from "./server/contact-form/post/postNewContactMessage";
+import getUnreadMessages from "./server/contact-form/get/getUnreadMessages";
+import putSetMessageToRead from "./server/contact-form/put/putMessageAsRead";
+
 const app = express();
 
 app.use(express.json());
@@ -107,5 +112,16 @@ app.use("/newsletter", sendEmailToSubscribers);
 
 //DELETE
 app.use("/newsletter", deleteSubscriber);
+
+//CONTACT FORM ROUTES
+
+//POST
+app.use("/contact", postNewContactMessage);
+
+//GET
+app.use("/contact", getUnreadMessages);
+
+//PUT
+app.use("/contact", putSetMessageToRead);
 
 export default app;
