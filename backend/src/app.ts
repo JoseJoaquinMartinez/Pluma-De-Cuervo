@@ -44,6 +44,7 @@ import deleteSubscriber from "./server/newsletter/delete/deleteSubscriber";
 import postNewContactMessage from "./server/contact-form/post/postNewContactMessage";
 import getUnreadMessages from "./server/contact-form/get/getUnreadMessages";
 import putSetMessageToRead from "./server/contact-form/put/putMessageAsRead";
+import replyToContactMessage from "./server/contact-form/post/sendReplyToMessage";
 
 const app = express();
 
@@ -117,7 +118,7 @@ app.use("/newsletter", deleteSubscriber);
 
 //POST
 app.use("/contact", postNewContactMessage);
-
+app.use("/contact", replyToContactMessage)
 //GET
 app.use("/contact", getUnreadMessages);
 

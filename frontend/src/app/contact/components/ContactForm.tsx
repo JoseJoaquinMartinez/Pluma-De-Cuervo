@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { ContactFormProps } from "../interfaces/contact";
 import MainButton from "@/components/shared/mainButton";
+import { postNewContactMessage } from "../utils/postNewContactMessage";
 
 export const ContactForm = () => {
   const [form, setForm] = useState<ContactFormProps>({
@@ -20,6 +21,17 @@ export const ContactForm = () => {
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
+    setSuccessMessage("");
+    if (form.message.trim().length < 10) {
+      setError("El mensaje debe tener al menos 10 caracteres.");
+      return;
+    }
+    const newContactMessage = () => {
+      postNewContactMessage({ ...form, setError, setSuccessMessage });
+    };
+
+    newContactMessage();
   };
 
   return (
@@ -67,6 +79,8 @@ export const ContactForm = () => {
         </span>
 
         <MainButton name="Enviar" type="submit" />
+        {error && <span>{error}</span>}
+        {successMessage && <span>{successMessage}</span>}
       </form>
     </div>
   );
