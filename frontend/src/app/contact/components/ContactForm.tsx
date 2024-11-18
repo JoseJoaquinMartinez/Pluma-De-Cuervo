@@ -12,6 +12,7 @@ export const ContactForm = () => {
   const [error, setError] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const maxLength = 500;
+
   const handleInputChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
@@ -19,25 +20,36 @@ export const ContactForm = () => {
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccessMessage("");
+
     if (form.message.trim().length < 10) {
       setError("El mensaje debe tener al menos 10 caracteres.");
       return;
     }
     const newContactMessage = () => {
-      postNewContactMessage({ ...form, setError, setSuccessMessage });
+      try{
+        postNewContactMessage({ ...form, setError, setSuccessMessage }).then((result) => {
+          setForm({
+            email: "",
+            message: "",
+          })
+        })
+      }catch(err){
+        console.log(err);
+      }
     };
 
     newContactMessage();
   };
 
   return (
-    <div className="flex flex-col items-center w-full ">
+    <div className="flex flex-col items-center w-full max-w-md">
       <form
-        className="flex flex-col relative mb-10 w-full"
+        className="flex flex-col relative mb-2.5 w-full"
         onSubmit={handleSubmit}
       >
         <label
@@ -56,6 +68,7 @@ export const ContactForm = () => {
           className="flex-grow px-4 py-2 rounded-lg  mt-4 text-mainText"
           onChange={handleInputChange}
           aria-label="email input"
+          required
         />
         <label
           htmlFor="message"
@@ -79,9 +92,12 @@ export const ContactForm = () => {
         </span>
 
         <MainButton name="Enviar" type="submit" />
-        {error && <span>{error}</span>}
-        {successMessage && <span>{successMessage}</span>}
+
       </form>
+      <div className="flex items-center justify-center w-full min-w-[350px] md:min-w-[450px]">
+        {error  && <span className="text-black text-center font-bold bg-red-500 opacity-50 rounded w-full">{error}</span>}
+        {successMessage && <span className="text-black text-center font-bold bg-green-500 opacity-50 rounded w-full break-after-auto">{successMessage}</span>}
+      </div>
     </div>
   );
 };
