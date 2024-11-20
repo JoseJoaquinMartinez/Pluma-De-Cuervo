@@ -5,13 +5,16 @@ import React from "react";
 const BookCard = ({id, title, Synopsis, imagen }:BookCardComponentProps) =>{
 
     return (
-        <article className={"flex flex-col items-center justify-center pb-8 px-4 bg-cardsBackground rounded-lg w-1/4 h-1/4"}>
+        <article className={"flex flex-col items-center justify-center px-4  rounded-lg "}>
 
-                <ImageComponent imagen={imagen} title={title}/>
-
-            <h2 className={"my-2 text-encabezados"}>{title}</h2>
-            <p className={"text-mainText text-pretty mb-10"}>{Synopsis}</p>
-            <MainButton link={`/libro/${id}`} name="Leer"/>
+               <div className={"mb-3"}>
+                   <ImageComponent imagen={imagen} title={title}/>
+               </div>
+                <div className="flex flex-col items-center justify-center pb-8 px-4  rounded-lg bg-cardsBackground">
+                    <h2 className={"my-2 text-encabezados text-xl md:text-2xl"}>{title}</h2>
+                    <p className={"text-mainText text-pretty mb-10"}>{Synopsis}</p>
+                    <MainButton link={`/libro/${id}`} name="Leer"/>
+                </div>
         </article>)
 }
 
