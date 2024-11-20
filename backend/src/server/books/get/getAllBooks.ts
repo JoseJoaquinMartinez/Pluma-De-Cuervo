@@ -10,6 +10,7 @@ router.get("/get-all-books", async (req, res) => {
         id: true,
         title: true,
         imagen: true,
+        Synopsis: true,
       },
     });
 
