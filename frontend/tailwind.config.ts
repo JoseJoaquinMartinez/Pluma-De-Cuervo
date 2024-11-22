@@ -66,7 +66,7 @@ const config: Config = {
         {
           respectPrefix: true,
           respectImportant: true,
-        }
+        },
       );
     },
   ],
