@@ -9,10 +9,10 @@ const BookCard = ({ id, title, Synopsis, imagen }: BookCardComponentProps) => {
         <ImageComponent imagen={imagen} title={title} />
       </div>
       <div className="w-full flex flex-col items-center justify-center pb-6 px-1  rounded-lg bg-cardsBackground">
-        <h2 className="my-2 text-encabezados text-lg sm:text-xl md:text-2xl line-clamp-2">
+        <h2 className="my-2 text-encabezados text-lg sm:text-xl md:text-2xl ">
           {title}
         </h2>
-        <p className="text-mainText text-pretty mb-2 line-clamp-3 md:line-clamp-none">
+        <p className="text-mainText text-pretty mb-2 line-clamp-3 ">
           {Synopsis}
         </p>
         <MainButton link={`/libro/${id}`} name="Leer" />

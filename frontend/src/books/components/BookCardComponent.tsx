@@ -36,10 +36,10 @@ const BookCardComponent = () => {
   }
   return (
     <>
-      <div className="hidden mlg:flex mlg:flex-row items-center gap-5 mt-2">
+      <div className="hidden md:flex mlg:flex-row items-center gap-5 mt-2">
         <CardDisplay books={books} />
       </div>
-      <div className="w-full mlg:hidden">
+      <div className="w-full md:hidden">
         <Slider books={books} />
       </div>
     </>
