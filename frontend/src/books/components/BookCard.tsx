@@ -4,7 +4,7 @@ import React from "react";
 
 const BookCard = ({ id, title, Synopsis, imagen }: BookCardComponentProps) => {
   return (
-    <article className="w-full flex flex-col items-center justify-center">
+    <article className="w-full flex flex-col items-center justify-center ">
       <div className="mb-2">
         <ImageComponent imagen={imagen} title={title} />
       </div>

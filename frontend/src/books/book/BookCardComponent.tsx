@@ -3,8 +3,9 @@
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 
 import { useEffect, useState } from "react";
-import Slider from "@/components/shared/Slider";
+import Slider from "@/books/components/Slider";
 import { getBooksData } from "@/books/book/utils/getBooksData";
+import CardDisplay from "@/books/components/cardDisplay";
 
 const BookCardComponent = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,7 +36,12 @@ const BookCardComponent = () => {
   }
   return (
     <>
-      <Slider books={books} />
+      <div className="hidden mlg:flex mlg:flex-row items-center gap-5 mt-2">
+        <CardDisplay books={books} />
+      </div>
+      <div className="w-full mlg:hidden">
+        <Slider books={books} />
+      </div>
     </>
   );
 };
