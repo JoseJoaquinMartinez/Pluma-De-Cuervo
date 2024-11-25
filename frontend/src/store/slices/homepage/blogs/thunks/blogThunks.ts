@@ -5,10 +5,13 @@ export const fetchBlogHomepage = createAsyncThunk(
   "blogHomepage/fetchBlogHomepage",
   async (_, thunkAPI) => {
     try {
-      const blogs = await getLastFiveBlogs();
-      return blogs;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message || "Error fetching blogs");
+      return await getLastFiveBlogs();
+    } catch (error) {
+      if (error instanceof Error) {
+        return thunkAPI.rejectWithValue(
+          error.message || "Error fetching blogs",
+        );
+      }
     }
   },
 );
