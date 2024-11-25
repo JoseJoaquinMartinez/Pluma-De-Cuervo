@@ -1,35 +1,34 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
-import { lastFiveBlogInterface } from "@/homepage/blogs/interfaces/blog";
-import getLastFiveBlogs from "@/homepage/blogs/utils/getLastFiveBlogs";
 import BlogCard from "./blogCard";
 import MainButton from "@/components/shared/mainButton";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/store/store";
+import { fetchBlogHomepage } from "@/store/slices/homepage/blogs/thunks/blogThunks";
 
 const BlogComponent = () => {
-  const [blogData, setBlogData] = useState<lastFiveBlogInterface[]>([]);
-  const [loader, setLoader] = useState<boolean>(true);
+  const dispatch = useDispatch<AppDispatch>();
+  const {
+    data: blogs,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.blogHomepage);
 
   useEffect(() => {
-    setLoader(true);
-    const getBlogData = () => {
-      getLastFiveBlogs()
-        .then((data) => setBlogData(data))
-        .catch((error) => console.error("Error fetching blogs:", error));
-    };
-
-    getBlogData();
-    setLoader(false);
-  }, []);
+    if (blogs.length === 0) {
+      dispatch(fetchBlogHomepage());
+    }
+  }, [dispatch, blogs]);
+  if (error) return <p className="text-red-500">Error: {error}</p>;
   return (
     <article className="flex flex-col gap-6">
-      {loader ? (
+      {loading ? (
         <BookLoaderComponent />
       ) : (
         <>
           <div className="grid grid-col-1 md:grid-cols-3  mlg:grid-cols-5 gap-6">
-            {blogData.map((blog) => (
+            {blogs.map((blog) => (
               <BlogCard key={blog.id} {...blog} />
             ))}
           </div>
