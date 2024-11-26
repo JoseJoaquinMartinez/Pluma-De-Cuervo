@@ -1,33 +1,25 @@
 "use client";
-
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/store/store";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
-
-import { useEffect, useState } from "react";
+import { fetchLibraryBooks } from "@/store/slices/library/thunks/fecthLibraryBooks";
+import { useEffect } from "react";
 import Slider from "@/books/components/Slider";
-import { getBooksData } from "@/books/book/utils/getBooksData";
 import CardDisplay from "@/books/components/cardDisplay";
 
 const BookCardComponent = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-  const [books, setBooks] = useState<BookCardComponentProps[]>([]);
-
+  const dispatch = useDispatch<AppDispatch>();
+  const {
+    data: books,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.libraryBooks);
   useEffect(() => {
-    const booksData = async () => {
-      setLoading(true);
-      try {
-        const response = await getBooksData(setError);
-        if (response) {
-          setBooks(response);
-        }
-      } catch (error) {
-        setError(`Error cargando los libros: ${error}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-    booksData();
-  }, []);
+    if (books.length === 0) {
+      dispatch(fetchLibraryBooks());
+    }
+  }, [dispatch, books]);
+
   if (loading) {
     return <BookLoaderComponent />;
   }
