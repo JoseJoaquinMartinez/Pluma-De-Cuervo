@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchSingleBookData } from "@/store/slices/singleBook/thunk/fetchSingleBookData";
-
+import { BookCardComponentProps } from "@/books/interfaces/bookData";
 const initialState: {
   data: BookCardComponentProps | null;
   loading: boolean;
