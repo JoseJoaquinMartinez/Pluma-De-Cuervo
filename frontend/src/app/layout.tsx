@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
+import Providers from "../../providers/Providers";
 
 const onest = localFont({
   src: "../../public/fonts/Onest-VariableFont_wght.ttf",
@@ -25,11 +26,13 @@ export default function RootLayout({
       <body
         className={`${onest.variable} antialiased bg-background flex flex-col min-h-screen min-w-screen`}
       >
-        <Navbar />
+        <Providers>
+          <Navbar />
 
-        <main className="flex-grow">{children}</main>
+          <main className="flex-grow">{children}</main>
 
-        <Footer />
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

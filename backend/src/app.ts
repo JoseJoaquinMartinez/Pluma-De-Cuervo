@@ -19,7 +19,8 @@ import getSingleChapter from "./server/books/get/getChapter";
 import getAllChaptersFromBook from "./server/books/get/getAllChapters";
 import putExistingChapter from "./server/books/post-put/modifyExistingChapter";
 import deleteChapter from "./server/books/delete/deleteChapter";
-import getLastFiveChapters from "./server/books/get/getLastFiveChapters";
+import getLastTenChapters from "./server/books/get/getLastTenChapters";
+import getLastFiveChapters from "./server/books/get/getLastFiveChaptersFromABook";
 
 // BLOGS
 import postNewBlogPost from "./server/blogs/post-put/postNewBlogPost";
@@ -75,6 +76,7 @@ app.use("/book", getSingleBook);
 
 app.use("/book", getSingleChapter);
 app.use("/book", getAllChaptersFromBook);
+app.use("/book", getLastTenChapters);
 app.use("/book", getLastFiveChapters);
 
 //DELETE
@@ -118,7 +120,7 @@ app.use("/newsletter", deleteSubscriber);
 
 //POST
 app.use("/contact", postNewContactMessage);
-app.use("/contact", replyToContactMessage)
+app.use("/contact", replyToContactMessage);
 //GET
 app.use("/contact", getUnreadMessages);
 

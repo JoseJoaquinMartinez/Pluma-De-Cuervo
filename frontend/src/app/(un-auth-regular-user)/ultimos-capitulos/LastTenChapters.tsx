@@ -1,39 +1,34 @@
 "use client";
-import { useEffect, useState } from "react";
-import { getLastTenChapters } from "./utils/getLastTenChapters";
-import { LastTenChapterProp } from "./interface/interface";
+import { useEffect } from "react";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import ChapterCard from "./components/ChapterCard";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/store/store";
+import { fetchLastTenChapters } from "@/store/slices/lastTenChapters/thunks/fetchLastTenChapters";
 
 export default function LastTenChapters() {
-  const [chapters, setChapters] = useState<LastTenChapterProp[]>([]);
-  const [error, setError] = useState("");
-  const [loader, setLoader] = useState<boolean>(true);
+  const dispatch = useDispatch<AppDispatch>();
+  const {
+    data: chapters,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.lastTenChapters);
 
   useEffect(() => {
-    const getLastFiveChaptersData = async () => {
-      setLoader(true);
-      try {
-        const data = await getLastTenChapters(setError);
-        if (data) {
-          setChapters(data);
-        }
-      } catch (error) {
-        setError(`Error cargando los últimos capítulos ${error}`);
-      } finally {
-        setLoader(false);
-      }
-    };
-    getLastFiveChaptersData();
-  }, []);
+    if (chapters.length === 0) {
+      dispatch(fetchLastTenChapters());
+    }
+  }, [dispatch, chapters]);
 
-  if (loader) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center ">
         <BookLoaderComponent />
       </div>
     );
   }
+  //TODO add the error toaster
+  if (error) return <p>{error}</p>;
 
   return (
     <article className="flex flex-col gap-6">

@@ -1,10 +1,8 @@
 import type { LastTenChapterProp } from "../interface/interface";
-export async function getLastTenChapters(
-  setError: React.Dispatch<React.SetStateAction<string>>
-) {
+export async function getLastTenChapters() {
   try {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_URL + "/book/get-last-ten-chapters"
+      process.env.NEXT_PUBLIC_BACKEND_URL + "/book/get-last-ten-chapters",
     );
 
     if (!response.ok) {
@@ -21,7 +19,7 @@ export async function getLastTenChapters(
       }),
     }));
   } catch (error) {
-    setError("Error al obtener los capitulos");
-    return;
+    console.error(error);
+    return [];
   }
 }
