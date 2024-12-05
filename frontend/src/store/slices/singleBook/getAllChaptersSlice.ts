@@ -17,7 +17,8 @@ const getAllChaptersSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) =>{
-        builder.addCase(fetchAllChaptersFromABook.fulfilled, (state, action) =>{
+        builder
+        .addCase(fetchAllChaptersFromABook.fulfilled, (state, action) =>{
             state.loading = false;
             state.data = action.payload
         })

@@ -6,9 +6,11 @@ export const fetchAllChaptersFromABook = createAsyncThunk<
 Chapter[],
 number,
 {rejectValue: string}>("fetchAllChaptersFromABook/fetchAllChaptersFromABook", 
-    async(id, thunkAPI) =>{
+    async(bookId, thunkAPI) =>{
         try{
-            return await getAllChaptersFromABook(id)
+            const response = await getAllChaptersFromABook(bookId)
+            
+            return response
         }catch(error){
             if( error instanceof Error){
                 return thunkAPI.rejectWithValue(
