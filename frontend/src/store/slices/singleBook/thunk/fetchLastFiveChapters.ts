@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getLastFiveChapters } from "@/books/book/utils/getLastFiveChapters";
-import { LastFiveChapters } from "@/books/interfaces/bookData";
+import type { LastFiveChapters } from "@/books/interfaces/bookData";
 
 export const fetchLastFiveChapters = createAsyncThunk<
   LastFiveChapters[],

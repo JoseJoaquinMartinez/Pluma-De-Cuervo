@@ -9,8 +9,8 @@ export async function getLastTenChapters() {
       throw new Error("Error obteniendo los capítulos");
     }
 
-    const lastFiveChapterData: LastTenChapterProp[] = await response.json();
-    return lastFiveChapterData.map((chapter) => ({
+    const lasTenChapterData: LastTenChapterProp[] = await response.json();
+    return lasTenChapterData.map((chapter) => ({
       ...chapter,
       createdAt: new Date(chapter.createdAt).toLocaleString("es-ES", {
         day: "2-digit",

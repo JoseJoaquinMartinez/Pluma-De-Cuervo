@@ -12,3 +12,10 @@ export interface LastFiveChapters {
   estimatedReadTime: string;
   createdAt: string;
 }
+export interface Chapter{
+  id: number;
+  imagen: string;
+  title: string;
+  estimatedReadTime: string;
+  createdAt: string;
+}

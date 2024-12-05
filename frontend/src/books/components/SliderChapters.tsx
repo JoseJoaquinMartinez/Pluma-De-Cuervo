@@ -21,7 +21,8 @@ const SliderChapters = ({ chapters }: { chapters: LastFiveChapters[] }) => {
       
     };
   
-    return (<section className="flex flex-col items-center w-full">
+    return (
+    <section className="flex flex-col">
       <article className="w-full flex justify-center items-center overflow-hidden transition-transform ease-in-out duration-500">
         <div
           className="w-full flex transition-transform duration-500 ease-in-out"
@@ -48,7 +49,7 @@ const SliderChapters = ({ chapters }: { chapters: LastFiveChapters[] }) => {
         </div>
       </article>
 
-      <article className="flex justify-between items-center gap-5 mt-2">
+      <article className="flex justify-center items-center gap-5 mt-2">
         <button
           onClick={clickPrev}
           className="p-2 bg-cardsBackground rounded-full shadow hover:bg-cardsBackground/50"

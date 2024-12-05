@@ -1,3 +1,5 @@
+import { BookCardComponentProps } from "@/books/interfaces/bookData";
+
 export const getBooksData = async (): Promise<
   BookCardComponentProps[] | undefined
 > => {

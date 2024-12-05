@@ -39,13 +39,13 @@ function SingleBook({ bookId }: { bookId: number }) {
 
   if (book) {
     return (
-      <section className="felx flex-col items-center mt-5 lg:max-w-screen-xl">
-            <h2 className={"text-encabezados text-2xl  text-start mb-2 self-start"}>
+      <section className="felx flex-col items-center mt-5 lg:max-w-screen-xl ">
+            <h2 className={"text-encabezados text-2xl  text-start mb-2 self-start px-2"}>
               {book.title}
             </h2>
         <section
           className={
-            "flex flex-col lg:flex-row justify-start gap-6 mb-2"
+            "flex flex-col lg:flex-row justify-start gap-6 mb-2 px-2"
           }
         >
           <div className={"flex flex-col w-auto lg:w-[900px]"}>
@@ -65,8 +65,13 @@ function SingleBook({ bookId }: { bookId: number }) {
           </div>
         </section>
         <section className="flex flex-col">
-          <h3 className={"text-encabezados text-2xl  text-start mb-2 self-start"}>Últimos Capítulos</h3>
+          <h3 className={"text-encabezados text-2xl  text-start mb-2 self-start px-2"}>Últimos Capítulos</h3>
+          {
+            lastFiveChapters && lastFiveChapters.length === 0 && 
+            (<section className="flex flex-col items-center justify-center text-mainText text-2xl"><p>Este libro aún no tiene capítulos</p><p>Pronto llegará una nueva <span className="text-encabezados">historia</span></p></section>)
+          }
           <article className="gap-2 hidden md:flex">
+{/*             //TODO give style to errors and BookLoader */}
             {lastFiveChaptersLoading && <BookLoaderComponent />}
             {lastFiveChaptersError && <p>{lastFiveChaptersError}</p>}
             {lastFiveChapters &&
@@ -83,14 +88,14 @@ function SingleBook({ bookId }: { bookId: number }) {
               )
             )}
           </article>
-          <article className="flex flex-col md:hidden">
+          <article className="flex flex-col w-96 md:hidden px-2">
           {lastFiveChaptersLoading && <BookLoaderComponent />}
           {lastFiveChaptersError && <p>{lastFiveChaptersError}</p>}
             {
               lastFiveChapters && <SliderChapters chapters={lastFiveChapters}/>
             }
           </article>
-          <article className="self-center mt-2">
+          <article className="self-center mt-4">
             <MainButton  link={`/libro/${bookId}/capitulos`} name="Más Capítulos"/>
           </article>
         </section>
