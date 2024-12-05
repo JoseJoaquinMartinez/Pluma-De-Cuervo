@@ -1,15 +1,19 @@
 
 
 services:
-  myDB:
-    image: postgres:16
-    container_name: pluma-de-cuervo-db
+  postgres:
+    image: postgres:latest
+    container_name: postgres
     restart: always
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
-      - POSTGRES_USER=postgresPluma
-      - POSTGRES_PASSWORD=postgresPluma
-      - POSTGRES_DB=pluma-de-cuervo-db
+      
+      POSTGRES_USER: postgresPluma
+      POSTGRES_PASSWORD: postgresPluma
+      POSTGRES_DB: pluma-de-cuervo-db
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:

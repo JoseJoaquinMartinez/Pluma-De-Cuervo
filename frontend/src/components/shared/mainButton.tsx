@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ButtonProps } from "../interfaces/interfaz";
 
-//TODO ADD ONCLICK FUNCTIONALITY
+
 export default function MainButton({
   link,
   name,

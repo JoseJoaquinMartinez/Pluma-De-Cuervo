@@ -7,6 +7,8 @@ import { fetchSingleBookData } from "@/store/slices/singleBook/thunk/fetchSingle
 import { fetchLastFiveChapters } from "@/store/slices/singleBook/thunk/fetchLastFiveChapters";
 import ChapterCard from "@/app/(un-auth-regular-user)/ultimos-capitulos/components/ChapterCard";
 import Image from "next/image";
+import MainButton from "@/components/shared/mainButton";
+import SliderChapters from '../components/SliderChapters';
 
 function SingleBook({ bookId }: { bookId: number }) {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,34 +39,37 @@ function SingleBook({ bookId }: { bookId: number }) {
 
   if (book) {
     return (
-      <>
-        <section
-          className={
-            "flex flex-col md:flex-row justify-start max-w-screen-xl gap-6 mt-10"
-          }
-        >
-          <div className={"flex flex-col"}>
-            <h2 className={"text-encabezados text-2xl  text-start"}>
+      <section className="felx flex-col items-center mt-5 lg:max-w-screen-xl">
+            <h2 className={"text-encabezados text-2xl  text-start mb-2 self-start"}>
               {book.title}
             </h2>
+        <section
+          className={
+            "flex flex-col lg:flex-row justify-start gap-6 mb-2"
+          }
+        >
+          <div className={"flex flex-col w-auto lg:w-[900px]"}>
+            
             <p className={"bg-cardsBackground text-mainText rounded-lg p-2"}>
               {book.Synopsis}
             </p>
           </div>
-          <div>
+          <div className=" relative flex flex-col items-center transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl mlg:group-hover:-translate-y-1 mlg:group-hover:shadow-2xl">
             <Image
               src={book.imagen}
               alt={book.title}
               width={500}
               height={500}
+              className="h-full object-cover object-top mlg:scale-110 rounded-lg transition duration-500 hover:scale-100"
             />
           </div>
         </section>
-        <section>
-          <h3>Capítulos</h3>
-          {lastFiveChaptersLoading && <BookLoaderComponent />}
-          {lastFiveChaptersError && <p>{lastFiveChaptersError}</p>}
-          {lastFiveChapters &&
+        <section className="flex flex-col">
+          <h3 className={"text-encabezados text-2xl  text-start mb-2 self-start"}>Últimos Capítulos</h3>
+          <article className="gap-2 hidden md:flex">
+            {lastFiveChaptersLoading && <BookLoaderComponent />}
+            {lastFiveChaptersError && <p>{lastFiveChaptersError}</p>}
+            {lastFiveChapters &&
             lastFiveChapters.map(
               ({ id, imagen, createdAt, estimatedReadTime, title }) => (
                 <ChapterCard
@@ -77,8 +82,19 @@ function SingleBook({ bookId }: { bookId: number }) {
                 />
               )
             )}
+          </article>
+          <article className="flex flex-col md:hidden">
+          {lastFiveChaptersLoading && <BookLoaderComponent />}
+          {lastFiveChaptersError && <p>{lastFiveChaptersError}</p>}
+            {
+              lastFiveChapters && <SliderChapters chapters={lastFiveChapters}/>
+            }
+          </article>
+          <article className="self-center mt-2">
+            <MainButton  link={`/libro/${bookId}/capitulos`} name="Más Capítulos"/>
+          </article>
         </section>
-      </>
+      </section>
     );
   }
 }
