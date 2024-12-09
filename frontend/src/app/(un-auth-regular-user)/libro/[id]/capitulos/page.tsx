@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { AllChaptersComponent } from '../../../../../chapters/chapter/components/AllChaptersComponent'
+import { AllChaptersComponent } from '../../../../../chapters/components/AllChaptersComponent'
 import { useSelector } from 'react-redux'
 import { RootState } from "@/store/store";
 
