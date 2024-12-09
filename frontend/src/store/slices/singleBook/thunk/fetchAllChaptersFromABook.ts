@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllChaptersFromABook } from '../../../../books/book/utils/getAllChaptersFromBook';
-import type { Chapter } from "@/books/interfaces/bookData";
+import { Chapter } from "@/books/interfaces/bookData";
 
 export const fetchAllChaptersFromABook = createAsyncThunk<
 Chapter[],
