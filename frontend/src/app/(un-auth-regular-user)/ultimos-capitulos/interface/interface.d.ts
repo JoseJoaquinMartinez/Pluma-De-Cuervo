@@ -4,4 +4,5 @@ export interface LastTenChapterProp {
   title: string;
   estimatedReadTime: string;
   createdAt: string;
+  bookId: number;
 }

@@ -39,7 +39,7 @@ export const ContactForm = () => {
           })
         })
       }catch(err){
-        console.log(err);
+        console.error(err);
       }
     };
 

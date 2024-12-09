@@ -10,6 +10,7 @@ export async function getLastTenChapters() {
     }
 
     const lasTenChapterData: LastTenChapterProp[] = await response.json();
+    
     return lasTenChapterData.map((chapter) => ({
       ...chapter,
       createdAt: new Date(chapter.createdAt).toLocaleString("es-ES", {

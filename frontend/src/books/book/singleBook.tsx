@@ -84,6 +84,7 @@ function SingleBook({ bookId }: { bookId: number }) {
                   createdAt={createdAt}
                   estimatedReadTime={estimatedReadTime}
                   title={title}
+                  bookId={bookId}
                 />
               )
             )}

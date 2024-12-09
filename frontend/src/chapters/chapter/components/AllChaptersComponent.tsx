@@ -13,13 +13,14 @@ export const AllChaptersComponent = ({bookId} : {bookId: number}) => {
       loading,
       error,
     } = useSelector((state: RootState) => state.getAllChaptersFromABook);
+    
   useEffect(()=>{
-    //TODO COMPROBAR LA LLAMADA QUE RECIBE PARA COMPARAR EL ID DEL LIBRO
-    /* if(!chapters){
+    
+    if(chapters?.length=== 0){
       dispatch(fetchAllChaptersFromABook(bookId));
-    }  */
-   dispatch(fetchAllChaptersFromABook(bookId))
-  },[]);
+    }
+   
+  },[chapters, bookId, dispatch]);
   
   if (loading) {
     return <BookLoaderComponent />;
@@ -31,9 +32,10 @@ export const AllChaptersComponent = ({bookId} : {bookId: number}) => {
 
     if(chapters){
       return (
-        <section>
-          <h2>Capítulos</h2>
+        <section className='flex flex-col max-w-screen-lg'>
+          <h2 className='text-xl text-encabezados self-start'>Capítulos</h2>
           {chapters && chapters.length === 0 && <p>No hay capítulos que mostrar</p>}
+          <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3'>
           {
             chapters.map(({id, title, createdAt, estimatedReadTime, imagen})=>(
               <ChapterCard 
@@ -43,9 +45,11 @@ export const AllChaptersComponent = ({bookId} : {bookId: number}) => {
                 createdAt={createdAt}
                 estimatedReadTime={estimatedReadTime}
                 title={title}
+                bookId={bookId}
                 />
             ))
           }
+          </div>
         </section>
       )
     }

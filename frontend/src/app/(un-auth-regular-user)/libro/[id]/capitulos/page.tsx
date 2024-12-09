@@ -1,14 +1,20 @@
+'use client'
 import React from 'react'
 import { AllChaptersComponent } from '../../../../../chapters/chapter/components/AllChaptersComponent'
+import { useSelector } from 'react-redux'
+import { RootState } from "@/store/store";
 
-export default function Capitulos({ params }: { params: {bookId: string} }) {
-    const bookId = parseInt(params.bookId)
-
-    
-
-  return (
-    <div className="flex flex-col items-center justify-center pb-8 px-4">
-      <AllChaptersComponent bookId={bookId} />
-    </div>
-  )
+export default function Capitulos() {
+  const {
+    data: book,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.singleBook);
+  if(book){
+    return (
+      <div className="flex flex-col items-center justify-center pb-8 px-4">
+        <AllChaptersComponent bookId={book.id} />
+      </div>
+    )
+  }
 }

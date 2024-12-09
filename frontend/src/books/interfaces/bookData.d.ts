@@ -4,6 +4,13 @@ export interface BookCardComponentProps {
   Synopsis: string;
   imagen: string;
 }
+export interface BookProps{
+  id: number, 
+  Synopsis: string, 
+  title: string,
+  imagen: string,
+  chapter: Chapter[],
+}
 
 export interface LastFiveChapters {
   id: number;
@@ -13,9 +20,11 @@ export interface LastFiveChapters {
   createdAt: string;
 }
 export interface Chapter{
-  id: number;
-  imagen: string;
-  title: string;
-  estimatedReadTime: string;
-  createdAt: string;
+  bookId: number,
+  chapterNumber: number,
+  createdAt: string,
+  estimatedReadTime: string,
+  id: number,
+  title: string,
+  imagen: string,
 }

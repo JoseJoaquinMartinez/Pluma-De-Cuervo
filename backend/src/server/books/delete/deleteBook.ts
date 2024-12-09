@@ -13,7 +13,6 @@ router.delete("/delete-book/:bookId", async (req, res) => {
   }
   try {
     const deletedBook = await prisma.book.delete({ where: { id: bookId } });
-    console.log(deletedBook);
 
     return res.status(200).json({ message: "Libro eliminado exitosamente" });
   } catch (error) {

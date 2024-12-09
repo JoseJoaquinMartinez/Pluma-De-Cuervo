@@ -9,7 +9,6 @@ number,
     async(bookId, thunkAPI) =>{
         try{
             const response = await getAllChaptersFromABook(bookId)
-            
             return response
         }catch(error){
             if( error instanceof Error){

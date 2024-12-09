@@ -1,12 +1,13 @@
-import { Chapter } from "@/books/interfaces/bookData";
+import { BookProps, Chapter } from "@/books/interfaces/bookData";
 
 export const getAllChaptersFromABook = async (bookId: number): Promise<Chapter[]> =>{
     try{
-        console.log("desde la funcioón el ID", bookId)
+        
         const response = await fetch( `${process.env.NEXT_PUBLIC_BACKEND_URL}/book/get-all-chapters/${bookId}`)
-        const allChapters: Chapter[] = await response.json();
-        console.log("llamada desde la funcion fetch", allChapters)
-        return allChapters.map((chapter) =>({
+        const allChapters: BookProps[] = await response.json(); 
+        const chaptersArray: Chapter[] = allChapters.chapter;
+
+        const formatedChapters = chaptersArray.map((chapter) =>({
             ...chapter,
             createdAt: new Date (chapter.createdAt).toLocaleString("es-ES",{
                 day: "2-digit",
@@ -14,8 +15,11 @@ export const getAllChaptersFromABook = async (bookId: number): Promise<Chapter[]
                 year: "numeric"
             })
         }))
+        return formatedChapters; 
+        
     }catch (error){
-        console.error(error)
+        console.error(error);
         return [];
+        
     }
 };
