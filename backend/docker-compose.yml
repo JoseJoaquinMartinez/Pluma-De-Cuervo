@@ -1,14 +1,11 @@
-
-
 services:
   postgres:
     image: postgres:latest
-    container_name: postgres
+    container_name: pluma-de-cuervo-db
     restart: always
     ports:
       - "5432:5432"
     environment:
-      
       POSTGRES_USER: postgresPluma
       POSTGRES_PASSWORD: postgresPluma
       POSTGRES_DB: pluma-de-cuervo-db
