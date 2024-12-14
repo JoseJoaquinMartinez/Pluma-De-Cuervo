@@ -1,30 +1,19 @@
 export interface ChapterProps {
-    id: number,
-    title: string,
-    chapterNumber: number,
+    id: number
+    title: string
+    imagen: string
+    chapterNumber: number
+    createdAt: string
+    estimatedReadTime: string
+    bookId: number
     paragraph: Paragraph[]
-    createdAt: string,
-    estimatedReadTime: string,
-    bookId,
 }
 
 export interface Paragraph {
-    id: number,
-    paragraphNumber: number,
-    comment: Comment[],
-    paragraphText: string,
-    paragraphType: string,
-    chapterId: number,
+    id: number
+    paragraphNumber: number
+    paragraphText: string
+    paragraphType: string
+    chapterId: number
 }
 
-export interface Comment{
-    id: number,
-    commnetBody: string,
-    paragraphId: number,
-    regularUserDataId?: number,
-    adminUserDataId?: number,
-    parentCommentId?: number,
-    replies: Commnet[],
-    createdAt: string,
-
-}

@@ -12,7 +12,7 @@ export default function Capitulos() {
   } = useSelector((state: RootState) => state.singleBook);
   if(book){
     return (
-      <div className="flex flex-col items-center justify-center pb-8 px-4">
+      <div className="flex flex-col items-center justify-center px-4">
         <AllChaptersComponent bookId={book.id} />
       </div>
     )
