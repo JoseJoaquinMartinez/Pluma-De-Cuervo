@@ -39,7 +39,7 @@ function SingleBook({ bookId }: { bookId: number }) {
 
   if (book) {
     return (
-      <section className="felx flex-col items-center mt-5 lg:max-w-screen-xl ">
+      <section className="flex flex-col items-center mt-5 lg:max-w-screen-xl ">
         <h2
           className={
             "text-encabezados text-2xl  text-start mb-2 self-start px-2"

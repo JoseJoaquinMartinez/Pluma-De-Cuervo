@@ -4,7 +4,8 @@ import lastTenChaptersReducer from "@/store/slices/lastTenChapters/lastTenChapte
 import libraryBooksReducer from "@/store/slices/library/libraryBooksSlice";
 import singleBookReducer from "@/store/slices/singleBook/singleBookSlice";
 import lastFiveChaptersReducer from "@/store/slices/singleBook/lastFiveChaptersSlice";
-import getAllChaptersReducer from '@/store/slices/singleBook/getAllChaptersSlice';
+import getAllChaptersReducer from "@/store/slices/singleBook/getAllChaptersSlice";
+import getSingleChapterReducer from "@/store/slices/chapter/singleChapterSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     singleBook: singleBookReducer,
     lastFiveChapters: lastFiveChaptersReducer,
     getAllChaptersFromABook: getAllChaptersReducer,
+    getSingleChapter: getSingleChapterReducer,
   },
 });
 
