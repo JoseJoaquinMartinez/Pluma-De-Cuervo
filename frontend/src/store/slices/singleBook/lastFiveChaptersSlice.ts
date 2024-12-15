@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchLastFiveChapters } from "@/store/slices/singleBook/thunk/fetchLastFiveChapters";
-import { LastFiveChapters } from "@/books/interfaces/bookData";
+import type { LastFiveChapters } from "@/books/interfaces/bookData";
 
 const initialState: {
   data: LastFiveChapters[] | null;

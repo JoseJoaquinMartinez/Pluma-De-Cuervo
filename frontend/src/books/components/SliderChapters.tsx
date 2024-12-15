@@ -1,50 +1,47 @@
 "use client";
 
 import React, { useState } from "react";
-import BookCard from "@/books/components/BookCard";
 import Image from "next/image";
-import { BookCardComponentProps } from "../interfaces/bookData";
+import ChapterCard from '@/app/(un-auth-regular-user)/ultimos-capitulos/components/ChapterCard';
+import { LastFiveChapters } from "../interfaces/bookData";
 
-const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
-  const [activeBook, setActiveBook] = useState<number>(0);
+const SliderChapters = ({ chapters }: { chapters: LastFiveChapters[] }) => {
+    const [activeChapter, setActiveChapater] = useState<number>(0);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const clickNext = () => {
-    setActiveBook((prev) => (prev === books.length - 1 ? 0 : prev + 1));
-    scrollToTop();
-  };
-
-  const clickPrev = () => {
-    setActiveBook((prev) => (prev === 0 ? books.length - 1 : prev - 1));
-    scrollToTop();
-  };
-
-  return (
-    <section className="flex flex-col items-center w-full">
+    
+      
+  
+    const clickNext = () => {
+      setActiveChapater((prev) => (prev === chapters.length - 1 ? 0 : prev + 1));
+     
+    };
+  
+    const clickPrev = () => {
+      setActiveChapater((prev) => (prev === 0 ? chapters.length - 1 : prev - 1));
+      
+    };
+  
+    return (
+    <section className="flex flex-col">
       <article className="w-full flex justify-center items-center overflow-hidden transition-transform ease-in-out duration-500">
         <div
           className="w-full flex transition-transform duration-500 ease-in-out"
           style={{
-            transform: `translateX(-${activeBook * 100}%)`,
+            transform: `translateX(-${activeChapter * 100}%)`,
           }}
         >
-          {books.map(
+          {chapters.map(
             (
-              { id, title, Synopsis, imagen }: BookCardComponentProps,
+              { id, title, estimatedReadTime, imagen, createdAt }: LastFiveChapters,
               index,
             ) => (
               <div key={id} className="w-full flex-shrink-0">
-                <BookCard
+                <ChapterCard
                   id={id}
                   title={title}
-                  Synopsis={Synopsis}
+                  estimatedReadTime={estimatedReadTime}
                   imagen={imagen}
+                  createdAt={createdAt}
                 />
               </div>
             ),
@@ -52,7 +49,7 @@ const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
         </div>
       </article>
 
-      <article className="flex justify-between items-center gap-5 mt-2">
+      <article className="flex justify-center items-center gap-5 mt-2">
         <button
           onClick={clickPrev}
           className="p-2 bg-cardsBackground rounded-full shadow hover:bg-cardsBackground/50"
@@ -78,6 +75,6 @@ const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
       </article>
     </section>
   );
-};
+  };
 
-export default Slider;
+export default SliderChapters;

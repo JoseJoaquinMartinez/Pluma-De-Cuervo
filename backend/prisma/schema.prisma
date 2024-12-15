@@ -93,7 +93,7 @@ model Paragraph {
 }
 
 model Comment {
-   id               Int        @id @default(autoincrement())
+  id               Int        @id @default(autoincrement())
   commentBody      String
   paragraph        Paragraph  @relation(fields: [paragraphId], references: [id])
   paragraphId      Int

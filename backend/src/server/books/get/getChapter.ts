@@ -7,6 +7,11 @@ router.get("/get-chapter/:bookId/:chapterId", async (req, res) => {
   const bookId = parseInt(req.params.bookId);
   const chapterId = parseInt(req.params.chapterId);
   try {
+    const book = await prisma.book.findFirst({
+      where: { id: bookId },
+      select: { id: true, title: true },
+    });
+
     const existingChapter = await prisma.chapter.findFirst({
       where: {
         id: chapterId,
@@ -19,7 +24,10 @@ router.get("/get-chapter/:bookId/:chapterId", async (req, res) => {
     if (!existingChapter) {
       res.status(404).json({ message: "Capítulo no encontrado" });
     }
-    return res.status(200).json(existingChapter);
+    return res.status(200).json({
+      ...existingChapter,
+      bookTitle: book?.title,
+    });
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ error: `Error inesperado ${error.message}` });

@@ -1,6 +1,7 @@
 import React from "react";
 
 import BookCardDisplay from "@/books/components/BookCardDisplay";
+import { BookCardComponentProps } from "../interfaces/bookData";
 
 const CardDisplay = ({ books }: { books: BookCardComponentProps[] }) => {
   return (

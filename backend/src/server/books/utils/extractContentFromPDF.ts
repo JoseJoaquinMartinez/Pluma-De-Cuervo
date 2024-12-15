@@ -15,7 +15,7 @@ export async function extractContentFromPDF(filePath: string) {
   paragraphs.forEach((paragraph) => {
     content.push({ type: "paragraph", value: paragraph.trim() });
   });
-  console.log(content); */
+   */
 
 /* const extractedTables = await new Promise<{ type: string; value: string }[]>(
     (resolve, reject) => {
@@ -29,7 +29,6 @@ export async function extractContentFromPDF(filePath: string) {
           value: row.join("|"),
         }));
 
-        console.log("las tablas:", tables);
 
         resolve(tables);
       });

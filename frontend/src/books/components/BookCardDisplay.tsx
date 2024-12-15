@@ -1,6 +1,7 @@
 import Image from "next/image";
 import MainButton from "@/components/shared/mainButton";
 import React from "react";
+import { BookCardComponentProps } from "../interfaces/bookData";
 
 const BookCard = ({ id, title, Synopsis, imagen }: BookCardComponentProps) => {
   return (
