@@ -7,14 +7,14 @@ router.get("/get-all-blog-posts", async (req, res) => {
   try {
     const allExistingBlogs = await prisma.blog.findMany({
       select: {
+        id: true,
         title: true,
         imagen: true,
         createdAt: true,
+        estimatedReadTime: true,
       },
     });
-    return res
-      .status(200)
-      .json({ allExistingBlogs, message: "Blogs encontrados" });
+    return res.status(200).json(allExistingBlogs);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({
