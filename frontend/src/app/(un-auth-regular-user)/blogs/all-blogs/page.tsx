@@ -1,3 +1,9 @@
-export default function AllBlogs() {
-  return <div>AllBlogs</div>;
+import AllBlogsComponent from "@/blogs/components/AllBlogsComponent";
+
+export default function BlogsPage() {
+  return (
+    <div className="flex flex-col items-center justify-center px-4">
+      <AllBlogsComponent />
+    </div>
+  );
 }

@@ -19,7 +19,10 @@ export default async function Home() {
         }
       />
 
-      <SectionComponent title="Blogs" content={<BlogComponent />} />
+      <SectionComponent
+        title="Noticias & Pensamientos"
+        content={<BlogComponent />}
+      />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchSingleChapter } from "./thunks/fetchSingleChapter";
 import type { ChapterProps } from "@/chapters/chapter/interface/chapter";
-import { stat } from "fs";
 
 const initialState: {
   data: ChapterProps | null;
