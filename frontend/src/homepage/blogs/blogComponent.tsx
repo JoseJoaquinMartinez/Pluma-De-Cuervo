@@ -33,7 +33,7 @@ const BlogComponent = () => {
             ))}
           </div>
           <div className="self-center">
-            <MainButton link="/blogs/all-blogs" name="Más Entradas" />
+            <MainButton link="/blogs/all-blogs" name="Más Noticias" />
           </div>
         </>
       )}
