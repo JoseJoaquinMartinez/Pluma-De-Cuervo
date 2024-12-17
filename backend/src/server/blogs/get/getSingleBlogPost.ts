@@ -13,9 +13,7 @@ router.get("/get-single-blog-post/:blogId", async (req, res) => {
     if (!existingBlog) {
       return res.status(404).json({ message: "Blog post no encontrado" });
     }
-    return res
-      .status(200)
-      .json({ existingBlog, message: "Blog post necontrado" });
+    return res.status(200).json(existingBlog);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({

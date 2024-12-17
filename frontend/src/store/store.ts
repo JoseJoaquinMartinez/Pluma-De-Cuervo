@@ -7,6 +7,7 @@ import lastFiveChaptersReducer from "@/store/slices/singleBook/lastFiveChaptersS
 import getAllChaptersReducer from "@/store/slices/singleBook/getAllChaptersSlice";
 import getSingleChapterReducer from "@/store/slices/chapter/singleChapterSlice";
 import getAllBlogsReducer from "@/store/slices/blogs/allBlogsSlice";
+import singleBlogReducer from "@/store/slices/blogs/singleBlogSlice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     getAllChaptersFromABook: getAllChaptersReducer,
     getSingleChapter: getSingleChapterReducer,
     AllBlogs: getAllBlogsReducer,
+    SingleBlog: singleBlogReducer,
   },
 });
 
