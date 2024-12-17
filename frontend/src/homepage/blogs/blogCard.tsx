@@ -21,7 +21,7 @@ const BlogCard = ({
 
       <div className=" flex flex-col items-center mt-10">
         <h2 className="text-encabezados mb-6 text-xl">{title}</h2>
-        <MainButton name="Leer" link={`/blogs/blog/${id}`} />
+        <MainButton name="Leer" link={`/blogs/all-blogs/blog/${id}`} />
       </div>
       <div className=" text-mainText opacity-50 text-sm self-end p-2">
         <p>
