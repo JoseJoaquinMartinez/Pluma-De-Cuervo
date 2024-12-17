@@ -28,7 +28,9 @@ export const SingleBlogComponent = ({
       </section>
 
       <section className="mt-2 bg-cardsBackground rounded-lg">
-        <p className="text-mainText p-2 break-words">{blogText}</p>
+        <p className="text-mainText p-2 break-words whitespace-pre-wrap">
+          {blogText}
+        </p>
       </section>
     </article>
   );
