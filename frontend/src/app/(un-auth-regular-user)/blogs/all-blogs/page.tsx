@@ -2,8 +2,8 @@ import AllBlogsComponent from "@/blogs/components/AllBlogsComponent";
 
 export default function BlogsPage() {
   return (
-    <div className="flex flex-col items-center justify-center px-4">
+    <section className="flex flex-col items-center justify-center px-4">
       <AllBlogsComponent />
-    </div>
+    </section>
   );
 }

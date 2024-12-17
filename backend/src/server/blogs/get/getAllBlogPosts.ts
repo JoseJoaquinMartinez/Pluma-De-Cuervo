@@ -6,6 +6,7 @@ const router = Router();
 router.get("/get-all-blog-posts", async (req, res) => {
   try {
     const allExistingBlogs = await prisma.blog.findMany({
+      orderBy: { createdAt: "desc" },
       select: {
         id: true,
         title: true,
