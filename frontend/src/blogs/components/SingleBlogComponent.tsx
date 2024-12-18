@@ -28,10 +28,12 @@ export const SingleBlogComponent = ({
       </section>
 
       <section className="mt-2 bg-cardsBackground rounded-lg">
-        <p className="text-mainText p-2 break-words whitespace-pre-wrap">
-          {blogText}
-        </p>
-      </section>
+          {blogText.split("\n").map((line, index) => (
+              <p key={index} className="text-mainText p-2 break-words">
+                {line}
+              </p>
+          ))}
+    </section>
     </article>
   );
 };
