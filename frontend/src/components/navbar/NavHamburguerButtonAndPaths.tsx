@@ -13,7 +13,7 @@ export default function NavHamburguerButtonAndPaths() {
   return (
     <>
       <article className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <MainButton link="/auth/signup" name="Registrar" />
+        <MainButton link="/auth/singup" name="Registrar" />
         <button
           onClick={toggleNavbar}
           type="button"
