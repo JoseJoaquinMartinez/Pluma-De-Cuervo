@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { FormField } from "./FormFieldComponent";
 import {
   SingUpInterface,
@@ -9,19 +9,42 @@ import {
 import { ButtonProps } from "@/components/interfaces/interfaz";
 import MainButton from "@/components/shared/mainButton";
 import Link from "next/link";
+import { form } from "framer-motion/client";
 
 interface FormComponentProps {
   formFieldsData: Array<SingUpInterface | ButtonProps | UnderlineText>;
   title: string;
+}
+interface FormFieldProps {
+  [key: string]: string;
 }
 
 export const FormComponent: React.FC<FormComponentProps> = ({
   title,
   formFieldsData,
 }) => {
+  const formElements = useMemo(() => {
+    const formFields: FormFieldProps = {};
+    formFieldsData.forEach((field) => {
+      if ("label" in field) {
+        formFields[field.name] = "";
+      }
+    });
+    return formFields;
+  }, [formFieldsData]);
+
+  const [form, setForm] = useState<FormFieldProps>(formElements);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -40,6 +63,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
             type={field.type}
             name={field.name}
             placeHolder={field.placeHolder}
+            onChange={handleChange}
           />
         ) : "text" in field ? (
           <Link

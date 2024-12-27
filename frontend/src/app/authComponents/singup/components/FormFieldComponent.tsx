@@ -5,6 +5,7 @@ interface FormFieldProps {
   type: string;
   name: string;
   placeHolder: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
@@ -12,6 +13,7 @@ export const FormField: React.FC<FormFieldProps> = ({
   type,
   name,
   placeHolder,
+  onChange,
 }) => {
   return (
     <div className="flex flex-col mb-4">
@@ -23,6 +25,7 @@ export const FormField: React.FC<FormFieldProps> = ({
         name={name}
         type={type}
         placeholder={placeHolder}
+        onChange={onChange}
         className="border border-encabezados/50 text-mainText md:text-xl  rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
       />
     </div>
