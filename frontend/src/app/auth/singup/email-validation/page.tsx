@@ -1,8 +1,9 @@
+import EmailValidationComponent from "@/email-validation/EmailValidationComponent";
 
 export default function EmailValidationPage() {
     return (
-        <section className=" px-2 md:px-0 mt-10 self-center w-full ">
-           <p>Validacion de email </p>
+        <section className="flex items-center justify-center px-2 md:px-0 mt-10">
+           <EmailValidationComponent />
         </section>
     );
 }
