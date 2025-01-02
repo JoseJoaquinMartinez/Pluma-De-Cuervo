@@ -8,6 +8,7 @@ import getAllChaptersReducer from "@/store/slices/singleBook/getAllChaptersSlice
 import getSingleChapterReducer from "@/store/slices/chapter/singleChapterSlice";
 import getAllBlogsReducer from "@/store/slices/blogs/allBlogsSlice";
 import singleBlogReducer from "@/store/slices/blogs/singleBlogSlice";
+import emailVerificationReducer from "@/store/slices/auth/singup/singupSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     getSingleChapter: getSingleChapterReducer,
     AllBlogs: getAllBlogsReducer,
     SingleBlog: singleBlogReducer,
+    EmailVerification: emailVerificationReducer,
   },
 });
 

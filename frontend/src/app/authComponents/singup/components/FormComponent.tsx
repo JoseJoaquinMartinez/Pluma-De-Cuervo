@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState,  } from "react";
+
 import { FormField } from "./FormFieldComponent";
 import {
   SingUpInterface,
@@ -9,20 +10,38 @@ import {
 import { ButtonProps } from "@/components/interfaces/interfaz";
 import MainButton from "@/components/shared/mainButton";
 import Link from "next/link";
-import { form } from "framer-motion/client";
+import {EmailVerificationResponse} from "@/store/slices/auth/singup/thunk/fetchEmailVerification";
+import {AuthProps} from "@/app/authComponents/data/singup";
+import {useRouter} from "next/navigation";
+import {BookLoaderComponent} from "@/components/shared/BookLoader";
+//TODO AÑADIR EL STATE DEL LOGING
+
+
+interface LoginResponse {
+  token: string;
+  message: string;
+}
+
+type AuthResponse = LoginResponse | void;
 
 interface FormComponentProps {
   formFieldsData: Array<SingUpInterface | ButtonProps | UnderlineText>;
   title: string;
+  state: EmailVerificationResponse | null;
+  error: string | null;
+  loading: boolean;
+  link: string;
+  dispatch: (props: AuthProps) => AuthResponse;
+  confirmationEmail: boolean;
 }
 interface FormFieldProps {
   [key: string]: string;
 }
 
 export const FormComponent: React.FC<FormComponentProps> = ({
-  title,
-  formFieldsData,
+  title, formFieldsData, state, error, loading, link, dispatch, confirmationEmail,
 }) => {
+
   const formElements = useMemo(() => {
     const formFields: FormFieldProps = {};
     formFieldsData.forEach((field) => {
@@ -32,13 +51,43 @@ export const FormComponent: React.FC<FormComponentProps> = ({
     });
     return formFields;
   }, [formFieldsData]);
-
+  const router = useRouter();
   const [form, setForm] = useState<FormFieldProps>(formElements);
+  const [errorState, setErrorState] = useState<string | null>(null);
+
+  const isValidPassword = (password: string) => {
+    const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/;
+    return passwordRegex.test(password);
+  };
+
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
-  };
+    if (form.email.length < 2 || form.password.length < 2) {
+        setErrorState("Por favor, rellena todos los campos");
+        return;
+    }
+    if (!isValidPassword(form.password)) {
+      setErrorState("La contraseña debe tener al menos 6 caracteres y contener letras y números.");
+      return;
+    }
+
+    if(confirmationEmail){
+      if (form.password === form.confirmPassword) {
+        dispatch({ email: form.email, password: form.password });
+        router.push(link);
+        return;
+      } else {
+        setErrorState("Las contraseñas no coinciden");
+        return;
+      }
+    }
+
+    dispatch({email: form.email, password: form.password});
+    router.push(link);
+    return;
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -46,7 +95,16 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       [e.target.name]: e.target.value,
     });
   };
-
+if(loading){
+  return <BookLoaderComponent/>
+}
+  if (error) {
+    return (
+        <div className="text-red-500 text-center">
+          <p>{error === "Network Error" ? "Error de conexión" : error}</p>
+        </div>
+    );
+  }
   return (
     <form
       onSubmit={handleSubmit}
@@ -55,6 +113,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       <h2 className=" text-xl md:text-2xl font-semibold text-center mb-6 text-encabezados uppercase">
         {title}
       </h2>
+      <p>{errorState}</p>
       {formFieldsData.map((field, index) =>
         "label" in field ? (
           <FormField
@@ -75,7 +134,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
           </Link>
         ) : (
           <div key={index} className="mt-6 self-center">
-            <MainButton type={field.type} name={field.name} />
+            <MainButton type={field.type} name={field.name} disabled={loading} />
           </div>
         )
       )}

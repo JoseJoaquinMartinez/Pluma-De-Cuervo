@@ -32,3 +32,7 @@ export const SINGUPFIELDS: SingUpFields = [
     link: "/auth/login",
   },
 ];
+export interface AuthProps {
+  email: string;
+  password: string;
+}
