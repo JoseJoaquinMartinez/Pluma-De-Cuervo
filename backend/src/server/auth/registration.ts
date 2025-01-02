@@ -18,6 +18,16 @@ router.get("/registration", async (req, res) => {
       email: string;
       password: string;
     };
+
+    const existingUser = await prisma.regularUser.findFirst({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return res
+          .status(409)
+          .json({ message: "El usuario ya existe" });
+    }
     const newUser = await prisma.regularUser.create({
       data: {
         email,

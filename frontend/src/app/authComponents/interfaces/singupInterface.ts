@@ -9,3 +9,7 @@ export interface UnderlineText {
   text: string;
   link: string;
 }
+export interface NewUserInterface {
+  authToke: string;
+  message: string;
+}

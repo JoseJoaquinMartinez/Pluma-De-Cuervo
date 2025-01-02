@@ -6,7 +6,7 @@ import { FormField } from "./FormFieldComponent";
 import {
   SingUpInterface,
   UnderlineText,
-} from "../../interfaces/singupInterface";
+} from "../interfaces/singupInterface";
 import { ButtonProps } from "@/components/interfaces/interfaz";
 import MainButton from "@/components/shared/mainButton";
 import Link from "next/link";

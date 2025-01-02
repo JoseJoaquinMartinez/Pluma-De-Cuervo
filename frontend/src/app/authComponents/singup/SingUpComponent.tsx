@@ -1,7 +1,7 @@
 "use client";
 
 import {AuthProps, SINGUPFIELDS} from "../data/singup";
-import { FormComponent } from "./components/FormComponent";
+import { FormComponent } from "@/app/authComponents/components/FormComponent";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/store/store";
 import {fetchEmailVerification} from "@/store/slices/auth/singup/thunk/fetchEmailVerification";

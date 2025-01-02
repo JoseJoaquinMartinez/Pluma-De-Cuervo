@@ -41,7 +41,7 @@ export default function Custom404() {
                     Oops! Página no encontrada
                 </h2>
                 <p className="text-lg text-botonesSecundarios mb-8">
-                    Parece que te has perdido en el mundo digital. ¿Quizás necesitas otro café?
+                    Parece que te has perdido en el mundo digital. ¿Quizás necesitas un café?
                 </p>
 
                 {/* Return Home Button */}

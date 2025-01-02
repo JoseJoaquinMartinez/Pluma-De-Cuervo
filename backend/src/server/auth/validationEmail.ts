@@ -29,10 +29,10 @@ router.post("/verify-email", async (req, res) => {
     const verifyEmailToken = jwt.sign(
       { email, password: hashedPassword },
       JWT_SECRET,
-      { expiresIn: 120 }
+      { expiresIn: "10m" }
     );
 
-    const emailVerificationUrl = `${process.env.EMAIL_URL}/auth/registration?token=${verifyEmailToken}`;
+    const emailVerificationUrl = `${process.env.EMAIL_URL}?token=${verifyEmailToken}`;
 
     await transporter.sendMail({
       from: process.env.MAILER_EMAIL,
