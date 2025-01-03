@@ -10,6 +10,6 @@ export interface UnderlineText {
   link: string;
 }
 export interface NewUserInterface {
-  authToke: string;
+  authToken: string;
   message: string;
 }
