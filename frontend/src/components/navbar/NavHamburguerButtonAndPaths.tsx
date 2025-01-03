@@ -13,7 +13,10 @@ export default function NavHamburguerButtonAndPaths() {
   return (
     <>
       <article className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <MainButton link="/auth/signup" name="Registrar" />
+        <article className=" items-center space-x-3 md:space-x-4 hidden md:flex">
+          <MainButton link="/auth/singup" name="Registrar" />
+          <MainButton link="/auth/login" name="Iniciar Sesión" />
+        </article>
         <button
           onClick={toggleNavbar}
           type="button"
@@ -38,13 +41,13 @@ export default function NavHamburguerButtonAndPaths() {
           </svg>
         </button>
       </article>
-      <article
+      <div
         className={`${
           isOpen ? "block" : "hidden"
         } items-center justify-between w-full md:flex md:w-auto md:order-1`}
       >
-        <NavPaths />
-      </article>
+        <NavPaths toggleNavbar={toggleNavbar} />
+      </div>
     </>
   );
 }
