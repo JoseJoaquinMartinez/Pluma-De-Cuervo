@@ -1,25 +1,23 @@
 "use client";
 
-import {AuthProps, SINGUPFIELDS} from "../data/singup";
+import { AuthProps, SINGUPFIELDS } from "../data/singup";
 import { FormComponent } from "@/app/authComponents/components/FormComponent";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "@/store/store";
-import {fetchEmailVerification} from "@/store/slices/auth/singup/thunk/fetchEmailVerification";
-
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { fetchEmailVerification } from "@/store/slices/auth/singup/thunk/fetchEmailVerification";
 
 const link = "/auth/singup/email-validation";
 export default function SingUpComponent() {
-
-    const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const {
-    data: message, error, loading
+    data: message,
+    error,
+    loading,
   } = useSelector((state: RootState) => state.EmailVerification);
- const handleFetchEmailVerification =
-     ({email, password}:AuthProps) => {
-    dispatch(fetchEmailVerification({email, password}));
-     };
 
-
+  const handleFetchEmailVerification = ({ email, password }: AuthProps) => {
+    dispatch(fetchEmailVerification({ email, password }));
+  };
 
   return (
     <FormComponent
@@ -31,7 +29,6 @@ export default function SingUpComponent() {
       link={link}
       dispatch={handleFetchEmailVerification}
       confirmationEmail={true}
-
     />
   );
 }
