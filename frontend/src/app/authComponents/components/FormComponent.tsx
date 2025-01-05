@@ -1,21 +1,16 @@
 "use client";
 
-import React, { useMemo, useState,  } from "react";
+import React, { useMemo, useState } from "react";
 
 import { FormField } from "./FormFieldComponent";
-import {
-  SingUpInterface,
-  UnderlineText,
-} from "../interfaces/singupInterface";
+import { SingUpInterface, UnderlineText } from "../interfaces/singupInterface";
 import { ButtonProps } from "@/components/interfaces/interfaz";
 import MainButton from "@/components/shared/mainButton";
 import Link from "next/link";
-import {EmailVerificationResponse} from "@/store/slices/auth/singup/thunk/fetchEmailVerification";
-import {AuthProps} from "@/app/authComponents/data/singup";
-import {useRouter} from "next/navigation";
-import {BookLoaderComponent} from "@/components/shared/BookLoader";
-//TODO AÑADIR EL STATE DEL LOGING
-
+import { EmailVerificationResponse } from "@/store/slices/auth/singup/thunk/fetchEmailVerification";
+import { AuthProps } from "@/app/authComponents/data/singup";
+import { useRouter } from "next/navigation";
+import { BookLoaderComponent } from "@/components/shared/BookLoader";
 
 interface LoginResponse {
   token: string;
@@ -39,9 +34,15 @@ interface FormFieldProps {
 }
 
 export const FormComponent: React.FC<FormComponentProps> = ({
-  title, formFieldsData, state, error, loading, link, dispatch, confirmationEmail,
+  title,
+  formFieldsData,
+  state,
+  error,
+  loading,
+  link,
+  dispatch,
+  confirmationEmail,
 }) => {
-
   const formElements = useMemo(() => {
     const formFields: FormFieldProps = {};
     formFieldsData.forEach((field) => {
@@ -60,20 +61,20 @@ export const FormComponent: React.FC<FormComponentProps> = ({
     return passwordRegex.test(password);
   };
 
-
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (form.email.length < 2 || form.password.length < 2) {
-        setErrorState("Por favor, rellena todos los campos");
-        return;
-    }
-    if (!isValidPassword(form.password)) {
-      setErrorState("La contraseña debe tener al menos 6 caracteres y contener letras y números.");
+      setErrorState("Por favor, rellena todos los campos");
       return;
     }
 
-    if(confirmationEmail){
+    if (confirmationEmail) {
+      if (!isValidPassword(form.password)) {
+        setErrorState(
+          "La contraseña debe tener al menos 6 caracteres y contener letras y números."
+        );
+        return;
+      }
       if (form.password === form.confirmPassword) {
         dispatch({ email: form.email, password: form.password });
         router.push(link);
@@ -84,10 +85,10 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       }
     }
 
-    dispatch({email: form.email, password: form.password});
+    dispatch({ email: form.email, password: form.password });
     router.push(link);
     return;
-  }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -95,14 +96,14 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       [e.target.name]: e.target.value,
     });
   };
-if(loading){
-  return <BookLoaderComponent/>
-}
+  if (loading) {
+    return <BookLoaderComponent />;
+  }
   if (error) {
     return (
-        <div className="text-red-500 text-center">
-          <p>{error === "Network Error" ? "Error de conexión" : error}</p>
-        </div>
+      <div className="text-red-500 text-center">
+        <p>{error === "Network Error" ? "Error de conexión" : error}</p>
+      </div>
     );
   }
   return (
@@ -134,7 +135,11 @@ if(loading){
           </Link>
         ) : (
           <div key={index} className="mt-6 self-center">
-            <MainButton type={field.type} name={field.name} disabled={loading} />
+            <MainButton
+              type={field.type}
+              name={field.name}
+              disabled={loading}
+            />
           </div>
         )
       )}

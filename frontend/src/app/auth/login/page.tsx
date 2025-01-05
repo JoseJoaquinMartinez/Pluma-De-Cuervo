@@ -1,7 +1,9 @@
+import { LoginComponent } from "@/app/authComponents/login/LoginComponent";
+
 export default function LoginPage() {
   return (
-    <div>
-      <h1>Hello Page</h1>
-    </div>
+    <section className=" px-2 md:px-0 mt-10 self-center w-full ">
+      <LoginComponent />;
+    </section>
   );
 }

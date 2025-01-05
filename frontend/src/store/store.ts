@@ -10,6 +10,7 @@ import getAllBlogsReducer from "@/store/slices/blogs/allBlogsSlice";
 import singleBlogReducer from "@/store/slices/blogs/singleBlogSlice";
 import emailVerificationReducer from "@/store/slices/auth/singup/singupSlice";
 import createNewUserReducer from "@/store/slices/auth/singup/confirmSingUpSlice";
+import loginUserReducer from "@/store/slices/auth/login/loginSlice";
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     SingleBlog: singleBlogReducer,
     EmailVerification: emailVerificationReducer,
     CreateNewUser: createNewUserReducer,
+    LoginUser: loginUserReducer,
   },
 });
 
