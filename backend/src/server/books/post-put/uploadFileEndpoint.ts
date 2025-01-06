@@ -3,6 +3,7 @@ import prisma from "../../../../client";
 import multer from "multer";
 import fs from "fs";
 import { createNewChapter } from "../middleware/createChapter";
+import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 import { extractContentFromTextArea } from "../utils/extractContentFromTextArea";
 import { fileContentManagement } from "../utils/fileContentManagement";
@@ -13,6 +14,7 @@ const upload = multer({ dest: "uploads/" });
 
 router.post(
   "/upload-chapter",
+  roleMiddleware("admin"),
   upload.single("file"),
   createNewChapter,
   async (req, res) => {

@@ -1,9 +1,10 @@
 import { Router } from "express";
 import prisma from "../../../../client";
+import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 const router = Router();
 
-router.post("/new-book", async (req, res) => {
+router.post("/new-book", roleMiddleware("admin"), async (req, res) => {
   const { title, imagen, Synopsis } = req.body;
 
   try {

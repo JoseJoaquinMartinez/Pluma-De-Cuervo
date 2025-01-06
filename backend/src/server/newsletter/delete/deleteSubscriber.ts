@@ -1,12 +1,13 @@
 import { Router } from "express";
 import prisma from "../../../../client";
 import jwt from "jsonwebtoken";
+import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 const router = Router();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-router.get("/delete-subscriber", async (req, res) => {
+router.get("/delete-subscriber", roleMiddleware("admin"), async (req, res) => {
   const { unsubscribeToken } = req.query;
 
   if (!unsubscribeToken || typeof unsubscribeToken !== "string") {

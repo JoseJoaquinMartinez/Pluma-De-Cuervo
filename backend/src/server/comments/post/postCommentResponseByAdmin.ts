@@ -1,13 +1,13 @@
 import { Router } from "express";
 import prisma from "../../../../client";
-import { verifyToken } from "../../../utils/verifyToken";
 import { AuthenticationRequest } from "../../../utils/verifyToken";
+import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 const router = Router();
 
 router.post(
   "/post-comment-response-by-admin/:commentId",
-  verifyToken,
+  roleMiddleware("admin"),
   async (req: AuthenticationRequest, res) => {
     const commentId = parseInt(req.params.commentId);
     const { commentBody } = req.body;
