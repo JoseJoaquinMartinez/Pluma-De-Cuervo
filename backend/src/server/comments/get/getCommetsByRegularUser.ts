@@ -1,13 +1,14 @@
 import { Router } from "express";
 import prisma from "../../../../client";
-import { AuthenticationRequest, verifyToken } from "../../../utils/verifyToken";
+import { AuthenticationRequest } from "../../../utils/verifyToken";
 import { formattedComments } from "../../../utils/formattedComments";
+import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 const router = Router();
 
 router.get(
   "/get-comment-by-regularUser",
-  verifyToken,
+  roleMiddleware("user"),
   async (req: AuthenticationRequest, res) => {
     const userId = req.user.id;
 

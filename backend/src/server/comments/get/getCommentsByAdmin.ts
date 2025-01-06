@@ -1,12 +1,13 @@
 import { Router } from "express";
 import prisma from "../../../../client";
-import { verifyToken } from "../../../utils/verifyToken";
+import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 const router = Router();
 
 router.get(
   "/get-comments-by-admin/:chapterId",
-  verifyToken,
+  roleMiddleware("admin"),
+
   async (req, res) => {
     const chapterId = parseInt(req.params.chapterId);
 
