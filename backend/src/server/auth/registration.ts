@@ -24,9 +24,7 @@ router.get("/registration", async (req, res) => {
     });
 
     if (existingUser) {
-      return res
-          .status(409)
-          .json({ message: "El usuario ya existe" });
+      return res.status(409).json({ message: "El usuario ya existe" });
     }
     const newUser = await prisma.regularUser.create({
       data: {
@@ -36,6 +34,7 @@ router.get("/registration", async (req, res) => {
           create: {},
         },
       },
+      include: { regularUserData: true },
     });
 
     if (!newUser) {
@@ -48,9 +47,18 @@ router.get("/registration", async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res
-      .status(200)
-      .json({ token: authToken, message: "Usuario creado correctamente" });
+    const userToReturn = {
+      id: newUser.id,
+      email: newUser.email,
+      role: newUser.role,
+      regularUserData: newUser.regularUserData,
+    };
+
+    res.status(200).json({
+      user: userToReturn,
+      token: authToken,
+      message: "Usuario creado correctamente",
+    });
   } catch (error) {
     res.status(400).json({ message: "Token no válido o caducado" });
   } finally {

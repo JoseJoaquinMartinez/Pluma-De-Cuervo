@@ -34,7 +34,7 @@ const RegistrationComponent = ({ token }: { token: string }) => {
         </p>
 
         <div className="mt-8 flex justify-center">
-          <MainButton name={"Volver"} link={"/"} />
+          <MainButton name={"Volver"} link={"/"} type="button" />
         </div>
       </article>
     </section>

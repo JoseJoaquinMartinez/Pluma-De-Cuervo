@@ -13,6 +13,7 @@ router.post("/login", checkIfAdminLogin, async (req, res) => {
   try {
     const existingUser = await prisma.regularUser.findFirst({
       where: { email: email },
+      include: { regularUserData: true },
     });
     if (!existingUser) {
       return res.status(404).json({ message: "Usuario no existe" });
@@ -32,7 +33,20 @@ router.post("/login", checkIfAdminLogin, async (req, res) => {
       }
     );
 
-    res.status(200).json({ token: authToken, message: "usuario logeado" });
+    const userToReturn = {
+      id: existingUser.id,
+      email: existingUser.email,
+      role: existingUser.role,
+      regularUserData: existingUser.regularUserData,
+    };
+
+    res
+      .status(200)
+      .json({
+        user: userToReturn,
+        token: authToken,
+        message: "usuario logeado",
+      });
   } catch (error) {
     res.status(500).json({ error: `Error de inicio de session: ${error}` });
   } finally {
