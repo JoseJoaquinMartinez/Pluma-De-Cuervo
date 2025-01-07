@@ -3,20 +3,49 @@
 import { useState } from "react";
 import NavPaths from "./NavPaths";
 import MainButton from "../shared/mainButton";
+import { logout } from "@/store/slices/auth/login/loginSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
 
 export default function NavHamburguerButtonAndPaths() {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const { isLoggedIn, data } = useSelector(
+    (state: RootState) => state.LoginUser
+  );
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <>
       <article className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <article className=" items-center space-x-3 md:space-x-4 hidden md:flex">
-          <MainButton link="/auth/singup" name="Registrar" />
-          <MainButton link="/auth/login" name="Iniciar Sesión" />
-        </article>
+        {isLoggedIn ? (
+          <article className="items-center space-x-3 md:space-x-4 hidden md:flex">
+            <span className="text-whiteText text-xl md:block">
+              {data?.user.regularUserData[0].userName}
+            </span>
+            <MainButton
+              link="#"
+              name="Cerrar Sesión"
+              onClick={handleLogout}
+              type="button"
+            />
+          </article>
+        ) : (
+          <article className="items-center space-x-3 md:space-x-4 hidden md:flex">
+            <MainButton link="/auth/singup" name="Registrar" type="button" />
+            <MainButton
+              link="/auth/login"
+              name="Iniciar Sesión"
+              type="button"
+            />
+          </article>
+        )}
         <button
           onClick={toggleNavbar}
           type="button"
@@ -46,7 +75,11 @@ export default function NavHamburguerButtonAndPaths() {
           isOpen ? "block" : "hidden"
         } items-center justify-between w-full md:flex md:w-auto md:order-1`}
       >
-        <NavPaths toggleNavbar={toggleNavbar} />
+        <NavPaths
+          toggleNavbar={toggleNavbar}
+          isLoggedIn={isLoggedIn}
+          handleLogOut={handleLogout}
+        />
       </div>
     </>
   );

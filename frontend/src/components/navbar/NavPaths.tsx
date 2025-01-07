@@ -6,9 +6,15 @@ import MainButton from "../shared/mainButton";
 
 interface NavPathProps {
   toggleNavbar: () => void;
+  isLoggedIn: boolean;
+  handleLogOut: () => void;
 }
 
-export default function NavPaths({ toggleNavbar }: NavPathProps) {
+export default function NavPaths({
+  toggleNavbar,
+  isLoggedIn,
+  handleLogOut,
+}: NavPathProps) {
   const currentPath = usePathname();
 
   return (
@@ -28,20 +34,35 @@ export default function NavPaths({ toggleNavbar }: NavPathProps) {
           </Link>
         </li>
       ))}
-      <li className="md:hidden">
-        <MainButton
-          link="/auth/singup"
-          name="Registrar"
-          onClick={toggleNavbar}
-        />
-      </li>
-      <li className="md:hidden mt-2">
-        <MainButton
-          link="/auth/login"
-          name="Iniciar Sesión"
-          onClick={toggleNavbar}
-        />
-      </li>
+      {isLoggedIn ? (
+        <li className="md:hidden">
+          <MainButton
+            link="#"
+            name="Cerrar sesión"
+            onClick={() => {
+              handleLogOut();
+              toggleNavbar();
+            }}
+          />
+        </li>
+      ) : (
+        <>
+          <li className="md:hidden">
+            <MainButton
+              link="/auth/singup"
+              name="Registrar"
+              onClick={toggleNavbar}
+            />
+          </li>
+          <li className="md:hidden mt-2">
+            <MainButton
+              link="/auth/login"
+              name="Iniciar Sesión"
+              onClick={toggleNavbar}
+            />
+          </li>
+        </>
+      )}
     </ul>
   );
 }
