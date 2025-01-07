@@ -41,7 +41,7 @@ router.get("/registration", async (req, res) => {
       return res.status(500).json({ message: "Error creando el usuario" });
     }
 
-    const authToken = jwt.sign(
+    /* const authToken = jwt.sign(
       { userId: newUser.id, email: newUser.email, role: newUser.role },
       JWT_SECRET,
       { expiresIn: "1h" }
@@ -52,11 +52,11 @@ router.get("/registration", async (req, res) => {
       email: newUser.email,
       role: newUser.role,
       regularUserData: newUser.regularUserData,
-    };
+    }; */
 
     res.status(200).json({
-      user: userToReturn,
-      token: authToken,
+      /* user: userToReturn,
+      token: authToken, */
       message: "Usuario creado correctamente",
     });
   } catch (error) {
