@@ -1,5 +1,6 @@
 import React from "react";
 import { ChapterProps } from "../chapter/interface/chapter";
+import { MessageSquare } from "lucide-react";
 
 export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
   return (
@@ -8,11 +9,20 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
         ({ id, paragraphNumber, paragraphText, paragraphType }) => {
           if (paragraphType === "paragraph") {
             return (
-              <p
-                key={id}
-                className="text-mainText mb-4"
-                dangerouslySetInnerHTML={{ __html: paragraphText }}
-              />
+              <div className="flex flex-col" key={id}>
+                <span
+                  className="self-end text-2xl md:text-3xl text-encabezados"
+                  onClick={() => console.log("click bocadillo")}
+                >
+                  <MessageSquare />
+                </span>
+                <p
+                  key={id}
+                  className="text-mainText mb-4"
+                  dangerouslySetInnerHTML={{ __html: paragraphText }}
+                  onClick={() => console.log("click parrafo")}
+                />
+              </div>
             );
           }
 
@@ -26,28 +36,36 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
                 className="flex flex-col text-xs md:text-base items-center justify-center"
                 key={id}
               >
-                <table
-                  key={id}
-                  className="table-auto mb-4 border-collapse text-mainText border border-gray-300"
+                <span
+                  className="self-end text-2xl md:text-3xl text-encabezados"
+                  onClick={() => console.log("click tabla bocadillo")}
                 >
-                  <tbody>
-                    {rows.map((row, rowIndex) => (
-                      <tr key={rowIndex}>
-                        {Array.from(row.querySelectorAll("td, th")).map(
-                          (cell, cellIndex) => (
-                            <td
-                              key={cellIndex}
-                              className="border border-gray-400 px-4 py-2 text-left"
-                              dangerouslySetInnerHTML={{
-                                __html: cell.innerHTML,
-                              }}
-                            />
-                          )
-                        )}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  <MessageSquare />
+                </span>
+                <div key={id} onClick={() => console.log("click tabla")}>
+                  <table
+                    key={id}
+                    className="table-auto mb-4 border-collapse text-mainText border border-gray-300"
+                  >
+                    <tbody>
+                      {rows.map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                          {Array.from(row.querySelectorAll("td, th")).map(
+                            (cell, cellIndex) => (
+                              <td
+                                key={cellIndex}
+                                className="border border-gray-400 px-4 py-2 text-left"
+                                dangerouslySetInnerHTML={{
+                                  __html: cell.innerHTML,
+                                }}
+                              />
+                            )
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             );
           }

@@ -27,7 +27,11 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
   }, [chapterId, dispatch]);
 
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex justify-center items-center">
+        <BookLoaderComponent />
+      </div>
+    );
   }
   if (error) {
     return <div>{error}</div>;

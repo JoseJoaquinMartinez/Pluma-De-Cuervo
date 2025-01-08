@@ -35,12 +35,12 @@ const RegistrationComponent = ({ token }: { token: string }) => {
 
   useEffect(() => {
     if (!hasDispatched.current) {
-      dispatch(fetchCreateNewUser(token));
       hasDispatched.current = true;
-      dispatch(fetchLoginUser({ email, password }));
-      setTimeout(() => {
-        router.push("/");
-      }, 2000);
+      dispatch(fetchCreateNewUser(token)).then(() => {
+        dispatch(fetchLoginUser({ email, password })).then(() => {
+          router.push("/");
+        });
+      });
     }
   }, [token]);
 
