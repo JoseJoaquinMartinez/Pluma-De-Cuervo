@@ -97,7 +97,11 @@ export const FormComponent: React.FC<FormComponentProps> = ({
     });
   };
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <BookLoaderComponent />;
+      </div>
+    );
   }
   if (error) {
     return (

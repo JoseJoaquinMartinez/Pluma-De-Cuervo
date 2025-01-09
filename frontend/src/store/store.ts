@@ -9,8 +9,7 @@ import getSingleChapterReducer from "@/store/slices/chapter/singleChapterSlice";
 import getAllBlogsReducer from "@/store/slices/blogs/allBlogsSlice";
 import singleBlogReducer from "@/store/slices/blogs/singleBlogSlice";
 import emailVerificationReducer from "@/store/slices/auth/singup/singupSlice";
-import createNewUserReducer from "@/store/slices/auth/singup/confirmSingUpSlice";
-import loginUserReducer from "@/store/slices/auth/login/loginSlice";
+import authReducer from "./slices/auth/authSlice";
 
 const store = configureStore({
   reducer: {
@@ -24,8 +23,7 @@ const store = configureStore({
     AllBlogs: getAllBlogsReducer,
     SingleBlog: singleBlogReducer,
     EmailVerification: emailVerificationReducer,
-    CreateNewUser: createNewUserReducer,
-    LoginUser: loginUserReducer,
+    Authentication: authReducer,
   },
 });
 
@@ -33,6 +31,6 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const selectIsLoggedIn = (state: RootState) =>
-  state.LoginUser.isLoggedIn;
+  state.Authentication.isLoggedIn;
 
 export default store;
