@@ -3,15 +3,15 @@
 import { useState } from "react";
 import NavPaths from "./NavPaths";
 import MainButton from "../shared/mainButton";
-import { logout } from "@/store/slices/auth/login/loginSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
+import { logoutUser } from "@/store/slices/auth/authSlice";
 
 export default function NavHamburguerButtonAndPaths() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { isLoggedIn, data } = useSelector(
-    (state: RootState) => state.LoginUser
+    (state: RootState) => state.Authentication
   );
 
   const toggleNavbar = () => {
@@ -19,7 +19,7 @@ export default function NavHamburguerButtonAndPaths() {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logoutUser());
   };
   return (
     <>

@@ -16,7 +16,7 @@ export const LoginComponent = () => {
     data: message,
     error,
     loading,
-  } = useSelector((state: RootState) => state.LoginUser);
+  } = useSelector((state: RootState) => state.Authentication);
 
   const handleLoginUser = ({ email, password }: AuthProps) => {
     dispatch(fetchLoginUser({ email, password }));
