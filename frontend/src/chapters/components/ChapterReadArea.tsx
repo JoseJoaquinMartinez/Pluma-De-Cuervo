@@ -2,12 +2,22 @@
 import React, { useState } from "react";
 import { ChapterProps } from "../chapter/interface/chapter";
 import { MessageSquare } from "lucide-react";
-import { CommentModal } from "./CommentModal";
+import { CommentModal, CommentSubmitProps } from "./CommentModal";
 
 export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const [newComment, setNewComment] = useState<CommentSubmitProps>({
+    paragraphId: null,
+    newComment: "",
+  });
 
-  const handleOpenComment = () => setIsCommentOpen(!isCommentOpen);
+  const handleOpenComment = (id: number) => {
+    setNewComment((prev) => ({
+      ...prev,
+      paragraphId: id,
+    }));
+    setIsCommentOpen(!isCommentOpen);
+  };
 
   const closeModalOnOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).id === "modal-overlay") {
@@ -20,7 +30,10 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
       {isCommentOpen && (
         <CommentModal
           closeModalOnOverlayClick={closeModalOnOverlayClick}
-          handleOpenComment={handleOpenComment}
+          setNewComment={setNewComment}
+          newComment={newComment.newComment}
+          paragraphId={newComment.paragraphId}
+          setIsCommentOpen={setIsCommentOpen}
         />
       )}
       {chapter.paragraph.map(
@@ -30,7 +43,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
               <div className="flex flex-col" key={id}>
                 <span
                   className="self-end text-2xl md:text-3xl text-encabezados"
-                  onClick={handleOpenComment}
+                  onClick={() => handleOpenComment(id)}
                 >
                   <MessageSquare />
                 </span>
@@ -38,7 +51,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
                   key={id}
                   className="text-mainText mb-4"
                   dangerouslySetInnerHTML={{ __html: paragraphText }}
-                  onClick={handleOpenComment}
+                  onClick={() => handleOpenComment(id)}
                 />
               </div>
             );
@@ -56,11 +69,11 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
               >
                 <span
                   className="self-end text-2xl md:text-3xl text-encabezados"
-                  onClick={() => console.log("click tabla bocadillo")}
+                  onClick={() => handleOpenComment(id)}
                 >
                   <MessageSquare />
                 </span>
-                <div key={id} onClick={() => console.log("click tabla")}>
+                <div key={id} onClick={() => handleOpenComment(id)}>
                   <table
                     key={id}
                     className="table-auto mb-4 border-collapse text-mainText border border-gray-300"

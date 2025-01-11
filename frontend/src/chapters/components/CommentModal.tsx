@@ -1,15 +1,54 @@
+import { postRegularUserNewComment } from "@/comments/comment/utils/postRegularUserNewComment";
 import MainButton from "@/components/shared/mainButton";
+
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
+
 import React from "react";
 
 interface Props {
   closeModalOnOverlayClick: (e: React.MouseEvent<HTMLDivElement>) => void;
-  handleOpenComment: () => void;
+  setNewComment: React.Dispatch<
+    React.SetStateAction<{
+      paragraphId: number | null;
+      newComment: string;
+    }>
+  >;
+  newComment: string;
+  paragraphId: number | null;
+  setIsCommentOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface CommentSubmitProps {
+  paragraphId: number | null;
+  newComment: string;
 }
 
 export const CommentModal = ({
   closeModalOnOverlayClick,
-  handleOpenComment,
+  setNewComment,
+  newComment,
+  paragraphId,
+  setIsCommentOpen,
 }: Props) => {
+  const { token, isLoggedIn } = useSelector(
+    (state: RootState) => state.Authentication
+  );
+  const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewComment((prev) => ({
+      ...prev,
+      newComment: e.target.value,
+    }));
+  };
+
+  const handleSubmit = ({ paragraphId, newComment }: CommentSubmitProps) => {
+    if (!paragraphId || !newComment.trim()) {
+      alert("Debes ingresar un comentario válido y seleccionar un párrafo.");
+      return;
+    }
+
+    postRegularUserNewComment({ paragraphId, comment: newComment, token });
+  };
   return (
     <div
       id="modal-overlay"
@@ -22,15 +61,16 @@ export const CommentModal = ({
       >
         <textarea
           className="text-mainText mb-4 rounded-lg w-full h-32"
-          onChange={() => console.log("change textarea")}
+          onChange={handleTextAreaChange}
           placeholder="Deja tu comentario"
         />
         <div className="flex gap-2 w-full items-center justify-center">
           <MainButton
             name="Comentar"
-            onClick={() => console.log("click comentar")}
+            onClick={() => handleSubmit({ paragraphId, newComment })}
+            disabled={!newComment.trim() || !paragraphId}
           />
-          <MainButton name="Cerrar" onClick={handleOpenComment} />
+          <MainButton name="Cerrar" onClick={() => setIsCommentOpen(false)} />
         </div>
       </article>
     </div>
