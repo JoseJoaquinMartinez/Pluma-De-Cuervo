@@ -1,9 +1,6 @@
 import { postRegularUserNewComment } from "@/comments/comment/utils/postRegularUserNewComment";
 import MainButton from "@/components/shared/mainButton";
 
-import { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
-
 import React from "react";
 
 interface Props {
@@ -17,6 +14,7 @@ interface Props {
   newComment: string;
   paragraphId: number | null;
   setIsCommentOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  token: string | null;
 }
 
 export interface CommentSubmitProps {
@@ -30,10 +28,8 @@ export const CommentModal = ({
   newComment,
   paragraphId,
   setIsCommentOpen,
+  token,
 }: Props) => {
-  const { token, isLoggedIn } = useSelector(
-    (state: RootState) => state.Authentication
-  );
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewComment((prev) => ({
       ...prev,
@@ -48,6 +44,7 @@ export const CommentModal = ({
     }
 
     postRegularUserNewComment({ paragraphId, comment: newComment, token });
+    setIsCommentOpen(false);
   };
   return (
     <div

@@ -1,8 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChapterProps } from "../chapter/interface/chapter";
 import { MessageSquare } from "lucide-react";
 import { CommentModal, CommentSubmitProps } from "./CommentModal";
+import { RootState } from "@/store/store";
+import { useSelector } from "react-redux";
+
+import type { UserComments } from "../chapter/interface/comments";
+import { getUserCommentsOnChapter } from "@/comments/comment/utils/getUserCommentsOnChapter";
 
 export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
@@ -10,6 +15,13 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
     paragraphId: null,
     newComment: "",
   });
+  const { token, isLoggedIn } = useSelector(
+    (state: RootState) => state.Authentication
+  );
+  const [userComments, setUserComments] = useState<UserComments>([]);
+  const [updatedUserComments, setUpdatedUserComments] = useState<
+    CommentSubmitProps[]
+  >([]);
 
   const handleOpenComment = (id: number) => {
     setNewComment((prev) => ({
@@ -18,6 +30,24 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
     }));
     setIsCommentOpen(!isCommentOpen);
   };
+  useEffect(() => {
+    const chapterId = chapter.id;
+    if (token) {
+      const fetchUserComments = getUserCommentsOnChapter({
+        chapterId,
+        token,
+      }).then((response) => {
+        setUserComments(response);
+
+        const simplifiedComments = response.map((comment: UserComments[0]) => ({
+          paragraphId: comment.paragraphId,
+          commentBody: comment.commentBody,
+        }));
+
+        setUpdatedUserComments(simplifiedComments);
+      });
+    }
+  }, [chapter.id, token]);
 
   const closeModalOnOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).id === "modal-overlay") {
@@ -27,6 +57,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
 
   return (
     <div className="bg-cardsBackground rounded-lg px-3 md:p-4 mt-2">
+      <p>{JSON.stringify(updatedUserComments)}</p>
       {isCommentOpen && (
         <CommentModal
           closeModalOnOverlayClick={closeModalOnOverlayClick}
@@ -34,8 +65,10 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
           newComment={newComment.newComment}
           paragraphId={newComment.paragraphId}
           setIsCommentOpen={setIsCommentOpen}
+          token={token}
         />
       )}
+
       {chapter.paragraph.map(
         ({ id, paragraphNumber, paragraphText, paragraphType }) => {
           if (paragraphType === "paragraph") {
