@@ -1,10 +1,28 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { ChapterProps } from "../chapter/interface/chapter";
 import { MessageSquare } from "lucide-react";
+import { CommentModal } from "./CommentModal";
 
 export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
+
+  const handleOpenComment = () => setIsCommentOpen(!isCommentOpen);
+
+  const closeModalOnOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if ((e.target as HTMLElement).id === "modal-overlay") {
+      setIsCommentOpen(false);
+    }
+  };
+
   return (
     <div className="bg-cardsBackground rounded-lg px-3 md:p-4 mt-2">
+      {isCommentOpen && (
+        <CommentModal
+          closeModalOnOverlayClick={closeModalOnOverlayClick}
+          handleOpenComment={handleOpenComment}
+        />
+      )}
       {chapter.paragraph.map(
         ({ id, paragraphNumber, paragraphText, paragraphType }) => {
           if (paragraphType === "paragraph") {
@@ -12,7 +30,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
               <div className="flex flex-col" key={id}>
                 <span
                   className="self-end text-2xl md:text-3xl text-encabezados"
-                  onClick={() => console.log("click bocadillo")}
+                  onClick={handleOpenComment}
                 >
                   <MessageSquare />
                 </span>
@@ -20,7 +38,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
                   key={id}
                   className="text-mainText mb-4"
                   dangerouslySetInnerHTML={{ __html: paragraphText }}
-                  onClick={() => console.log("click parrafo")}
+                  onClick={handleOpenComment}
                 />
               </div>
             );
