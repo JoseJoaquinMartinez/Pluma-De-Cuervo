@@ -40,9 +40,11 @@ router.get("/registration", async (req, res) => {
     if (!newUser) {
       return res.status(500).json({ message: "Error creando el usuario" });
     }
+    const regularUserDataId =
+      newUser.regularUserData.length > 0 ? newUser.regularUserData[0].id : null;
 
     const authToken = jwt.sign(
-      { userId: newUser.id, role: newUser.role },
+      { userId: regularUserDataId, role: newUser.role },
       JWT_SECRET,
       { expiresIn: "1h" }
     );

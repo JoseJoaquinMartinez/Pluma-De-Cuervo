@@ -28,7 +28,12 @@ export default function MainButton({
       {name}
     </Link>
   ) : (
-    <button type={type} className={buttonClasses} disabled={disabled}>
+    <button
+      type={type}
+      className={buttonClasses}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {name}
     </button>
   );

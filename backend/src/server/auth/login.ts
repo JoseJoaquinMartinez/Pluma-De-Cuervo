@@ -25,8 +25,13 @@ router.post("/login", checkIfAdminLogin, async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: "contraseña no válida" });
     }
+
+    const regularUserDataId =
+      existingUser.regularUserData.length > 0
+        ? existingUser.regularUserData[0].id
+        : null;
     const authToken = jwt.sign(
-      { userId: existingUser.id, role: existingUser.role },
+      { userId: regularUserDataId, role: existingUser.role },
       JWT_SECRET,
       {
         expiresIn: "2h",
@@ -40,13 +45,11 @@ router.post("/login", checkIfAdminLogin, async (req, res) => {
       regularUserData: existingUser.regularUserData,
     };
 
-    res
-      .status(200)
-      .json({
-        user: userToReturn,
-        token: authToken,
-        message: "usuario logeado",
-      });
+    res.status(200).json({
+      user: userToReturn,
+      token: authToken,
+      message: "usuario logeado",
+    });
   } catch (error) {
     res.status(500).json({ error: `Error de inicio de session: ${error}` });
   } finally {
