@@ -76,6 +76,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
           setIsCommentOpen={setIsCommentOpen}
           token={token}
           setUpdatedUserComments={setUpdatedUserComments}
+          updatedUserComments={updatedUserComments}
         />
       )}
 

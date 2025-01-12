@@ -1,6 +1,5 @@
 import { postRegularUserNewComment } from "@/comments/comment/utils/postRegularUserNewComment";
 import MainButton from "@/components/shared/mainButton";
-
 import React from "react";
 import { UpdatedUserCommentProps } from "../chapter/interface/comments";
 import { deleteUserComment } from "@/comments/comment/utils/deleteUserCommnet";
@@ -16,6 +15,7 @@ interface Props {
   setUpdatedUserComments: React.Dispatch<
     React.SetStateAction<UpdatedUserCommentProps[]>
   >;
+  updatedUserComments: UpdatedUserCommentProps[];
 }
 
 export interface CommentSubmitProps {
@@ -33,6 +33,7 @@ export const CommentModal = ({
   token,
   setUpdatedUserComments,
   commentId,
+  updatedUserComments,
 }: Props) => {
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewComment((prev) => ({
@@ -46,7 +47,6 @@ export const CommentModal = ({
       alert("Debes ingresar un comentario válido y seleccionar un párrafo.");
       return;
     }
-
     postRegularUserNewComment({ paragraphId, comment: newComment, token }).then(
       (response) => {
         if (response?.newComment) {
@@ -63,20 +63,20 @@ export const CommentModal = ({
     );
     setIsCommentOpen(false);
   };
+
   const handleDelete = (commentId: number) => {
     if (token) {
-      deleteUserComment({ commentId, token }).then((result) => {
-        if (result) {
-          setUpdatedUserComments((prev) =>
-            prev.filter((comment) => comment.id !== commentId)
-          );
-        } else {
-          console.log("Error al eliminar el comentario");
-        }
-        setIsCommentOpen(false);
-      });
+      deleteUserComment({ commentId, token });
+      setUpdatedUserComments((prev) =>
+        prev.filter((comment) => comment.id !== commentId)
+      );
+      setIsCommentOpen(false);
     }
   };
+
+  const existingComment = updatedUserComments.find(
+    (comment) => comment.paragraphId === paragraphId
+  );
 
   return (
     <div
@@ -88,9 +88,9 @@ export const CommentModal = ({
         id="modal"
         className="bg-navFoot rounded-lg p-4 z-50 flex flex-col items-center w-[300px]"
       >
-        {newComment && newComment.trim() ? (
+        {existingComment ? (
           <p className="text-mainText mb-4 rounded-lg w-full h-32 bg-gray-100 p-2">
-            {newComment}
+            {existingComment.commentBody}
           </p>
         ) : (
           <textarea
@@ -101,7 +101,7 @@ export const CommentModal = ({
         )}
 
         <div className="flex gap-2 w-full items-center justify-center">
-          {newComment.trim() ? (
+          {existingComment ? (
             commentId ? (
               <MainButton
                 name="Eliminar"
