@@ -9,3 +9,9 @@ export interface Comment {
   parentCommentId: any;
   createdAt: string;
 }
+
+export interface UpdatedUserCommentProps {
+  id: number;
+  paragraphId: number | null;
+  commentBody: string;
+}

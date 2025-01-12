@@ -6,7 +6,10 @@ import { CommentModal, CommentSubmitProps } from "./CommentModal";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 
-import type { UserComments } from "../chapter/interface/comments";
+import type {
+  UpdatedUserCommentProps,
+  UserComments,
+} from "../chapter/interface/comments";
 import { getUserCommentsOnChapter } from "@/comments/comment/utils/getUserCommentsOnChapter";
 
 export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
@@ -14,20 +17,27 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
   const [newComment, setNewComment] = useState<CommentSubmitProps>({
     paragraphId: null,
     newComment: "",
+    commentId: null,
   });
   const { token, isLoggedIn } = useSelector(
     (state: RootState) => state.Authentication
   );
-  const [userComments, setUserComments] = useState<UserComments>([]);
+
   const [updatedUserComments, setUpdatedUserComments] = useState<
-    CommentSubmitProps[]
+    UpdatedUserCommentProps[]
   >([]);
 
   const handleOpenComment = (id: number) => {
-    setNewComment((prev) => ({
-      ...prev,
+    const existingComment = updatedUserComments.find(
+      (comment) => comment.paragraphId === id
+    );
+
+    setNewComment({
       paragraphId: id,
-    }));
+      newComment: existingComment ? existingComment.commentBody : "",
+      commentId: existingComment ? existingComment.id : null,
+    });
+
     setIsCommentOpen(!isCommentOpen);
   };
   useEffect(() => {
@@ -37,9 +47,8 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
         chapterId,
         token,
       }).then((response) => {
-        setUserComments(response);
-
         const simplifiedComments = response.map((comment: UserComments[0]) => ({
+          id: comment.id,
           paragraphId: comment.paragraphId,
           commentBody: comment.commentBody,
         }));
@@ -57,31 +66,37 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
 
   return (
     <div className="bg-cardsBackground rounded-lg px-3 md:p-4 mt-2">
-      <p>{JSON.stringify(updatedUserComments)}</p>
-      {isCommentOpen && (
+      {isLoggedIn && isCommentOpen && (
         <CommentModal
           closeModalOnOverlayClick={closeModalOnOverlayClick}
           setNewComment={setNewComment}
           newComment={newComment.newComment}
+          commentId={newComment.commentId}
           paragraphId={newComment.paragraphId}
           setIsCommentOpen={setIsCommentOpen}
           token={token}
+          setUpdatedUserComments={setUpdatedUserComments}
         />
       )}
 
       {chapter.paragraph.map(
         ({ id, paragraphNumber, paragraphText, paragraphType }) => {
+          const hasComment = updatedUserComments.some(
+            (comment) => comment.paragraphId === id
+          );
+
           if (paragraphType === "paragraph") {
             return (
               <div className="flex flex-col" key={id}>
-                <span
-                  className="self-end text-2xl md:text-3xl text-encabezados"
-                  onClick={() => handleOpenComment(id)}
-                >
-                  <MessageSquare />
-                </span>
+                {isLoggedIn && hasComment && (
+                  <span
+                    className="self-end text-2xl md:text-3xl text-encabezados"
+                    onClick={() => handleOpenComment(id)}
+                  >
+                    <MessageSquare />
+                  </span>
+                )}
                 <p
-                  key={id}
                   className="text-mainText mb-4"
                   dangerouslySetInnerHTML={{ __html: paragraphText }}
                   onClick={() => handleOpenComment(id)}
@@ -100,17 +115,16 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
                 className="flex flex-col text-xs md:text-base items-center justify-center"
                 key={id}
               >
-                <span
-                  className="self-end text-2xl md:text-3xl text-encabezados"
-                  onClick={() => handleOpenComment(id)}
-                >
-                  <MessageSquare />
-                </span>
-                <div key={id} onClick={() => handleOpenComment(id)}>
-                  <table
-                    key={id}
-                    className="table-auto mb-4 border-collapse text-mainText border border-gray-300"
+                {isLoggedIn && hasComment && (
+                  <span
+                    className="self-end text-2xl md:text-3xl text-encabezados"
+                    onClick={() => handleOpenComment(id)}
                   >
+                    <MessageSquare />
+                  </span>
+                )}
+                <div onClick={() => handleOpenComment(id)}>
+                  <table className="table-auto mb-4 border-collapse text-mainText border border-gray-300">
                     <tbody>
                       {rows.map((row, rowIndex) => (
                         <tr key={rowIndex}>

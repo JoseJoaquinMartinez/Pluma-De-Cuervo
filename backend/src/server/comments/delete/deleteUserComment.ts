@@ -6,7 +6,7 @@ import { AuthenticationRequest } from "../../../utils/verifyToken";
 const router = Router();
 
 router.delete(
-  "/delete-regular-user-commnet/:commentId",
+  "/delete-regular-user-comment/:commentId",
   roleMiddleware("user"),
   async (req: AuthenticationRequest, res) => {
     const commentId = parseInt(req.params.commentId);
@@ -20,7 +20,7 @@ router.delete(
       const deletedComment = await prisma.comment.delete({
         where: { id: commentId },
       });
-      return res.status(204).send();
+      return res.status(204);
     } catch (error) {
       if (error instanceof Error) {
         return res.status(500).json({
