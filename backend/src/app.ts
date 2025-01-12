@@ -36,6 +36,7 @@ import postResponseCommmentByAdmin from "./server/comments/post/postCommentRespo
 import getCommentsByRegularUser from "./server/comments/get/getCommetsByRegularUser";
 import postResponseToAdminByRegularUser from "./server/comments/post/postReplyToAdminByRegularUser";
 import getUserCommentForAChapter from "./server/comments/get/getUserCommentsOnAChapter";
+import deleteCommentFromUser from "./server/comments/delete/deleteUserComment";
 
 //NEWSLETTER
 import postNewSubscriber from "./server/newsletter/post/postNewSubscriber";
@@ -108,6 +109,9 @@ app.use("/comment", postResponseToAdminByRegularUser);
 app.use("/comment", getCommentsByAdmin);
 app.use("/comment", getCommentsByRegularUser);
 app.use("/comment", getUserCommentForAChapter);
+
+//DELETE
+app.use("/comment", deleteCommentFromUser);
 
 //NEWSLETTER ROUTES
 
