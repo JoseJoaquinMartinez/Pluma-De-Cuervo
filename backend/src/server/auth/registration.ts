@@ -49,6 +49,13 @@ router.get("/registration", async (req, res) => {
       { expiresIn: "1h" }
     );
 
+    res.cookie("authToken", authToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 3600 * 1000,
+    });
+
     const userToReturn = {
       id: newUser.id,
       email: newUser.email,
