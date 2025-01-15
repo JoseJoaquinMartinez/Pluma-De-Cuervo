@@ -11,7 +11,7 @@ router.post("/new-book", roleMiddleware("admin"), async (req, res) => {
     const newBook = await prisma.book.create({
       data: {
         title: title,
-        imagen: imagen || null,
+        imagen: imagen,
         Synopsis: Synopsis,
       },
     });

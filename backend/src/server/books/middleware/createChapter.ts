@@ -13,7 +13,7 @@ export async function createNewChapter(
       data: {
         title: title,
         chapterNumber: parseInt(chapterNumber),
-        imagen: imagen || null,
+        imagen: imagen,
         bookId: parseInt(bookId),
         estimatedReadTime: estimatedReadTime,
       },

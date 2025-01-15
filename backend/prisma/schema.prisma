@@ -46,7 +46,7 @@ model RegularUserData {
   id Int @id @default(autoincrement())
 
   userName String? @default("Aventurero")
-  imagen String?
+  
  
   comments Comment[]
 
@@ -59,7 +59,7 @@ model Book {
   id Int @id @default(autoincrement())
 
   title String @unique
-  imagen String?
+  imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
   Synopsis String @default("")
 
   chapter Chapter[]
@@ -69,7 +69,7 @@ model Chapter {
   id Int @id @default(autoincrement())
 
   title String @unique
-  imagen String? 
+  imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
   chapterNumber Int
   paragraph Paragraph[]
   createdAt DateTime @default(now())
@@ -111,7 +111,7 @@ model Blog {
   id Int @id @default(autoincrement())
 
   title String @unique
-  imagen String?
+  imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
   blogText String
   createdAt DateTime @default(now())
   estimatedReadTime String @default("")
