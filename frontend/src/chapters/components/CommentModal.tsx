@@ -86,19 +86,24 @@ export const CommentModal = ({
     >
       <article
         id="modal"
-        className="bg-navFoot rounded-lg p-4 z-50 flex flex-col items-center w-[300px]"
+        className="bg-navFoot rounded-lg p-4 z-50 flex flex-col items-center w-[300px] relative"
       >
-        {existingComment ? (
-          <p className="text-mainText mb-4 rounded-lg w-full h-32 bg-gray-100 p-2">
-            {existingComment.commentBody}
-          </p>
-        ) : (
-          <textarea
-            className="text-mainText mb-4 rounded-lg w-full h-32"
-            onChange={handleTextAreaChange}
-            placeholder="Deja tu comentario"
-          />
-        )}
+        <div className="w-full mb-8 relative">
+          <div className="bg-gray-100 rounded-lg p-4 relative">
+            {existingComment ? (
+              <p className="text-mainText w-full h-32 overflow-auto">
+                {existingComment.commentBody}
+              </p>
+            ) : (
+              <textarea
+                className="text-mainText w-full h-32 bg-transparent resize-none outline-none"
+                onChange={handleTextAreaChange}
+                placeholder="Deja tu comentario"
+              />
+            )}
+          </div>
+          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-t-[16px] border-t-gray-100 border-r-[10px] border-r-transparent"></div>
+        </div>
 
         <div className="flex gap-2 w-full items-center justify-center">
           {existingComment ? (

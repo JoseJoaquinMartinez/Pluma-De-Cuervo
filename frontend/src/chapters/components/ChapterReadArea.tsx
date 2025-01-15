@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { ChapterProps } from "../chapter/interface/chapter";
-import { MessageSquare } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { CommentModal, CommentSubmitProps } from "./CommentModal";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
@@ -94,7 +94,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
                     className="self-end text-2xl md:text-3xl text-encabezados"
                     onClick={() => handleOpenComment(id)}
                   >
-                    <MessageSquare />
+                    <MessageCircle />
                   </span>
                 )}
                 <p
@@ -121,7 +121,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
                     className="self-end text-2xl md:text-3xl text-encabezados"
                     onClick={() => handleOpenComment(id)}
                   >
-                    <MessageSquare />
+                    <MessageCircle />
                   </span>
                 )}
                 <div onClick={() => handleOpenComment(id)}>

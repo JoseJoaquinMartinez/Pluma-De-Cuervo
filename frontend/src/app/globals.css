@@ -85,3 +85,23 @@ body {
   animation: fadeOut 0.7s ease-in-out forwards;
 }
 
+.speech-bubble {
+  position: relative;
+  background: #f0f0f0;
+  border-radius: 0.4em;
+  padding: 15px;
+}
+
+.speech-bubble:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-top-color: #f0f0f0;
+  border-bottom: 0;
+  margin-left: -20px;
+  margin-bottom: -20px;
+}

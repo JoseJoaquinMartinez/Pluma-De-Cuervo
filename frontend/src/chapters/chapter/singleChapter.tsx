@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TitlesFromChapterComponent } from "../components/TitlesFromChapterComponent";
 import { ChapterReadArea } from "../components/ChapterReadArea";
+import Link from "next/link";
 
 interface Props {
   bookId: number;
@@ -19,6 +20,9 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
     loading,
     error,
   } = useSelector((state: RootState) => state.getSingleChapter);
+  const { isLoggedIn } = useSelector(
+    (state: RootState) => state.Authentication
+  );
 
   useEffect(() => {
     if (!chapter || chapter.id !== chapterId) {
@@ -44,6 +48,16 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
   return (
     <article className="flex flex-col max-w-screen-xl">
       <TitlesFromChapterComponent {...chapter} />
+      {!isLoggedIn && (
+        <p className="text-mainText text-xl self-center">
+          Tu perspectiva importa.{" "}
+          <Link href={"/auth/singup"} className="text-encabezados">
+            Registrate
+          </Link>
+          , comenta y enriquece las historias desde dentro. 🖋️
+        </p>
+      )}
+
       <ChapterReadArea {...chapter} />
     </article>
   );
