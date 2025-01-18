@@ -6,7 +6,8 @@ export async function createNewChapter(
   res: Response,
   next: NextFunction
 ) {
-  const { title, chapterNumber, imagen, bookId, estimatedReadTime } = req.body;
+  const { title, chapterNumber, bookId, estimatedReadTime } = req.body;
+  const imagen = req.body.cloudinaryUrl || undefined;
 
   try {
     const chapter = await prisma.chapter.create({
