@@ -1,5 +1,4 @@
 import React from "react";
-
 import { ImageComponent } from "@/components/shared/ImageComponent";
 import { SingleBlog } from "../interface/blogs";
 
@@ -11,6 +10,9 @@ export const SingleBlogComponent = ({
   blogText,
   estimatedReadTime,
 }: SingleBlog) => {
+  const normalizeText = (text: string) => {
+    return text.replace(/\\n/g, "\n");
+  };
   return (
     <article className="flex flex-col w-full px-4 max-w-screen-xl">
       <h1 className="text-encabezados text-2xl self-start mt-2">
@@ -27,13 +29,11 @@ export const SingleBlogComponent = ({
         </span>
       </section>
 
-      <section className="mt-2 bg-cardsBackground rounded-lg">
-          {blogText.split("\n").map((line, index) => (
-              <p key={index} className="text-mainText p-2 break-words">
-                {line}
-              </p>
-          ))}
-    </section>
+      <section className="mt-2 bg-cardsBackground rounded-lg p-4">
+        <div className="text-mainText whitespace-pre-wrap">
+          {normalizeText(blogText)}
+        </div>
+      </section>
     </article>
   );
 };
