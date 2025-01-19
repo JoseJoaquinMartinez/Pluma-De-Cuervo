@@ -26,9 +26,13 @@ export default function NavHamburguerButtonAndPaths() {
       <article className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         {isLoggedIn ? (
           <article className="items-center space-x-3 md:space-x-4 hidden md:flex">
-            {data?.user.role === "user"? (<span className="text-whiteText text-xl md:block">
-              {data?.user.regularUserData[0].userName}
-            </span>) : <></>}
+            {data?.user.role === "user" ? (
+              <span className="text-whiteText text-xl md:block">
+                {data?.user.regularUserData[0].userName}
+              </span>
+            ) : (
+              <></>
+            )}
             <MainButton
               link="#"
               name="Cerrar Sesión"
