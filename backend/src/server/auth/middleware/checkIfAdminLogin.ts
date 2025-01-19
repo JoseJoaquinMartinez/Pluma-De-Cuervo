@@ -49,13 +49,11 @@ export const checkIfAdminLogin = async (
         role: existingAdmin.role,
         adminUserData: existingAdmin.adminUserData,
       };
-      res
-        .status(200)
-        .json({
-          token: authToken,
-          user: adminToReturn,
-          message: "Admin logeado",
-        });
+      res.status(200).json({
+        token: authToken,
+        user: adminToReturn,
+        message: "Admin logeado",
+      });
     } catch (error) {
       res.status(500).json({ error: `error al logear ${error}` });
     } finally {

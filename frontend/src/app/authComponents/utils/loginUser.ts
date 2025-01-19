@@ -6,6 +6,7 @@ export const loginUser = async ({ email, password }: AuthProps) => {
   try {
     const response = await fetch(URL, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

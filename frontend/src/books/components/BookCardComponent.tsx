@@ -6,6 +6,8 @@ import { fetchLibraryBooks } from "@/store/slices/library/thunks/fecthLibraryBoo
 import { useEffect } from "react";
 import Slider from "@/books/components/Slider";
 import CardDisplay from "@/books/components/cardDisplay";
+import { div } from "framer-motion/client";
+import MainButton from "@/components/shared/mainButton";
 
 const BookCardComponent = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,6 +16,9 @@ const BookCardComponent = () => {
     loading,
     error,
   } = useSelector((state: RootState) => state.libraryBooks);
+  const { isLoggedIn, data: user } = useSelector(
+    (state: RootState) => state.Authentication
+  );
   useEffect(() => {
     if (books.length === 0) {
       dispatch(fetchLibraryBooks());
@@ -28,6 +33,13 @@ const BookCardComponent = () => {
   }
   return (
     <>
+      {isLoggedIn && user?.user.role === "admin" ? (
+        <div>
+          <MainButton name={"Nuevo libro"} link="/admin/libros/libro/crear" />
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="hidden mlg:flex mlg:flex-row items-center gap-5 mt-2">
         <CardDisplay books={books} />
       </div>

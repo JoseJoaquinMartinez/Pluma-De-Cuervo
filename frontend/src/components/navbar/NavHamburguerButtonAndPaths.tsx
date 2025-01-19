@@ -18,7 +18,11 @@ export default function NavHamburguerButtonAndPaths() {
     setIsOpen(!isOpen);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
     dispatch(logoutUser());
   };
   return (
