@@ -17,6 +17,7 @@ export const checkIfAdminLogin = async (
     try {
       const existingAdmin = await prisma.adminUser.findFirst({
         where: { email: ADMIN_EMAIL },
+        include: {adminUserData: true},
       });
       if (!existingAdmin) {
         return res.status(404).json({ message: "Administrador no encontrado" });
@@ -36,7 +37,19 @@ export const checkIfAdminLogin = async (
           expiresIn: "2h",
         }
       );
-      res.status(200).json({ token: authToken, message: "Admin logeado" });
+      res.cookie("authToken", authToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 3600 * 1000,
+      });
+      const adminToReturn = {
+        id: existingAdmin.id,
+        email: existingAdmin.email,
+        role: existingAdmin.role,
+        adminUserData: existingAdmin.adminUserData,
+      }
+      res.status(200).json({ token: authToken, user: adminToReturn, message: "Admin logeado" });
     } catch (error) {
       res.status(500).json({ error: `error al logear ${error}` });
     } finally {
