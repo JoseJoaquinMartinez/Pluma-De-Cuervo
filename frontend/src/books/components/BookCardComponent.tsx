@@ -6,7 +6,6 @@ import { fetchLibraryBooks } from "@/store/slices/library/thunks/fecthLibraryBoo
 import { useEffect } from "react";
 import Slider from "@/books/components/Slider";
 import CardDisplay from "@/books/components/cardDisplay";
-import { div } from "framer-motion/client";
 import MainButton from "@/components/shared/mainButton";
 
 const BookCardComponent = () => {

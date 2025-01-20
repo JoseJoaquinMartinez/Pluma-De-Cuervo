@@ -31,7 +31,7 @@ export default function middleware(req: NextRequest) {
         userId: string;
         role: string;
       };
-
+      console.log(decoded);
       if (
         decoded.role !== "admin" &&
         adminLoggedInRoutes.includes(req.nextUrl.pathname)
