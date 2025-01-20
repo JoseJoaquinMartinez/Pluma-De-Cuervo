@@ -15,9 +15,7 @@ const BookCardComponent = () => {
     loading,
     error,
   } = useSelector((state: RootState) => state.libraryBooks);
-  const { isLoggedIn, data: user } = useSelector(
-    (state: RootState) => state.Authentication
-  );
+
   useEffect(() => {
     if (books.length === 0) {
       dispatch(fetchLibraryBooks());
@@ -32,13 +30,6 @@ const BookCardComponent = () => {
   }
   return (
     <>
-      {isLoggedIn && user?.user.role === "admin" ? (
-        <div>
-          <MainButton name={"Nuevo libro"} link="/admin/libros/libro/crear" />
-        </div>
-      ) : (
-        <></>
-      )}
       <div className="hidden mlg:flex mlg:flex-row items-center gap-5 mt-2">
         <CardDisplay books={books} />
       </div>

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 
@@ -14,7 +14,7 @@ const loggedInRoutes = [
   "/auth/singup/email-validation",
 ];
 
-export default function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   const token = req.cookies.get("authToken")?.value;
 
   try {
@@ -22,24 +22,22 @@ export default function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/", req.nextUrl.origin));
     }
 
-    if (!token && adminLoggedInRoutes.includes(req.nextUrl.pathname)) {
-      return NextResponse.redirect(new URL("/", req.nextUrl.origin));
-    }
+    if (adminLoggedInRoutes.includes(req.nextUrl.pathname)) {
+      if (!token) {
+        return NextResponse.redirect(new URL("/", req.nextUrl.origin));
+      }
 
-    if (token) {
-      const decoded = jwt.verify(token, JWT_SECRET as string) as {
-        userId: string;
-        role: string;
-      };
-      console.log(decoded);
-      if (
-        decoded.role !== "admin" &&
-        adminLoggedInRoutes.includes(req.nextUrl.pathname)
-      ) {
+      const secret = new TextEncoder().encode(JWT_SECRET);
+      const { payload } = await jwtVerify(token, secret);
+
+      if (payload.role !== "admin") {
         return NextResponse.redirect(new URL("/", req.nextUrl.origin));
       }
     }
+
+    return NextResponse.next();
   } catch (error) {
+    console.error("Error en middleware:", error);
     return NextResponse.redirect(new URL("/", req.url));
   }
 }
