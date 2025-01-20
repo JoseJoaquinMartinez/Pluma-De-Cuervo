@@ -41,7 +41,6 @@ router.post("/login", checkIfAdminLogin, async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 3600 * 1000,
     });
     const userToReturn = {
       id: existingUser.id,
