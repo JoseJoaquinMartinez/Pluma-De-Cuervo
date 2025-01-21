@@ -18,7 +18,7 @@ export const SectionComponentBook: React.FC<HomeSectionComponent> = ({
   return (
     <div className="flex flex-col justify-start max-w-screen-xl gap-6 mt-10">
       <div className="flex flex-col items-center md:flex-row md:justify-between">
-        <h2 className="text-encabezados text-2xl  text-center md:text-start">
+        <h2 className="text-encabezados text-2xl  text-center md:text-start font-semibold">
           {title}
         </h2>
         {isLoggedIn && user?.user.role === "admin" ? (

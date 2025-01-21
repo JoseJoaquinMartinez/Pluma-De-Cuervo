@@ -1,125 +1,86 @@
 "use client";
+import MainButton from "@/components/shared/mainButton";
 import Image from "next/image";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 
 interface FormData {
   title: string;
   synopsis: string;
-  image?: File;
+  imagen?: File;
 }
 export const CreateBook = () => {
-  const defaultImage =
+  const defaultImagen =
     "https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp";
-
-  const [imagePreview, setImagePreview] = useState<string>(defaultImage);
   const [formData, setFormData] = useState<FormData>({
     title: "",
     synopsis: "",
   });
+  const [imagenPreview, setImagenPreview] = useState<string>(defaultImagen);
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFormData((prev) => ({ ...prev, image: file }));
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result;
-        if (typeof result === "string") {
-          setImagePreview(result);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const submitFormData = new FormData();
-    submitFormData.append("title", formData.title);
-    submitFormData.append("synopsis", formData.synopsis);
-
-    if (formData.image) {
-      submitFormData.append("image", formData.image);
-    }
-
-    try {
-      // const response = await fetch('tu-url-api/books', {
-      //   method: 'POST',
-      //   body: submitFormData,
-      // });
-      // const data = await response.json();
-    } catch (error) {
-      console.error(
-        "Error al enviar el formulario:",
-        error instanceof Error ? error.message : "Unknown error"
-      );
-    }
-  };
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {};
 
   return (
-    <section className="max-w-2xl mx-auto p-4">
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <label htmlFor="title" className="block font-medium">
-            Título *
+    <form className="flex flex-col w-full md:w-[670px] mlg:w-[1080px]">
+      <article
+        className="flex flex-col md:flex-row justify-between
+      "
+      >
+        <div className="flex flex-col">
+          <label htmlFor="title" className="text-encabezados md:text-xl my-2">
+            Título
           </label>
           <input
             id="title"
             name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded"
+            className="border border-encabezados/50 text-mainText md:text-xl  rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
+            placeholder="Escribe el título del libro"
             required
           />
         </div>
-
-        <div className="space-y-2">
-          <label className="block font-medium">Imagen (opcional)</label>
-          <div className="relative w-full aspect-square">
-            <Image
-              src={imagePreview}
-              fill
-              className="object-cover rounded"
-              alt="Previsualización del libro"
+        <div className="">
+          <label className="text-encabezados md:text-xl">
+            Imagen (opcional)
+          </label>
+          <Image
+            src={imagenPreview}
+            width={300}
+            height={300}
+            alt="Imagen de la portada del libro"
+            className="rounded-xl my-3 aspect-auto"
+          />
+          <div>
+            <label
+              htmlFor="fileUpload"
+              className="cursor-pointer text-white focus:ring-4 font-medium  rounded-lg text-sm md:text-xl px-4 py-2 text-center bg-botones hover:bg-botones/70 focus:ring-botones/20"
+            >
+              Selecciona la portada
+            </label>
+            <input
+              id="fileUpload"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange}
             />
           </div>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full"
-          />
         </div>
+      </article>
 
-        <div className="space-y-2">
-          <label htmlFor="synopsis" className="block font-medium">
-            Synopsis *
-          </label>
-          <textarea
-            id="synopsis"
-            name="synopsis"
-            value={formData.synopsis}
-            onChange={handleInputChange}
-            className="w-full p-2 border rounded min-h-[150px]"
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-        >
-          Crear Libro
-        </button>
-      </form>
-    </section>
+      <article className="flex flex-col w-full">
+        <label htmlFor="synopsis" className="text-encabezados text-xl my-2">
+          Escribe la Sinopsis del libro
+        </label>
+        <input
+          id="synopsis"
+          name="synopsis"
+          className="border border-encabezados/50 text-mainText md:text-xl  rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
+          placeholder="Va currate la sinopsis rey"
+          required
+        />
+      </article>
+      <div className="mt-3 self-center">
+        <MainButton type="submit" name="Crear Libro" />
+      </div>
+    </form>
   );
 };
