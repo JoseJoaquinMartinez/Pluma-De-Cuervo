@@ -21,7 +21,7 @@ router.post(
           Synopsis: Synopsis,
         },
       });
-      return res.status(201).json({ newBook, message: "Libro creado" });
+      return res.status(201).json({ newBook });
     } catch (error) {
       if (error.code === "P2002") {
         return res
