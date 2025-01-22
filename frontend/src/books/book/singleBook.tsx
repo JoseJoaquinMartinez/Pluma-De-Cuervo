@@ -51,7 +51,11 @@ function SingleBook({ bookId }: { bookId: number }) {
           className={"flex flex-col lg:flex-row justify-start gap-6 mb-2 px-2"}
         >
           <div className={"flex flex-col w-auto lg:w-[900px]"}>
-            <p className={"bg-cardsBackground text-mainText rounded-lg p-2"}>
+            <p
+              className={
+                "bg-cardsBackground text-mainText rounded-lg p-2 whitespace-pre-wrap"
+              }
+            >
               {book.Synopsis}
             </p>
           </div>

@@ -1,15 +1,19 @@
 import { Router } from "express";
 import prisma from "../../../../client";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
+import { upload, uploadToCloudinary } from "../../../utils/cloudinary";
 
 const router = Router();
 
 router.put(
   "/put-existing-book/:bookId",
   roleMiddleware("admin"),
+  upload.single("imagen"),
+  uploadToCloudinary,
   async (req, res) => {
     const bookId = parseInt(req.params.bookId);
-    const { title, imagen, Synopsis } = req.body;
+    const { title, Synopsis } = req.body;
+    const imagen = req.body.cloudinaryUrl || undefined;
 
     const dataToUpdate: any = {};
     if (title) dataToUpdate.title = title;

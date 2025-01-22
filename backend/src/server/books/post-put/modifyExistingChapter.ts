@@ -5,6 +5,10 @@ import fs from "fs";
 import { fileContentManagement } from "../utils/fileContentManagement";
 import { extractContentFromTextArea } from "../utils/extractContentFromTextArea";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
+import {
+  upload as uploadImagen,
+  uploadToCloudinary,
+} from "../../../utils/cloudinary";
 
 const router = Router();
 const upload = multer({ dest: "uploads/" });
@@ -13,10 +17,13 @@ router.put(
   "/modify-chapter/:chapterId",
   roleMiddleware("admin"),
   upload.single("file"),
+  uploadImagen.single("imagen"),
+  uploadToCloudinary,
   async (req, res) => {
     const chapterId = parseInt(req.params.chapterId);
-    const { title, imagen, chapterNumber, bookId } = req.body;
+    const { title, chapterNumber, bookId } = req.body;
     const textArea: string | null = req.body.textArea;
+    const imagen = req.body.cloudinaryUrl || undefined;
     const file = req.file;
 
     const dataToUpdate: any = {};

@@ -15,6 +15,7 @@ router.get("/get-single-book/:bookId", async (req, res) => {
         title: true,
         imagen: true,
         Synopsis: true,
+        status: true,
       },
     });
     if (!existingBook) {
