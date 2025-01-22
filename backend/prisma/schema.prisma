@@ -4,6 +4,11 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+enum BookStatus {
+  PUBLICANDO
+  ABANDONADO
+  TERMINADO
+}
 generator client {
   provider = "prisma-client-js"
 }
@@ -61,6 +66,7 @@ model Book {
   title String @unique
   imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
   Synopsis String @default("")
+  status BookStatus @default(PUBLICANDO)
 
   chapter Chapter[]
 }

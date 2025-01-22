@@ -9,12 +9,13 @@ router.put(
   roleMiddleware("admin"),
   async (req, res) => {
     const bookId = parseInt(req.params.bookId);
-    const { title, imagen, Synopsis } = req.body;
+    const { title, imagen, Synopsis, status } = req.body;
 
     const dataToUpdate: any = {};
     if (title) dataToUpdate.title = title;
     if (imagen) dataToUpdate.imagen = imagen;
     if (Synopsis) dataToUpdate.Synopsis = Synopsis;
+    if (status) dataToUpdate.status = status;
 
     try {
       const updatedBook = await prisma.book.update({

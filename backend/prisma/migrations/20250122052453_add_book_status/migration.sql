@@ -1,0 +1,5 @@
+-- CreateEnum
+CREATE TYPE "BookStatus" AS ENUM ('PUBLICANDO', 'ABANDONADO', 'TERMINADO');
+
+-- AlterTable
+ALTER TABLE "Book" ADD COLUMN     "status" "BookStatus" NOT NULL DEFAULT 'PUBLICANDO';
