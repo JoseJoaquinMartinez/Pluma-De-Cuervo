@@ -1,4 +1,5 @@
 "use client";
+import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import MainButton from "@/components/shared/mainButton";
 import { RootState } from "@/store/store";
 import Image from "next/image";
@@ -15,6 +16,7 @@ const defaultImagen =
   "https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp";
 export const CreateBook = () => {
   const { token } = useSelector((state: RootState) => state.Authentication);
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     title: "",
@@ -43,6 +45,7 @@ export const CreateBook = () => {
   };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     const submitFormData = new FormData();
     submitFormData.append("title", formData.title);
     submitFormData.append("Synopsis", formData.synopsis);
@@ -59,7 +62,7 @@ export const CreateBook = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
+      setLoading(false);
       if (data) {
         router.push(`/libro/${data.newBook.id}`);
       }
@@ -70,6 +73,13 @@ export const CreateBook = () => {
       );
     }
   };
+  if (loading) {
+    return (
+      <div className="felx flex-col items-center justify-center">
+        <BookLoaderComponent />
+      </div>
+    );
+  }
 
   return (
     <form
