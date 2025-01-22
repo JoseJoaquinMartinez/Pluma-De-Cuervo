@@ -1,7 +1,6 @@
 import { Router } from "express";
 import prisma from "../../../../client";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
-import { upload, uploadToCloudinary } from "../../../utils/cloudinary";
 
 const router = Router();
 
@@ -34,8 +33,7 @@ router.post(
       }
     } finally {
       prisma.$disconnect();
-    }
   }
-);
+});
 
 export default router;

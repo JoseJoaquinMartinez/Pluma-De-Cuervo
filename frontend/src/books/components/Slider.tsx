@@ -26,7 +26,7 @@ const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
   };
 
   return (
-    <section className="flex flex-col items-center w-full">
+    <section className="flex flex-col items-center w-full overflow-hidden">
       <article className="w-full flex justify-center items-center overflow-hidden transition-transform ease-in-out duration-500">
         <div
           className="w-full flex transition-transform duration-500 ease-in-out"
@@ -35,11 +35,11 @@ const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
           }}
         >
           {books.map(
-            (
-              { id, title, Synopsis, imagen }: BookCardComponentProps,
-              index,
-            ) => (
-              <div key={id} className="w-full flex-shrink-0">
+            ({ id, title, Synopsis, imagen }: BookCardComponentProps) => (
+              <div
+                key={id}
+                className="w-full flex-shrink-0 flex justify-center items-center"
+              >
                 <BookCard
                   id={id}
                   title={title}
@@ -47,7 +47,7 @@ const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
                   imagen={imagen}
                 />
               </div>
-            ),
+            )
           )}
         </div>
       </article>

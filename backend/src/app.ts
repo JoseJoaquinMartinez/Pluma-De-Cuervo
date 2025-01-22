@@ -7,6 +7,7 @@ import authRegistrationRoute from "./server/auth/registration";
 import authLoginRoute from "./server/auth/login";
 import adminUserRegistrationRoute from "./server/auth/adminUserRegistration";
 import adminUploadFileRoute from "./server/books/post-put/uploadFileEndpoint";
+import clearCookie from "./server/auth/logout";
 //BOOKS
 import getAllBooks from "./server/books/get/getAllBooks";
 import getSingleBook from "./server/books/get/getSingleBook";
@@ -52,9 +53,13 @@ import replyToContactMessage from "./server/contact-form/post/sendReplyToMessage
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3001",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 // AUTH ROUTES
 
@@ -62,6 +67,7 @@ app.use("/auth", authValidationRoute);
 app.use("/auth", authRegistrationRoute);
 app.use("/auth", authLoginRoute);
 app.use("/auth", adminUserRegistrationRoute);
+app.use("/auth", clearCookie);
 
 //BOOK ROUTES
 

@@ -29,7 +29,7 @@ function AllBlogsComponent() {
   if (blogs) {
     return (
       <section className="flex flex-col items-center mt-5 lg:max-w-screen-xl ">
-        <h2 className="text-encabezados text-2xl  text-start mb-2 self-start px-2">
+        <h2 className="text-encabezados text-2xl  text-start mb-2 self-start px-2 font-semibold">
           Noticias & Pensamientos
         </h2>
         {blogs && blogs.length === 0 && <p>No hay blogs que mostrar</p>}
