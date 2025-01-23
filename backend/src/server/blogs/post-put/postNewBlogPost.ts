@@ -23,9 +23,7 @@ router.post(
           estimatedReadTime: estimatedReadTime,
         },
       });
-      return res
-        .status(200)
-        .json({ newBlogPost, message: "Entrada de blog creada con éxito" });
+      return res.status(200).json({ newBlogPost });
     } catch (error) {
       if (error instanceof Error) {
         return res
