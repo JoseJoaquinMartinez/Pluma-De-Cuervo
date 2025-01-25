@@ -1,6 +1,6 @@
 import React from "react";
 import type { AllExistingBlog } from "../interface/blogs";
-import Image from "next/image";
+
 import MainButton from "@/components/shared/mainButton";
 import { ImageComponent } from "@/components/shared/ImageComponent";
 

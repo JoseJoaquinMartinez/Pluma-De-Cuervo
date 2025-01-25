@@ -57,7 +57,12 @@ router.post(
         });
       }
 
-      res.status(200).json({ message: "Capítulo creado exitosamente" });
+      res
+        .status(200)
+        .json({
+          chapterId: chapterId,
+          message: "Capítulo creado exitosamente",
+        });
     } catch (error) {
       console.error("Error creating chapter content:", error);
       res.status(500).json({

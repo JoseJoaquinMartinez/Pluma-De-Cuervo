@@ -19,7 +19,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
     newComment: "",
     commentId: null,
   });
-  const { token, isLoggedIn } = useSelector(
+  const { token, isLoggedIn, data } = useSelector(
     (state: RootState) => state.Authentication
   );
 
@@ -42,7 +42,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
   };
   useEffect(() => {
     const chapterId = chapter.id;
-    if (token) {
+    if (token && data?.user.role === "user") {
       const fetchUserComments = getUserCommentsOnChapter({
         chapterId,
         token,
