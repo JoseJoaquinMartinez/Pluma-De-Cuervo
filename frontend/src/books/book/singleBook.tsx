@@ -17,6 +17,7 @@ function SingleBook({ bookId }: { bookId: number }) {
     loading,
     error,
   } = useSelector((state: RootState) => state.singleBook);
+  const { data } = useSelector((state: RootState) => state.Authentication);
   const {
     data: lastFiveChapters,
     loading: lastFiveChaptersLoading,
@@ -59,15 +60,25 @@ function SingleBook({ bookId }: { bookId: number }) {
               {book.Synopsis}
             </p>
           </div>
-          <div className=" relative flex flex-col items-center transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl mlg:group-hover:-translate-y-1 mlg:group-hover:shadow-2xl">
-            <Image
-              src={book.imagen}
-              alt={book.title}
-              width={500}
-              height={500}
-              className="h-full object-cover object-top mlg:scale-110 rounded-lg transition duration-500 hover:scale-100"
-            />
-          </div>
+          <article className="flex flex-col items-center justify-center">
+            {data?.user.role === "admin" && (
+              <div className="mb-2">
+                <MainButton
+                  name="Crear Capítulo"
+                  link={`/admin/libros/libro/${bookId}/capitulo/crear`}
+                />
+              </div>
+            )}
+            <div className=" relative flex flex-col items-center transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl mlg:group-hover:-translate-y-1 mlg:group-hover:shadow-2xl">
+              <Image
+                src={book.imagen}
+                alt={book.title}
+                width={500}
+                height={500}
+                className="h-full object-cover object-top mlg:scale-110 rounded-lg transition duration-500 hover:scale-100"
+              />
+            </div>
+          </article>
         </section>
         <section className="flex flex-col">
           <h3

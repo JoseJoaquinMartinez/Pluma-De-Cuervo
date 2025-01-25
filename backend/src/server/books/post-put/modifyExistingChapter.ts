@@ -21,7 +21,7 @@ router.put(
   uploadToCloudinary,
   async (req, res) => {
     const chapterId = parseInt(req.params.chapterId);
-    const { title, chapterNumber, bookId } = req.body;
+    const { title, bookId } = req.body;
     const textArea: string | null = req.body.textArea;
     const imagen = req.body.cloudinaryUrl || undefined;
     const file = req.file;
@@ -30,7 +30,6 @@ router.put(
 
     if (title) dataToUpdate.title = title;
     if (imagen) dataToUpdate.imagen = imagen;
-    if (chapterNumber) dataToUpdate.chapterNumber = parseInt(chapterNumber);
     if (bookId) dataToUpdate.bookId = parseInt(bookId);
 
     try {

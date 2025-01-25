@@ -76,7 +76,7 @@ model Chapter {
 
   title String @unique
   imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
-  chapterNumber Int
+  chapterNumber Int @default(autoincrement())
   paragraph Paragraph[]
   createdAt DateTime @default(now())
   estimatedReadTime String @default("")
