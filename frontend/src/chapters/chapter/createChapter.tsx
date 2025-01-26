@@ -30,6 +30,16 @@ export const CreateChapter = ({ bookId }: { bookId: number }) => {
   const [imagenPreview, setImagenPreview] = useState<string>(defaultImagen);
   const [chapterFile, setChapterFile] = useState<File | null>(null);
   const [chapterText, setChapterText] = useState<string>("");
+  const [hideFile, setHideFile] = useState<boolean>(false);
+  const [hideTextArea, setHideTextArea] = useState<boolean>(false);
+  const handleHideFile = () => {
+    setHideFile(!hideFile);
+    setHideTextArea(false);
+  };
+  const handleHideTextArea = () => {
+    setHideTextArea(!hideTextArea);
+    setHideFile(false);
+  };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -138,39 +148,66 @@ export const CreateChapter = ({ bookId }: { bookId: number }) => {
             onChange={(e) => handleInputChange(e, "title")}
             required
           />
+          <p className="text-mainText font-semibold">
+            Decide como quieres publicar el capítulo{" "}
+            <span
+              className="text-encabezados font-bold cursor-pointer"
+              onClick={handleHideFile}
+            >
+              sube un archivo{" "}
+            </span>
+            o{" "}
+            <span
+              className="text-encabezados font-bold cursor-pointer"
+              onClick={handleHideTextArea}
+            >
+              escribelo directamente
+            </span>
+          </p>
           <div className="flex flex-col items-center justify-center mt-2">
             {chapterFile && (
               <p className="text-mainText text-xl my-2">
                 El archivo subido es: {chapterFile.name}
               </p>
             )}
-            <label
-              htmlFor="fileUpload"
-              className="cursor-pointer  text-white focus:ring-4 font-medium  rounded-lg text-sm md:text-xl px-4 py-2 text-center bg-botones hover:bg-botones/70 focus:ring-botones/20"
-            >
-              Carga el capitulo
-            </label>
+            {hideFile && (
+              <>
+                <label
+                  htmlFor="fileUpload"
+                  className="cursor-pointer  text-white focus:ring-4 font-medium  rounded-lg text-sm md:text-xl px-4 py-2 text-center bg-botones hover:bg-botones/70 focus:ring-botones/20"
+                >
+                  Carga el capitulo
+                </label>
 
-            <input
-              id="fileUpload"
-              type="file"
-              accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-              className="hidden"
-              onChange={handleChapterFileChange}
-            />
+                <input
+                  id="fileUpload"
+                  type="file"
+                  accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  className="hidden"
+                  onChange={handleChapterFileChange}
+                />
+              </>
+            )}
           </div>
 
-          <label htmlFor="textArea" className="text-encabezados text-xl my-2">
-            O escribelo aquí abajo
-          </label>
-          <textarea
-            id="textArea"
-            name="textArea"
-            className=" h-44 border border-encabezados/50 text-mainText md:text-xl  rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
-            placeholder="Escribe el capítulo"
-            value={formData.textArea}
-            onChange={(e) => handleTextChange(e)}
-          />
+          {hideTextArea && (
+            <>
+              <label
+                htmlFor="textArea"
+                className="text-encabezados text-xl my-2"
+              >
+                Escribe el capítulo aquí abajo
+              </label>
+              <textarea
+                id="textArea"
+                name="textArea"
+                className=" h-44 border border-encabezados/50 text-mainText md:text-xl  rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
+                placeholder="Escribe el capítulo"
+                value={formData.textArea}
+                onChange={(e) => handleTextChange(e)}
+              />
+            </>
+          )}
         </div>
         <div className="flex flex-col">
           <label

@@ -13,7 +13,7 @@ export interface SingleBlog {
   id: number;
   title: string;
   blogText: string;
-  imagen: string;
+  imagen: string | File;
   createdAt: string;
   estimatedReadTime: string;
 }

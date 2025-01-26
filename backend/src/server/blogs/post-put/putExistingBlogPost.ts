@@ -35,9 +35,7 @@ router.put(
           .status(404)
           .json({ message: "Entrada de blog no encontrada" });
       }
-      return res
-        .status(200)
-        .json({ updatedBlog, message: "Entrada de blog actualizada" });
+      return res.status(200).json({ updatedBlog });
     } catch (error) {
       return res.status(500).json({
         error: `Error inesperado actualizando el blog ${error.message}`,
