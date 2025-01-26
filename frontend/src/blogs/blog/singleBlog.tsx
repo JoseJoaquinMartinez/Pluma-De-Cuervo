@@ -14,6 +14,8 @@ export const SingleBlog = ({ blogId }: { blogId: number }) => {
     error,
   } = useSelector((state: RootState) => state.SingleBlog);
 
+  const { data } = useSelector((state: RootState) => state.Authentication);
+
   useEffect(() => {
     if (!blog || blog.id !== blogId) {
       dispatch(fetchSingleBlog(blogId));
@@ -27,6 +29,11 @@ export const SingleBlog = ({ blogId }: { blogId: number }) => {
     return <div>{error}</div>;
   }
   if (blog) {
-    return <SingleBlogComponent {...blog} />;
+    if (data) {
+      const role = data.user.role;
+      return <SingleBlogComponent {...blog} role={role} />;
+    } else {
+      return <SingleBlogComponent {...blog} />;
+    }
   }
 };
