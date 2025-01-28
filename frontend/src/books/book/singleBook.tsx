@@ -9,6 +9,7 @@ import ChapterCard from "@/app/(un-auth-regular-user)/ultimos-capitulos/componen
 import Image from "next/image";
 import MainButton from "@/components/shared/mainButton";
 import SliderChapters from "../components/SliderChapters";
+import { BookStatusBadgeSingleBook } from "../components/BookStatusBadgeSingleBook";
 
 function SingleBook({ bookId }: { bookId: number }) {
   const dispatch = useDispatch<AppDispatch>();
@@ -41,13 +42,17 @@ function SingleBook({ bookId }: { bookId: number }) {
   if (book) {
     return (
       <section className="flex flex-col items-center mt-5 lg:max-w-screen-xl ">
-        <h2
-          className={
-            "text-encabezados text-2xl  text-start mb-2 self-start px-2"
-          }
-        >
-          {book.title}
-        </h2>
+        <div className="flex flex-col md:flex-row self-start">
+          <h2
+            className={
+              "text-encabezados text-2xl  text-start mb-2 self-start px-2"
+            }
+          >
+            {book.title}
+          </h2>
+          <BookStatusBadgeSingleBook status={book.status} />
+        </div>
+
         <section
           className={"flex flex-col lg:flex-row justify-start gap-6 mb-2 px-2"}
         >

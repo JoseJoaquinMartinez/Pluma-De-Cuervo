@@ -35,7 +35,13 @@ const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
           }}
         >
           {books.map(
-            ({ id, title, Synopsis, imagen }: BookCardComponentProps) => (
+            ({
+              id,
+              title,
+              Synopsis,
+              imagen,
+              status,
+            }: BookCardComponentProps) => (
               <div
                 key={id}
                 className="w-full flex-shrink-0 flex justify-center items-center"
@@ -45,6 +51,7 @@ const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
                   title={title}
                   Synopsis={Synopsis}
                   imagen={imagen}
+                  status={status}
                 />
               </div>
             )
