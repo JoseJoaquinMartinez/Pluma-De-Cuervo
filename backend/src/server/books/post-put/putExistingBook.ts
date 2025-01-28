@@ -12,13 +12,23 @@ router.put(
   uploadToCloudinary,
   async (req, res) => {
     const bookId = parseInt(req.params.bookId);
-    const { title, Synopsis } = req.body;
+    const { title, Synopsis, status } = req.body;
     const imagen = req.body.cloudinaryUrl || undefined;
 
     const dataToUpdate: any = {};
     if (title) dataToUpdate.title = title;
     if (imagen) dataToUpdate.imagen = imagen;
     if (Synopsis) dataToUpdate.Synopsis = Synopsis;
+    if (status) {
+      const validStatuses = ["PUBLICANDO", "ABANDONADO", "TERMINADO"];
+      if (!validStatuses.includes(status)) {
+        return res.status(400).json({
+          message:
+            "El estado del libro no es válido. Opciones: PUBLICANDO, ABANDONADO, TERMINADO.",
+        });
+      }
+      dataToUpdate.status = status;
+    }
 
     try {
       const updatedBook = await prisma.book.update({
