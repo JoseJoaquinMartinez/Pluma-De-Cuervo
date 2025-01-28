@@ -9,6 +9,7 @@ import ChapterCard from "@/app/(un-auth-regular-user)/ultimos-capitulos/componen
 import Image from "next/image";
 import MainButton from "@/components/shared/mainButton";
 import SliderChapters from "../components/SliderChapters";
+import { BookStatusBadgeSingleBook } from "../components/BookStatusBadgeSingleBook";
 
 function SingleBook({ bookId }: { bookId: number }) {
   const dispatch = useDispatch<AppDispatch>();
@@ -41,13 +42,17 @@ function SingleBook({ bookId }: { bookId: number }) {
   if (book) {
     return (
       <section className="flex flex-col items-center mt-5 lg:max-w-screen-xl ">
-        <h2
-          className={
-            "text-encabezados text-2xl  text-start mb-2 self-start px-2"
-          }
-        >
-          {book.title}
-        </h2>
+        <div className="flex flex-col md:flex-row self-start">
+          <h2
+            className={
+              "text-encabezados text-2xl  text-start mb-2 self-start px-2"
+            }
+          >
+            {book.title}
+          </h2>
+          <BookStatusBadgeSingleBook status={book.status} />
+        </div>
+
         <section
           className={"flex flex-col lg:flex-row justify-start gap-6 mb-2 px-2"}
         >
@@ -61,14 +66,6 @@ function SingleBook({ bookId }: { bookId: number }) {
             </p>
           </div>
           <article className="flex flex-col items-center justify-center">
-            {data?.user.role === "admin" && (
-              <div className="mb-2">
-                <MainButton
-                  name="Crear Capítulo"
-                  link={`/admin/libros/libro/${bookId}/capitulo/crear`}
-                />
-              </div>
-            )}
             <div className=" relative flex flex-col items-center transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl mlg:group-hover:-translate-y-1 mlg:group-hover:shadow-2xl">
               <Image
                 src={book.imagen}
@@ -78,6 +75,22 @@ function SingleBook({ bookId }: { bookId: number }) {
                 className="h-full object-cover object-top mlg:scale-110 rounded-lg transition duration-500 hover:scale-100"
               />
             </div>
+            {data?.user.role === "admin" && (
+              <section className="flex flex-col md:flex-row gap-2 items-center my-2">
+                <div className="">
+                  <MainButton
+                    name="Crear Capítulo"
+                    link={`/admin/libros/libro/${bookId}/capitulo/crear`}
+                  />
+                </div>
+                <div className="">
+                  <MainButton
+                    name="Editar Libro"
+                    link={`/admin/libros/libro/${bookId}/editar`}
+                  />
+                </div>
+              </section>
+            )}
           </article>
         </section>
         <section className="flex flex-col">

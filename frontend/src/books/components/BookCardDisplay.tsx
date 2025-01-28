@@ -2,8 +2,15 @@ import Image from "next/image";
 import MainButton from "@/components/shared/mainButton";
 import React from "react";
 import { BookCardComponentProps } from "../interfaces/bookData";
+import { BookStatusBadgeLibrary } from "./BookStatusBadgeLibrary";
 
-const BookCard = ({ id, title, Synopsis, imagen }: BookCardComponentProps) => {
+const BookCard = ({
+  id,
+  title,
+  Synopsis,
+  imagen,
+  status,
+}: BookCardComponentProps) => {
   return (
     <article className="w-full flex flex-col items-center justify-center pb-6 rounded-xl bg-cardsBackground">
       <div
@@ -21,6 +28,8 @@ const BookCard = ({ id, title, Synopsis, imagen }: BookCardComponentProps) => {
       <h2 className="my-2 text-encabezados text-lg sm:text-xl md:text-2xl">
         {title}
       </h2>
+      <BookStatusBadgeLibrary status={status} />
+
       <p className="text-mainText text-pretty mb-2 line-clamp-3 px-1">
         {Synopsis}
       </p>

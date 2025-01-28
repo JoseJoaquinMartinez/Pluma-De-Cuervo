@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchLibraryBooks } from "@/store/slices/library/thunks/fecthLibraryBooks";
+import { BookCardComponentProps } from "@/books/interfaces/bookData";
 
 const initialState: {
   data: BookCardComponentProps[];

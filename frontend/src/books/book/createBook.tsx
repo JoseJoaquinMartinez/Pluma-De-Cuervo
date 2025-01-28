@@ -151,17 +151,3 @@ export const CreateBook = () => {
     </form>
   );
 };
-{
-  /* <article className="flex flex-col w-full">
-        <label htmlFor="synopsis" className="text-encabezados text-xl my-2">
-          Escribe la Sinopsis del libro
-        </label>
-        <textarea
-          id="synopsis"
-          name="synopsis"
-          className="border border-encabezados/50 text-mainText md:text-xl  rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
-          placeholder="Va currate la sinopsis rey"
-          required
-        />
-      </article> */
-}
