@@ -4,14 +4,15 @@ import { EditChapter } from "../../../../../../../../chapters/chapter/editChapte
 export default function EditChapterPage({
   params,
 }: {
-  params: { chapterId: string };
+  params: { chapterId: string; bookId: string };
 }) {
   const chapterId = parseInt(params.chapterId);
+  const bookId = parseInt(params.bookId);
   return (
     <div className="flex flex-col items-center justify-center  pb-8 px-4">
       <SectionComponent
         title="Edita el capítulo"
-        content={<EditChapter chapterId={chapterId} />}
+        content={<EditChapter chapterId={chapterId} bookId={bookId} />}
       />
     </div>
   );
