@@ -5,19 +5,18 @@ import fs from "fs";
 import { fileContentManagement } from "../utils/fileContentManagement";
 import { extractContentFromTextArea } from "../utils/extractContentFromTextArea";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
-import {
-  upload as uploadImagen,
-  uploadToCloudinary,
-} from "../../../utils/cloudinary";
+import { uploadFields, uploadToCloudinary } from "../../../utils/cloudinary";
 
 const router = Router();
-const upload = multer({ dest: "uploads/" });
+const uploadMultiple = uploadFields.fields([
+  { name: "file", maxCount: 1 },
+  { name: "imagen", maxCount: 1 },
+]);
 
 router.put(
   "/modify-chapter/:chapterId",
   roleMiddleware("admin"),
-  upload.single("file"),
-  uploadImagen.single("imagen"),
+  uploadMultiple,
   uploadToCloudinary,
   async (req, res) => {
     const chapterId = parseInt(req.params.chapterId);
