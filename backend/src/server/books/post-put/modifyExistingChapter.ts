@@ -23,7 +23,10 @@ router.put(
     const { title, bookId } = req.body;
     const textArea: string | null = req.body.textArea;
     const imagen = req.body.cloudinaryUrl || undefined;
-    const file = req.file;
+    const files = req.files as
+      | { [fieldname: string]: Express.Multer.File[] }
+      | undefined;
+    const file = files?.["file"]?.[0];
 
     const dataToUpdate: any = {};
 
