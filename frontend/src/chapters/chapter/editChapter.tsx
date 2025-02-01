@@ -33,19 +33,17 @@ export const EditChapter = ({
     title: "",
     estimatedReadTime: "",
     bookId: bookId,
-    textArea: "",
     imagen: "",
   });
   const [imagenPreview, setImagenPreview] = useState<string>(defaultImagen);
   const [chapterFile, setChapterFile] = useState<File | null>(null);
-  const [chapterText, setChapterText] = useState<string>("");
   const [showTextArea, setShowTextArea] = useState<boolean>(true);
 
   useEffect(() => {
     const getChapterInfo = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/book/get-chapter/${chapterId}/${chapterId}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/book/get-chapter/${bookId}/${chapterId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -59,21 +57,9 @@ export const EditChapter = ({
           title: data.title || "",
           estimatedReadTime: data.estimatedReadTime.split(" ")[0],
           bookId: bookId,
-          textArea: data.paragraph
-            ? data.paragraph
-                .map((p: { paragraphText: string }) => p.paragraphText)
-                .join("\n")
-            : "",
           imagen: data.imagen || defaultImagen,
         });
 
-        setChapterText(
-          data.paragraph
-            ? data.paragraph
-                .map((p: { paragraphText: string }) => p.paragraphText)
-                .join("\n")
-            : ""
-        );
         setImagenPreview(data.imagen || defaultImagen);
       } catch (error) {
         console.error("Error al obtener el capítulo:", error);
@@ -102,14 +88,9 @@ export const EditChapter = ({
     if (file) {
       setFormData((prev) => ({ ...prev, chapterFile: file }));
       setChapterFile(file);
-      setShowTextArea(false);
     }
   };
-  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setChapterText(event.target.value);
-    setFormData((prev) => ({ ...prev, textArea: event.target.value }));
-    setChapterFile(null);
-  };
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     field: string
@@ -122,9 +103,8 @@ export const EditChapter = ({
   };
   const handleRemoveFile = () => {
     setChapterFile(null);
-    setShowTextArea(true);
   };
-  console.log(formData);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -143,17 +123,7 @@ export const EditChapter = ({
 
     if (formData.chapterFile)
       submitFormData.append("file", formData.chapterFile);
-    else if (formData.textArea) {
-      submitFormData.append("textArea", formData.textArea);
-    }
-    console.log({
-      title: submitFormData.get("title"),
-      estimatedReadTime: submitFormData.get("estimatedReadTime"),
-      chapterId: submitFormData.get("chapterId"),
-      imagen: submitFormData.get("imagen"),
-      chapterFile: submitFormData.get("chapterFile"),
-      textArea: submitFormData.get("textArea"),
-    });
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/book/modify-chapter/${chapterId}`,
@@ -219,12 +189,17 @@ export const EditChapter = ({
                 <MainButton name="Quitar archivo" onClick={handleRemoveFile} />
               </div>
             ) : (
-              <label
-                htmlFor="fileUpload"
-                className="cursor-pointer  text-white focus:ring-4 font-medium  rounded-lg text-sm md:text-xl px-4 py-2 text-center bg-botones hover:bg-botones/70 focus:ring-botones/20"
-              >
-                Carga el capitulo
-              </label>
+              <>
+                <p className=" text-mainText text-xl my-2">
+                  Si quieres modificar algo del capítulo sube el archivo
+                </p>
+                <label
+                  htmlFor="fileUpload"
+                  className="cursor-pointer  text-white focus:ring-4 font-medium  rounded-lg text-sm md:text-xl px-4 py-2 text-center bg-botones hover:bg-botones/70 focus:ring-botones/20"
+                >
+                  Carga el capitulo
+                </label>
+              </>
             )}
 
             <input
@@ -235,25 +210,6 @@ export const EditChapter = ({
               onChange={handleChapterFileChange}
             />
           </div>
-
-          {showTextArea && (
-            <>
-              <label
-                htmlFor="textArea"
-                className="text-encabezados text-xl my-2"
-              >
-                Modifica el capítulo aquí abajo
-              </label>
-              <textarea
-                id="textArea"
-                name="textArea"
-                className="h-44 border border-encabezados/50 text-mainText md:text-xl rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
-                placeholder="Escribe el capítulo"
-                value={formData.textArea}
-                onChange={(e) => handleTextChange(e)}
-              />
-            </>
-          )}
         </div>
         <div className="flex flex-col">
           <label

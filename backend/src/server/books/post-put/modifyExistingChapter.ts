@@ -21,7 +21,7 @@ router.put(
   async (req, res) => {
     const chapterId = parseInt(req.params.chapterId);
     const { title, bookId } = req.body;
-    const textArea: string | null = req.body.textArea;
+
     const imagen = req.body.cloudinaryUrl || undefined;
     const files = req.files as
       | { [fieldname: string]: Express.Multer.File[] }
@@ -47,14 +47,12 @@ router.put(
         chapterUpdated = true;
       }
 
-      if (file || textArea) {
+      if (file) {
         let content: { type: string; value: string }[] = [];
         if (file) {
           const fileExtension = file.mimetype.toLowerCase();
           content = await fileContentManagement(file.path, fileExtension);
           fs.unlinkSync(file.path);
-        } else if (textArea) {
-          content = await extractContentFromTextArea(textArea);
         }
 
         await prisma.paragraph.deleteMany({ where: { chapterId: chapterId } });
