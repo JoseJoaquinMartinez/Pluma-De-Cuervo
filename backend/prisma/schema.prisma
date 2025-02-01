@@ -111,6 +111,7 @@ model Comment {
   parentComment    Comment?    @relation("CommentParent", fields: [parentCommentId], references: [id])
   replies          Comment[]   @relation("CommentParent")
   createdAt        DateTime    @default(now())
+  read             Boolean @default(false)
 }
 
 model Blog {
