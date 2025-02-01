@@ -16,7 +16,7 @@ interface GetSingleBook {
   status: string;
 }
 
-const statusOptions = ["PUBLICANDO", "ABANDONADO", "TERMINADO"];
+const statusOptions = ["ACTIVO", "DISCONTINUADO", "COMPLETADO"];
 
 export const EditBook = ({ bookId }: { bookId: number }) => {
   const [formData, setFormData] = useState<GetSingleBook>({

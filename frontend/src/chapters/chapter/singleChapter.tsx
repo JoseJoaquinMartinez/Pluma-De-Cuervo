@@ -20,7 +20,7 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
     loading,
     error,
   } = useSelector((state: RootState) => state.getSingleChapter);
-  const { isLoggedIn } = useSelector(
+  const { isLoggedIn, data } = useSelector(
     (state: RootState) => state.Authentication
   );
 
@@ -47,7 +47,21 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
   //TODO añadir botones para ir al siguiente o anterior capítulo
   return (
     <article className="flex flex-col max-w-screen-xl">
-      <TitlesFromChapterComponent {...chapter} />
+      {data ? (
+        <TitlesFromChapterComponent
+          {...chapter}
+          data={data}
+          isLoggedIn={isLoggedIn}
+          chapterId={chapterId}
+          bookId={bookId}
+        />
+      ) : (
+        <TitlesFromChapterComponent
+          {...chapter}
+          chapterId={chapterId}
+          bookId={bookId}
+        />
+      )}
       {!isLoggedIn && (
         <p className="text-mainText text-xl self-center">
           Tu perspectiva importa.{" "}

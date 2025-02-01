@@ -5,9 +5,9 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 enum BookStatus {
-  PUBLICANDO
-  ABANDONADO
-  TERMINADO
+  ACTIVO
+  DESCONTINUADO
+  COMPLETADO
 }
 generator client {
   provider = "prisma-client-js"
@@ -66,7 +66,7 @@ model Book {
   title String @unique
   imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
   Synopsis String @default("")
-  status BookStatus @default(PUBLICANDO)
+  status BookStatus @default(ACTIVO)
 
   chapter Chapter[]
 }
