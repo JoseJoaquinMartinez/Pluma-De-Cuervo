@@ -22,10 +22,15 @@ export const CommentCard = ({
   const [markAsRead, setMarkAsRead] = useState<boolean>(read);
   const { token } = useSelector((state: RootState) => state.Authentication);
 
-  const updateReadComment = () => {
+  const updateReadComment = async () => {
     if (token) {
-      setMarkAsRead(!markAsRead);
-      updateCommentRead(id, markAsRead, token);
+      const newState = !markAsRead;
+      setMarkAsRead(newState);
+      try {
+        await updateCommentRead(id, newState, token);
+      } catch (error) {
+        setMarkAsRead(markAsRead);
+      }
     }
   };
 
@@ -38,8 +43,8 @@ export const CommentCard = ({
   };
 
   return (
-    <article className="flex flex-col ">
-      <section className="flex flex-col bg-cardsBackground my-2 rounded-lg p-2 text-mainText mlg:max-w-screen-lg md:max-w-screen-md">
+    <article className="flex flex-col  bg-cardsBackground my-2 rounded-lg p-2">
+      <section className="flex flex-col my-2 rounded-lg p-2 text-mainText mlg:max-w-screen-lg md:max-w-screen-md">
         <section className="flex flex-row gap-3 text-encabezados font-semibold justify-between">
           <p>{paragraph.chapter.title}</p>
           <p>{paragraph.chapter.book.title}</p>
@@ -58,9 +63,9 @@ export const CommentCard = ({
         </footer>
       </section>
       {responding && (
-        <section className="transition-all">
+        <section className="transition-all  self-center">
           <textarea
-            className=" h-44 border border-encabezados/50 text-mainText md:text-xl rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
+            className=" h-44 border  border-encabezados/50 text-mainText md:text-xl rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
             placeholder="Responde al comentario"
             value={response}
             onChange={handleInputChange}

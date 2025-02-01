@@ -22,7 +22,7 @@ export const AdminGetComment = () => {
   }, [token]);
 
   return (
-    <div>
+    <div className="w-full">
       {comments.comments.length > 0 ? (
         comments.comments.map((comment) => (
           <CommentCard key={comment.id} {...comment} />

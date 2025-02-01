@@ -8,7 +8,7 @@ export const SectionComponent: React.FC<HomeSectionComponent> = ({
   content,
 }) => {
   return (
-    <div className="flex flex-col justify-start max-w-screen-xl gap-6 mt-10">
+    <div className="flex flex-col w-full max-w-screen-xl gap-6 mt-10">
       <h2 className="text-encabezados text-2xl  text-center md:text-start font-semibold">
         {title}
       </h2>
