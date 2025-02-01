@@ -101,17 +101,24 @@ model Paragraph {
 model Comment {
   id               Int        @id @default(autoincrement())
   commentBody      String
+  createdAt        DateTime    @default(now())
+  read             Boolean @default(false)
+
+  
+
   paragraph        Paragraph  @relation(fields: [paragraphId], references: [id])
   paragraphId      Int
+
   regularUserData  RegularUserData? @relation(fields: [regularUserDataId], references: [id])
   regularUserDataId Int?
+
   adminUserData    AdminUserData? @relation(fields: [adminUserDataId], references: [id])
   adminUserDataId  Int?
+
   parentCommentId  Int?        
   parentComment    Comment?    @relation("CommentParent", fields: [parentCommentId], references: [id])
   replies          Comment[]   @relation("CommentParent")
-  createdAt        DateTime    @default(now())
-  read             Boolean @default(false)
+  
 }
 
 model Blog {

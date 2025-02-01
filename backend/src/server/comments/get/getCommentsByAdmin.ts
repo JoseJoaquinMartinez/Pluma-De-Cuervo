@@ -10,7 +10,23 @@ router.get(
 
   async (req, res) => {
     try {
-      const comments = await prisma.comment.findMany({});
+      const comments = await prisma.comment.findMany({
+        orderBy: { createdAt: "desc" },
+        include: {
+          paragraph: {
+            include: {
+              chapter: {
+                select: {
+                  title: true,
+                  book: {
+                    select: { title: true },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
 
       return res.status(200).json({ comments });
     } catch (error) {
