@@ -17,6 +17,7 @@ export const CommentCard = ({
   read,
   createdAt,
   paragraph,
+  replies = [],
 }: Comment) => {
   const [responding, setResponding] = useState<boolean>(false);
   const [response, setResponse] = useState<string>("");
@@ -62,62 +63,55 @@ export const CommentCard = ({
 
   return (
     <article
-      className={`flex flex-col justify-center my-2 rounded-lg p-2 ${read ? "opacity-60" : ""}`}
+      className={`flex flex-col justify-center my-2 rounded-lg p-2 w-full mlg:max-w-screen-xl md:max-w-screen-md ${read ? "opacity-60" : ""}`}
     >
-      <section className="flex flex-col my-2 rounded-lg p-2 text-mainText mlg:max-w-screen-lg md:max-w-screen-md bg-cardsBackground">
-        <section className="flex flex-row gap-3 text-encabezados font-semibold justify-between my-2">
+      <section className="flex flex-col my-2 rounded-lg p-2 text-mainText  bg-cardsBackground">
+        <header className="flex flex-row gap-3 text-encabezados font-semibold justify-between my-2">
           <h3>{paragraph.chapter.title}</h3>
           <h3>{paragraph.chapter.book.title}</h3>
-        </section>
+        </header>
 
         <p className={` rounded-lg min-h-20`}>{commentBody}</p>
 
         <footer className="self-end text-xs py-2">
           <p className="text-mainText font-semibold">{createdAt}</p>
-          {read ? (
-            <p
-              className="cursor-pointer hover:text-encabezados"
-              onClick={() => updateReadComment()}
-            >
-              Marcar como no leído
-            </p>
-          ) : (
-            <p
-              className="cursor-pointer hover:text-encabezados"
-              onClick={() => updateReadComment()}
-            >
-              Marcar como leído
-            </p>
-          )}
+
+          <p
+            className="cursor-pointer hover:text-encabezados"
+            onClick={() => updateReadComment()}
+          >
+            {read ? "Marcar como no leído" : "Marcar como leído"}
+          </p>
         </footer>
         {responding && (
-          <section className="transition-all w-full rounded-lg  mlg:max-w-screen-lg md:max-w-screen-md bg-cardsBackground">
+          <section className="flex flex-col items-center gap-2 transition-all w-full rounded-lg justify-center  mlg:max-w-screen-lg md:max-w-screen-md bg-cardsBackground">
             <textarea
               className=" h-44 border  border-encabezados/50 text-mainText md:text-xl rounded-md  focus:outline-none p-2 focus:ring-2 w-full focus:ring-encabezados"
               placeholder="Responde al comentario"
               value={response}
               onChange={handleInputChange}
             />
+            <MainButton
+              name={"Enviar Comentario"}
+              onClick={() => handleResponse()}
+            />
           </section>
         )}
       </section>
 
       <section className="flex flex-col md:flex-row justify-center items-center gap-2">
-        <div>
-          <MainButton
-            name={!responding ? "Reponder" : "No responder"}
-            onClick={() => habndleOpenResponseBox()}
-          />
-        </div>
-        {responding ? (
-          <MainButton
-            name={"Enviar Comentario"}
-            onClick={() => handleResponse()}
-          />
-        ) : (
-          <></>
-        )}
+        <MainButton
+          name={!responding ? "Reponder" : "No responder"}
+          onClick={() => habndleOpenResponseBox()}
+        />
       </section>
+      {replies.length > 0 && (
+        <div className="ml-6 mt-4 border-l-2 border-gray-300 pl-4">
+          {replies.map((reply) => (
+            <CommentCard key={reply.id} {...reply} />
+          ))}
+        </div>
+      )}
     </article>
   );
 };

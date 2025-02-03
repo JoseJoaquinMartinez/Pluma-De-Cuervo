@@ -12,6 +12,7 @@ export interface Comment {
   createdAt: string;
   read: boolean;
   paragraph: Paragraph;
+  replies?: Comment[];
 }
 
 export interface Paragraph {

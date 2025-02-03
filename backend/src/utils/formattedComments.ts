@@ -16,13 +16,11 @@ export function formattedComments(userComments: FormattedComment[]) {
       imagen: comment.regularUserData?.imagen || null,
     },
     hasAdminResponse: comment.replies && comment.replies.length > 0,
-    adminResponse:
-      comment.replies && comment.replies.length > 0
-        ? {
-            id: comment.replies[0].id,
-            responseBody: comment.replies[0].commentBody,
-            adminUserId: comment.replies[0].adminUserData?.id || null,
-          }
-        : null,
+    replies:
+      comment.replies?.map((reply) => ({
+        id: reply.id,
+        commentBody: reply.commentBody,
+        adminUserId: reply.adminUserData?.id || null,
+      })) || [],
   }));
 }

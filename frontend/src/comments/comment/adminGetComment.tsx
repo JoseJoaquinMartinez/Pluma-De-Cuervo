@@ -14,6 +14,7 @@ export const AdminGetComment = () => {
     const fetchComments = async () => {
       if (token) {
         const fetchedComments = await getUserCommentsByAdmin(token);
+        console.log(fetchedComments);
         setComments(fetchedComments);
       }
     };
@@ -25,7 +26,11 @@ export const AdminGetComment = () => {
     <div className="w-full">
       {comments.comments.length > 0 ? (
         comments.comments.map((comment) => (
-          <CommentCard key={comment.id} {...comment} />
+          <CommentCard
+            key={comment.id}
+            {...comment}
+            replies={comment.replies || []}
+          />
         ))
       ) : (
         <div>No hay comentarios</div>
