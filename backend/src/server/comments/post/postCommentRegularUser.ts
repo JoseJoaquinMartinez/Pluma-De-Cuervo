@@ -14,9 +14,7 @@ router.post(
 
     try {
       const existingUser = await prisma.regularUserData.findFirst({
-        where: {
-          regularUserId: userId,
-        },
+        where: { regularUserId: userId },
       });
 
       if (!existingUser) {
@@ -33,9 +31,10 @@ router.post(
 
       const newComment = await prisma.comment.create({
         data: {
-          commentBody: commentBody,
-          paragraph: { connect: { id: paragraphId } },
-          regularUserData: { connect: { id: existingUser.id } },
+          commentBody,
+          paragraphId,
+          regularUserDataId: existingUser.id,
+          read: false,
         },
       });
 
@@ -43,13 +42,10 @@ router.post(
         .status(201)
         .json({ newComment, message: "Comentario creado con éxito" });
     } catch (error) {
-      if (error instanceof Error) {
-        return res.status(500).json({
-          error: `Error inesperado creando el comentario: ${error.message}`,
-        });
-      }
+      return res
+        .status(500)
+        .json({ error: `Error inesperado: ${error.message}` });
     }
   }
 );
-
 export default router;

@@ -63,7 +63,7 @@ export interface ParagraphComment {
 
 export interface RegularUserData {
   userName: string;
-  imagen: string;
+  imagen?: string | null;
 }
 
 export interface AdminUserData {

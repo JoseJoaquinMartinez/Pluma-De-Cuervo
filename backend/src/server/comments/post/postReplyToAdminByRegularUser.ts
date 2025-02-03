@@ -8,48 +8,53 @@ const router = Router();
 router.post(
   "/post-reply-to-admin/:commentId",
   roleMiddleware("user"),
-
   async (req: AuthenticationRequest, res) => {
     const commentId = parseInt(req.params.commentId);
     const userId = req.user.id;
     const { commentBody } = req.body;
+
     try {
-      const exisitngUser = await prisma.regularUserData.findFirst({
-        where: { id: userId },
+      const existingUser = await prisma.regularUserData.findFirst({
+        where: { regularUserId: userId },
       });
-      if (!exisitngUser) {
+
+      if (!existingUser) {
         return res.status(404).json({ error: "Usuario no encontrado" });
       }
+
       const existingComment = await prisma.comment.findFirst({
         where: { id: commentId },
       });
+
       if (!existingComment) {
         return res.status(404).json({ error: "Comentario no encontrado" });
       }
+
+      // Evitar que un usuario responda a otro usuario en lugar de al administrador
+      if (existingComment.adminUserDataId === null) {
+        return res.status(400).json({
+          error: "Solo puedes responder a comentarios de administradores",
+        });
+      }
+
       const regularUserReply = await prisma.comment.create({
         data: {
-          commentBody: commentBody,
-          paragraph: {
-            connect: { id: existingComment.paragraphId },
-          },
-          regularUserData: {
-            connect: { id: exisitngUser.id },
-          },
-          parentComment: {
-            connect: { id: commentId },
-          },
+          commentBody,
+          paragraphId: existingComment.paragraphId,
+          regularUserDataId: existingUser.id,
+          parentCommentId: commentId,
+          read: false,
         },
       });
+
       return res.status(201).json({
         regularUserReply,
         message: "Respuesta del usuario creada con éxito",
       });
     } catch (error) {
-      if (error instanceof Error) {
-        return res.status(500).json({
-          error: `Error inesperado respondiendo al comentario ${error.message}`,
-        });
-      }
+      return res
+        .status(500)
+        .json({ error: `Error inesperado: ${error.message}` });
     }
   }
 );
