@@ -83,11 +83,20 @@ export default function NavHamburguerButtonAndPaths() {
           isOpen ? "block" : "hidden"
         } items-center justify-between w-full md:flex md:w-auto md:order-1`}
       >
-        <NavPaths
-          toggleNavbar={toggleNavbar}
-          isLoggedIn={isLoggedIn}
-          handleLogOut={handleLogout}
-        />
+        {data ? (
+          <NavPaths
+            toggleNavbar={toggleNavbar}
+            isLoggedIn={isLoggedIn}
+            handleLogOut={handleLogout}
+            data={data}
+          />
+        ) : (
+          <NavPaths
+            toggleNavbar={toggleNavbar}
+            isLoggedIn={isLoggedIn}
+            handleLogOut={handleLogout}
+          />
+        )}
       </div>
     </>
   );

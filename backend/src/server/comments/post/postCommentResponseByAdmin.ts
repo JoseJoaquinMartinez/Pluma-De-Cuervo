@@ -12,32 +12,41 @@ router.post(
     const commentId = parseInt(req.params.commentId);
     const { commentBody } = req.body;
     const adminId = req.user.id;
+
     try {
       const existingAdmin = await prisma.adminUserData.findFirst({
-        where: { id: adminId },
+        where: { adminUserId: adminId },
       });
+
       if (!existingAdmin) {
-        return res.status(404).json({ error: "Usuario no encontrado" });
+        return res.status(404).json({ error: "Administrador no encontrado" });
       }
+
       const existingComment = await prisma.comment.findFirst({
         where: { id: commentId },
       });
+
       if (!existingComment) {
         return res.status(404).json({ error: "Comentario no encontrado" });
       }
 
+      /* // ✅ Evitar que el administrador responda a respuestas en lugar de comentarios principales
+      if (existingComment.parentCommentId !== null) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "No puedes responder a respuestas, solo a comentarios principales",
+          });
+      } */
+
       const adminReplyComment = await prisma.comment.create({
         data: {
-          commentBody: commentBody,
-          paragraph: {
-            connect: { id: existingComment.paragraphId },
-          },
-          adminUserData: {
-            connect: { id: existingAdmin.id },
-          },
-          parentComment: {
-            connect: { id: commentId },
-          },
+          commentBody,
+          paragraphId: existingComment.paragraphId,
+          adminUserDataId: existingAdmin.id,
+          parentCommentId: commentId,
+          read: false,
         },
       });
 
@@ -46,13 +55,10 @@ router.post(
         message: "Respuesta del administrador creada con éxito",
       });
     } catch (error) {
-      if (error instanceof Error) {
-        return res.status(500).json({
-          error: `Error inesperado respondiendo al comentario: ${error.message}`,
-        });
-      }
+      return res
+        .status(500)
+        .json({ error: `Error inesperado: ${error.message}` });
     }
   }
 );
-
 export default router;

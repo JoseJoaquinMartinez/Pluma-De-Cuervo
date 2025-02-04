@@ -1,70 +1,73 @@
-declare module "pdf2table" {
-  const pdf2table: any;
-  export default pdf2table;
+export interface Comments {
+  comments: Comment[];
 }
 
-export type Book = {
+/* export interface Comment {
   id: number;
-  title: string;
-  synopsis: string;
-  imagen: string;
-  chapter?: Chapter[];
-};
-
-export type Paragraph = {
-  id: number;
-  paragraphNumber: number;
-  comment?: Comment[];
-  paragraphText: string;
-  paragraphType: string;
-  chapterId: number;
-};
-
-export type Chapter = {
-  id: number;
-  title: string;
-  imagen?: string | null;
-  chapterNumber: number;
-  paragraph: Paragraph[];
-  bookId: number;
-};
-
-export type Comment = {
-  id: number;
-  createdAt: Date;
   commentBody: string;
   paragraphId: number;
   regularUserDataId: number;
-  adminUserDataId: number;
-};
+  adminUserDataId: any;
+  parentCommentId: any;
+  createdAt: string;
+  read: boolean;
+  paragraph: Paragraph;
+  replies?: Comment[];
+} */
 
-export type getBlogsResponse = {
+export interface Paragraph {
+  id: number;
+  paragraphNumber: number;
+  paragraphText: string;
+  paragraphType: string;
+  chapterId: number;
+  chapter: Chapter;
+}
+
+export interface Chapter {
   title: string;
-  imagen: string;
-  createdAt: Date;
-};
+  book: Book;
+}
 
-export interface AuthenticationRequest extends Request {
-  user?: {
-    id: number;
-    role: string;
+export interface Book {
+  title: string;
+}
+export interface Comment {
+  id: number;
+  commentBody: string;
+  paragraphId: number;
+  regularUserDataId: number | null;
+  adminUserDataId: number | null;
+  parentCommentId: number | null;
+  createdAt: string;
+  read: boolean;
+  paragraph: Paragraph;
+  replies?: Comment[];
+  // Agregar información del usuario
+  regularUserData?: RegularUser;
+  adminUserData?: AdminUser;
+}
+
+export interface RegularUser {
+  id: number;
+  userName: string;
+  regularUserId: number;
+  regularUser: {
+    email: string;
   };
 }
 
-export interface ParagraphComment {
-  id: string;
-  paragraphText: string;
-  chapter: {
-    title: string;
-    book: {
-      title: string;
-    };
+export interface AdminUser {
+  id: number;
+  adminUserId: number;
+  adminUser: {
+    email: string;
   };
 }
 
 /* Nuevas interfaces para las relaciones */
 
-export interface RegularUser {
+/* export interface RegularUser {
   id: number;
   email: string;
   // Otras propiedades si las necesitas
@@ -85,11 +88,11 @@ export interface AdminUser {
 export interface AdminUserData {
   id: number;
   adminUser: AdminUser; // Incluye el email del administrador
-}
+} */
 
 /* Actualización de la interfaz para comentarios formateados */
 
-export interface FormattedComment {
+/* export interface FormattedComment {
   id: number;
   createdAt: Date;
   commentBody: string;
@@ -112,4 +115,4 @@ export interface FormattedComment {
     commentBody: string;
     adminUserData?: AdminUserData | null;
   }[];
-}
+} */

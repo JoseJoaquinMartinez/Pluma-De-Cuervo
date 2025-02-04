@@ -38,6 +38,7 @@ import getCommentsByRegularUser from "./server/comments/get/getCommetsByRegularU
 import postResponseToAdminByRegularUser from "./server/comments/post/postReplyToAdminByRegularUser";
 import getUserCommentForAChapter from "./server/comments/get/getUserCommentsOnAChapter";
 import deleteCommentFromUser from "./server/comments/delete/deleteUserComment";
+import markCommentAsRead from "./server/comments/patch/patchCommentAsRead";
 
 //NEWSLETTER
 import postNewSubscriber from "./server/newsletter/post/postNewSubscriber";
@@ -111,6 +112,9 @@ app.use("/blog", deleteBlogPost);
 app.use("/comment", postRegularUserComment);
 app.use("/comment", postResponseCommmentByAdmin);
 app.use("/comment", postResponseToAdminByRegularUser);
+
+//PATCH
+app.use("/comment", markCommentAsRead);
 
 //GET
 app.use("/comment", getCommentsByAdmin);
