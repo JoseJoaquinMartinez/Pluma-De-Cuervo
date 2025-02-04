@@ -14,7 +14,7 @@ export const AdminGetComment = () => {
     const fetchComments = async () => {
       if (token) {
         const fetchedComments = await getUserCommentsByAdmin(token);
-        console.log(fetchedComments);
+
         setComments(fetchedComments);
       }
     };

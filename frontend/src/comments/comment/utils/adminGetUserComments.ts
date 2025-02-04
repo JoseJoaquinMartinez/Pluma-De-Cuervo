@@ -15,20 +15,52 @@ export const getUserCommentsByAdmin = async (
 
     const data = await response.json();
 
-    if (data.comments.length === 0) {
+    if (!data.comments || data.comments.length === 0) {
       return { comments: [] };
     }
 
-    const adjustedComments = data.comments.map((comment: Comment) => ({
-      ...comment,
-      createdAt: new Date(comment.createdAt).toLocaleDateString("es-ES", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }),
-    }));
+    // Declaramos que data.comments es un array de Comment
+    const rawComments: Comment[] = data.comments;
 
-    return { comments: adjustedComments };
+    // Definimos un tipo que extiende Comment y garantiza que 'replies' siempre existe.
+    type ExtendedComment = Comment & { replies: Comment[] };
+
+    // Convertir fechas y asegurarnos de que replies esté definido
+    const formattedComments: ExtendedComment[] = rawComments.map(
+      (comment: Comment) => ({
+        ...comment,
+        createdAt: new Date(comment.createdAt).toLocaleDateString("es-ES", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        }),
+        replies: [], // Se asigna siempre un array vacío para replies
+      })
+    );
+
+    // Creamos un mapa para acceder a los comentarios por su ID rápidamente
+    const commentMap: { [key: number]: ExtendedComment } = {};
+    formattedComments.forEach((comment: ExtendedComment) => {
+      commentMap[comment.id] = comment;
+    });
+
+    // Construir la estructura jerárquica
+    const rootComments: ExtendedComment[] = [];
+    formattedComments.forEach((comment: ExtendedComment) => {
+      if (comment.parentCommentId) {
+        const parent = commentMap[comment.parentCommentId];
+        if (parent) {
+          if (!parent.replies) {
+            parent.replies = [];
+          }
+          parent.replies.push(comment);
+        }
+      } else {
+        rootComments.push(comment);
+      }
+    });
+
+    return { comments: rootComments };
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
