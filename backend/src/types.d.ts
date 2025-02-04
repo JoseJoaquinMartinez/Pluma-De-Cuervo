@@ -103,7 +103,7 @@ export interface FormattedComment {
       };
     };
   };
-  // Se hace opcional, ya que puede venir de admin
+  // Hacemos opcional la información del usuario, ya que puede venir de regular o admin
   regularUserData?: RegularUserData;
   adminUserDataId: number | null;
   adminUserData?: AdminUserData | null;

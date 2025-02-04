@@ -35,6 +35,7 @@ export const getUserCommentsByAdmin = async (
           year: "numeric",
         }),
         replies: [], // Se asigna siempre un array vacío para replies
+        user: getUserInfo(comment), // Agregar información del usuario
       })
     );
 
@@ -68,3 +69,21 @@ export const getUserCommentsByAdmin = async (
     return { comments: [] };
   }
 };
+// Función para obtener la información del usuario
+function getUserInfo(
+  comment: Comment
+): { userName: string; email: string } | undefined {
+  if (comment.regularUserData) {
+    return {
+      userName: comment.regularUserData.userName,
+      email: comment.regularUserData.regularUser.email,
+    };
+  }
+  if (comment.adminUserData) {
+    return {
+      userName: comment.adminUserData.adminUser.email.split("@")[0], // Usar el nombre antes del @ como nombre de usuario
+      email: comment.adminUserData.adminUser.email,
+    };
+  }
+  return undefined;
+}
