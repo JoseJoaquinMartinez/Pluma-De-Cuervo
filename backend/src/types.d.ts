@@ -50,6 +50,7 @@ export interface AuthenticationRequest extends Request {
     role: string;
   };
 }
+
 export interface ParagraphComment {
   id: string;
   paragraphText: string;
@@ -61,14 +62,32 @@ export interface ParagraphComment {
   };
 }
 
+/* Nuevas interfaces para las relaciones */
+
+export interface RegularUser {
+  id: number;
+  email: string;
+  // Otras propiedades si las necesitas
+}
+
 export interface RegularUserData {
   userName: string;
   imagen?: string | null;
+  regularUser: RegularUser; // Incluye el email del usuario regular
+}
+
+export interface AdminUser {
+  id: number;
+  email: string;
+  // Otras propiedades si las necesitas
 }
 
 export interface AdminUserData {
   id: number;
+  adminUser: AdminUser; // Incluye el email del administrador
 }
+
+/* Actualización de la interfaz para comentarios formateados */
 
 export interface FormattedComment {
   id: number;
@@ -84,7 +103,8 @@ export interface FormattedComment {
       };
     };
   };
-  regularUserData: RegularUserData;
+  // Se hace opcional, ya que puede venir de admin
+  regularUserData?: RegularUserData;
   adminUserDataId: number | null;
   adminUserData?: AdminUserData | null;
   replies?: {

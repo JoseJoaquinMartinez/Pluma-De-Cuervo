@@ -16,11 +16,32 @@ router.get(
           paragraph: {
             include: {
               chapter: {
-                select: {
-                  title: true,
-                  book: {
-                    select: { title: true },
-                  },
+                include: {
+                  book: true,
+                },
+              },
+            },
+          },
+          regularUserData: {
+            include: {
+              regularUser: { select: { email: true } },
+            },
+          },
+          adminUserData: {
+            include: {
+              adminUser: { select: { email: true } },
+            },
+          },
+          replies: {
+            include: {
+              regularUserData: {
+                include: {
+                  regularUser: { select: { email: true } },
+                },
+              },
+              adminUserData: {
+                include: {
+                  adminUser: { select: { email: true } },
                 },
               },
             },

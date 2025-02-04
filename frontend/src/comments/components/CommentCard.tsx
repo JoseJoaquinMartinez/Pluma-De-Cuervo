@@ -63,7 +63,9 @@ export const CommentCard = ({
 
   return (
     <article
-      className={`flex flex-col justify-center my-2 rounded-lg p-2 w-full mlg:max-w-screen-xl md:max-w-screen-md ${read ? "opacity-60" : ""}`}
+      className={`flex flex-col justify-center my-2 rounded-lg p-2 w-full mlg:max-w-screen-xl md:max-w-screen-md ${
+        markAsRead ? "opacity-60" : ""
+      }`}
     >
       <section className="flex flex-col my-2 rounded-lg p-2 text-mainText  bg-cardsBackground">
         <header className="flex flex-row gap-3 text-encabezados font-semibold justify-between my-2">
