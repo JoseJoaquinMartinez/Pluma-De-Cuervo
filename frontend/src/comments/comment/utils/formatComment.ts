@@ -11,9 +11,8 @@ export const formatComment = (comment: Comment): FormattedComment => {
             comment.adminUserData?.adminUser.email.split("@")[0] ||
             "Usuario Desconocido",
           email:
-            comment.regularUserData?.regularUser.email ||
-            comment.adminUserData?.adminUser.email ||
-            null,
+            comment.regularUserData?.regularUser.email 
+            
         }
       : undefined;
 
