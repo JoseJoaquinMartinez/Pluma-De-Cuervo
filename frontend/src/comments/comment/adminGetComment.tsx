@@ -3,39 +3,65 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { getUserCommentsByAdmin } from "./utils/adminGetUserComments";
-
+import { deleteComment } from "../comment/utils/deleteComment";
 import { CommentCard, FormattedComment } from "../components/CommentCard";
 import { formatComment } from "./utils/formatComment";
+import { useRouter } from "next/navigation";
 
 export const AdminGetComment = () => {
   const [comments, setComments] = useState<FormattedComment[]>([]);
+  const [filteredComments, setFilteredComments] = useState<FormattedComment[]>(
+    []
+  );
   const [filter, setFilter] = useState<"all" | "read" | "unread">("all");
   const { token } = useSelector((state: RootState) => state.Authentication);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchComments = async () => {
-      if (token) {
-        try {
-          const fetchedComments = await getUserCommentsByAdmin(token);
-          const formattedComments = fetchedComments.comments.map((comment) =>
-            formatComment(comment)
-          );
-          setComments(formattedComments);
-        } catch (error) {
-          console.error("Error fetching comments:", error);
-        }
+      if (!token) return;
+      try {
+        const fetchedComments = await getUserCommentsByAdmin(token);
+        const formattedComments = fetchedComments.comments.map(formatComment);
+        setComments(formattedComments);
+        setFilteredComments(formattedComments);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
       }
     };
 
     fetchComments();
   }, [token]);
 
-  const filteredComments = comments.filter((comment) => {
-    if (filter === "all") return true;
-    if (filter === "read") return comment.read;
-    if (filter === "unread") return !comment.read;
-    return;
-  });
+  useEffect(() => {
+    setFilteredComments(() => {
+      if (filter === "all") return comments;
+      if (filter === "read") return comments.filter((comment) => comment.read);
+      if (filter === "unread")
+        return comments.filter((comment) => !comment.read);
+      return comments;
+    });
+  }, [comments, filter]);
+
+  const handleDeleteComment = async (commentId: number) => {
+    if (token) {
+      try {
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.id !== commentId)
+        );
+
+        setFilteredComments((prevFilteredComments) =>
+          prevFilteredComments.filter((comment) => comment.id !== commentId)
+        );
+
+        await deleteComment({ commentId, token });
+        router.refresh();
+      } catch (error) {
+        console.error("Error deleting comment:", error);
+      }
+    }
+  };
+
   return (
     <div className="w-full">
       <section className="flex justify-center gap-4 mb-4">
@@ -72,7 +98,11 @@ export const AdminGetComment = () => {
       </section>
       {filteredComments.length > 0 ? (
         filteredComments.map((comment) => (
-          <CommentCard key={comment.id} {...comment} />
+          <CommentCard
+            key={comment.id}
+            {...comment}
+            onDelete={handleDeleteComment}
+          />
         ))
       ) : (
         <div className="text-center text-gray-500">

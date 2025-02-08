@@ -6,8 +6,7 @@ import { AuthenticationRequest } from "../../../utils/verifyToken";
 const router = Router();
 
 router.delete(
-  "/delete-regular-user-comment/:commentId",
-  roleMiddleware("user"),
+  "/delete-user-comment/:commentId",
   async (req: AuthenticationRequest, res) => {
     const commentId = parseInt(req.params.commentId);
     try {

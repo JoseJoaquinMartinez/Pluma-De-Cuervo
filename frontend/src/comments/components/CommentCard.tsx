@@ -29,6 +29,36 @@ export interface FormattedComment {
   replies: FormattedComment[]; // Respuestas anidadas
 }
 
+const DeleteModal = ({
+  onConfirm,
+  onCancel,
+}: {
+  onConfirm: () => void;
+  onCancel: () => void;
+}) => (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="bg-cardsBackground p-4 rounded-lg shadow-lg">
+      <p className="text-mainText">
+        ¿Estás seguro de que deseas eliminar este comentario?
+      </p>
+      <div className="flex justify-end gap-2 mt-4">
+        <button
+          className="bg-encabezados hover:bg-encabezados/90 text-white px-4 py-2 rounded"
+          onClick={onConfirm}
+        >
+          Sí
+        </button>
+        <button
+          className="bg-botones hover:bg-botones/90 px-4 py-2 rounded"
+          onClick={onCancel}
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
 export const CommentCard = ({
   id,
   commentBody,
@@ -37,10 +67,12 @@ export const CommentCard = ({
   paragraph,
   user,
   replies,
-}: FormattedComment) => {
+  onDelete,
+}: FormattedComment & { onDelete: (commentId: number) => void }) => {
   const [responding, setResponding] = useState<boolean>(false);
   const [response, setResponse] = useState<string>("");
   const [markAsRead, setMarkAsRead] = useState<boolean>(initialReadState);
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const router = useRouter();
   const { token } = useSelector((state: RootState) => state.Authentication);
 
@@ -117,6 +149,14 @@ export const CommentCard = ({
           >
             {markAsRead ? "Marcar como no leído" : "Marcar como leído"}
           </p>
+          <div className="p-2">
+            <MainButton
+              name="Eliminar"
+              onClick={() => {
+                setOpenDeleteModal(true);
+              }}
+            />
+          </div>
         </footer>
         {isMostRecent && responding && (
           <section className="flex flex-col items-center gap-2 transition-all w-full rounded-lg justify-center mlg:max-w-screen-xl md:max-w-screen-md bg-cardsBackground">
@@ -134,7 +174,7 @@ export const CommentCard = ({
       {replies.length > 0 && (
         <div className="ml-6 mt-4 border-l-2 border-encabezados pl-4">
           {replies.map((reply) => (
-            <CommentCard key={reply.id} {...reply} />
+            <CommentCard key={reply.id} {...reply} onDelete={onDelete} />
           ))}
         </div>
       )}
@@ -146,6 +186,16 @@ export const CommentCard = ({
             onClick={handleOpenResponseBox}
           />
         </section>
+      )}
+
+      {openDeleteModal && (
+        <DeleteModal
+          onConfirm={() => {
+            onDelete(id);
+            setOpenDeleteModal(false);
+          }}
+          onCancel={() => setOpenDeleteModal(false)}
+        />
       )}
     </article>
   );

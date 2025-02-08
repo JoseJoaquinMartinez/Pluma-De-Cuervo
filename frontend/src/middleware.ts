@@ -7,7 +7,7 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET no está definido en las variables de entorno");
 }
 
-const adminLoggedInRoutes = ["/admin"];
+const adminLoggedInRoutes = /^\/admin/;
 const loggedInRoutes = [
   "/auth/login",
   "/auth/singup",
@@ -23,7 +23,7 @@ export default async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL("/", req.nextUrl.origin));
     }
 
-    if (adminLoggedInRoutes.includes(req.nextUrl.pathname)) {
+    if (adminLoggedInRoutes.test(req.nextUrl.pathname)) {
       if (!token) {
         return NextResponse.redirect(new URL("/", req.nextUrl.origin));
       }
