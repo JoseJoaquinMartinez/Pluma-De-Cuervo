@@ -6,6 +6,7 @@ import MainButton from "../shared/mainButton";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { logoutUser } from "@/store/slices/auth/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function NavHamburguerButtonAndPaths() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ export default function NavHamburguerButtonAndPaths() {
   const { isLoggedIn, data } = useSelector(
     (state: RootState) => state.Authentication
   );
-
+  const router = useRouter();
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
@@ -24,6 +25,7 @@ export default function NavHamburguerButtonAndPaths() {
       credentials: "include",
     });
     dispatch(logoutUser());
+    router.push("/");
   };
   return (
     <>

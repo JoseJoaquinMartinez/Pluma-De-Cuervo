@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { navItems, adminNavItems } from "./data/nav-items";
+import { navItems, adminNavItems, regularNavItems } from "./data/nav-items";
 import { usePathname } from "next/navigation";
 import MainButton from "../shared/mainButton";
 import { NewUserInterface } from "@/app/authComponents/interfaces/singupInterface";
@@ -38,21 +38,37 @@ export default function NavPaths({
               </Link>
             </li>
           ))
-        : navItems.map((item) => (
-            <li key={item.name}>
-              <Link
-                href={item.link}
-                className={`block py-2 px-3 rounded md:p-0 md:text-2xl ${
-                  currentPath === item.link
-                    ? "border-b-2 border-navBarActiveLink text-navBarActiveLink transition-all duration-300"
-                    : "text-whiteText"
-                } `}
-                onClick={toggleNavbar}
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
+        : data?.user.role === "user"
+          ? regularNavItems.map((item) => (
+              <li key={item.name}>
+                <Link
+                  href={item.link}
+                  className={`block py-2 px-3 rounded md:p-0 md:text-2xl ${
+                    currentPath === item.link
+                      ? "border-b-2 border-navBarActiveLink text-navBarActiveLink transition-all duration-300"
+                      : "text-whiteText"
+                  } `}
+                  onClick={toggleNavbar}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))
+          : navItems.map((item) => (
+              <li key={item.name}>
+                <Link
+                  href={item.link}
+                  className={`block py-2 px-3 rounded md:p-0 md:text-2xl ${
+                    currentPath === item.link
+                      ? "border-b-2 border-navBarActiveLink text-navBarActiveLink transition-all duration-300"
+                      : "text-whiteText"
+                  } `}
+                  onClick={toggleNavbar}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
       {isLoggedIn ? (
         <li className="md:hidden">
           <MainButton

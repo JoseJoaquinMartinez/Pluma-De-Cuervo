@@ -19,7 +19,7 @@ const BlogCard = ({
         customMinHeight="min-h-32"
       />
 
-      <div className=" flex flex-col items-center mt-10">
+      <div className=" flex flex-col items-center mt-10 px-2">
         <h2 className="text-encabezados mb-6 text-xl">{title}</h2>
         <MainButton name="Leer" link={`/blogs/all-blogs/blog/${id}`} />
       </div>

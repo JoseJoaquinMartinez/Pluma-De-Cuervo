@@ -30,6 +30,24 @@ export const adminNavItems = [
     name: "Comentarios",
   },
 ];
+export const regularNavItems = [
+  {
+    link: "/",
+    name: "Inicio",
+  },
+  {
+    link: "/biblioteca",
+    name: "Biblioteca",
+  },
+  {
+    link: "/blogs/all-blogs",
+    name: "Blog",
+  },
+  {
+    link: "/comentarios",
+    name: "Comentarios",
+  },
+];
 /* {
   link: "/perfil",
   name: "Perfil",

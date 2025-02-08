@@ -20,23 +20,47 @@ router.get(
         return res.status(404).json({ error: "Usuario no encontrado" });
       }
 
-      const userComments = await prisma.comment.findMany({
+      const comments = await prisma.comment.findMany({
         where: { regularUserDataId: userId },
+        orderBy: { createdAt: "desc" },
         include: {
-          paragraph: { include: { chapter: { include: { book: true } } } },
-          regularUserData: true,
+          paragraph: {
+            include: {
+              chapter: {
+                include: {
+                  book: true,
+                },
+              },
+            },
+          },
+          regularUserData: {
+            include: {
+              regularUser: { select: { email: true } },
+            },
+          },
+          adminUserData: {
+            include: {
+              adminUser: { select: { email: true } },
+            },
+          },
           replies: {
-            where: { adminUserDataId: { not: null } },
-            include: { adminUserData: true },
+            include: {
+              regularUserData: {
+                include: {
+                  regularUser: { select: { email: true } },
+                },
+              },
+              adminUserData: {
+                include: {
+                  adminUser: { select: { email: true } },
+                },
+              },
+            },
           },
         },
       });
-      if (!userComments || userComments.length === 0) {
-        return res.status(404).json({ error: "Comentarios no encontrados" });
-      }
 
-      const formatted = formattedComments(userComments);
-      return res.status(200).json(formatted);
+      return res.status(200).json({ comments });
     } catch (error) {
       if (error instanceof Error) {
         return res.status(500).json({
