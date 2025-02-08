@@ -4,8 +4,8 @@ import MainButton from "@/components/shared/mainButton";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { updateCommentRead } from "../comment/utils/markCommentAsRead";
-import { postAdminReplyToComment } from "../comment/utils/postAdminReplyToComment";
 import { useRouter } from "next/navigation";
+import { postRegularUserReplyToComment } from "../comment/utils/postRegularUserReplyToComment";
 
 export interface FormattedComment {
   id: number;
@@ -29,7 +29,7 @@ export interface FormattedComment {
   replies: FormattedComment[]; // Respuestas anidadas
 }
 
-export const CommentCard = ({
+export const RegularUserCommentCard = ({
   id,
   commentBody,
   read: initialReadState,
@@ -64,7 +64,7 @@ export const CommentCard = ({
   const handleResponse = async () => {
     if (token) {
       try {
-        await postAdminReplyToComment({
+        await postRegularUserReplyToComment({
           commentId: id,
           commentBody: response,
           token,
@@ -134,7 +134,7 @@ export const CommentCard = ({
       {replies.length > 0 && (
         <div className="ml-6 mt-4 border-l-2 border-encabezados pl-4">
           {replies.map((reply) => (
-            <CommentCard key={reply.id} {...reply} />
+            <RegularUserCommentCard key={reply.id} {...reply} />
           ))}
         </div>
       )}

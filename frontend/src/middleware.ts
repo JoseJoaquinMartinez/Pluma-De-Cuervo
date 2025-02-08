@@ -7,12 +7,13 @@ if (!JWT_SECRET) {
   throw new Error("JWT_SECRET no está definido en las variables de entorno");
 }
 
-const adminLoggedInRoutes = ["/admin/libros/libro/crear"];
+const adminLoggedInRoutes = ["/admin"];
 const loggedInRoutes = [
   "/auth/login",
   "/auth/singup",
   "/auth/singup/email-validation",
 ];
+const regularUserRoutes = ["/comentarios"];
 
 export default async function middleware(req: NextRequest) {
   const token = req.cookies.get("authToken")?.value;
@@ -34,6 +35,18 @@ export default async function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL("/", req.nextUrl.origin));
       }
     }
+    if (regularUserRoutes.includes(req.nextUrl.pathname)) {
+      if (!token) {
+        return NextResponse.redirect(new URL("/", req.nextUrl.origin));
+      }
+
+      const secret = new TextEncoder().encode(JWT_SECRET);
+      const { payload } = await jwtVerify(token, secret);
+
+      if (payload.role !== "user") {
+        return NextResponse.redirect(new URL("/", req.nextUrl.origin));
+      }
+    }
 
     return NextResponse.next();
   } catch (error) {
@@ -43,5 +56,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/auth/:path*"],
+  matcher: ["/admin/:path*", "/auth/:path*", "/comentarios"],
 };

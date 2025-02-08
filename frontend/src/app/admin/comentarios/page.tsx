@@ -1,4 +1,4 @@
-import { AdminGetComment } from "@/comments/comment/AdminGetComment";
+import { AdminGetComment } from "@/comments/comment/adminGetComment";
 import { SectionComponent } from "@/homepage/components/SectionComponent";
 
 export default function CommentPage() {

@@ -6,7 +6,7 @@ const router = Router();
 
 router.patch(
   "/update-comment-read/:id",
-  roleMiddleware("admin"),
+
   async (req, res) => {
     try {
       const { id } = req.params;

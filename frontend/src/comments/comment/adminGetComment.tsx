@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { getUserCommentsByAdmin } from "./utils/adminGetUserComments";
-import { Comments } from "../data/comment";
+
 import { CommentCard, FormattedComment } from "../components/CommentCard";
 import { formatComment } from "./utils/formatComment";
 
