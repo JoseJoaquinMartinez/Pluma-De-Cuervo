@@ -29,6 +29,7 @@ export const adminNavItems = [
     link: "/admin/comentarios",
     name: "Comentarios",
   },
+  { link: "/admin/contacto", name: "Contacto" },
 ];
 export const regularNavItems = [
   {

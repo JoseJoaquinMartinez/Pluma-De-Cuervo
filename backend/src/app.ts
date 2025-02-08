@@ -50,6 +50,8 @@ import postNewContactMessage from "./server/contact-form/post/postNewContactMess
 import getUnreadMessages from "./server/contact-form/get/getUnreadMessages";
 import putSetMessageToRead from "./server/contact-form/put/putMessageAsRead";
 import replyToContactMessage from "./server/contact-form/post/sendReplyToMessage";
+import markContactMessageAsRead from "./server/contact-form/patch/markContactMessageAsRead";
+import deleteContactMessage from "./server/contact-form/delete/deleteContactMessage";
 
 const app = express();
 
@@ -143,5 +145,11 @@ app.use("/contact", getUnreadMessages);
 
 //PUT
 app.use("/contact", putSetMessageToRead);
+
+//PATCH
+app.use("/contact", markContactMessageAsRead);
+
+//DELETE
+app.use("/contact", deleteContactMessage);
 
 export default app;
