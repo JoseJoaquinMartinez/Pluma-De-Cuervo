@@ -96,6 +96,9 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       router.push(link);
     } else {
       setErrorState(resultAction.payload as string);
+      setTimeout(() => {
+        setErrorState(null);
+      }, 1000);
     }
   };
 
@@ -112,13 +115,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       </div>
     );
   }
-  if (error) {
-    return (
-      <ErrorToast
-        message={error === "Network Error" ? "Error de conexión" : error}
-      />
-    );
-  }
+
   return (
     <form
       onSubmit={handleSubmit}
