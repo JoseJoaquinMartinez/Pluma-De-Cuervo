@@ -6,6 +6,7 @@ import React, { ChangeEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { postReplyToContactMessage } from "../utils/postReplyToContactMessage";
 import { markContactMessageAsRead } from "../utils/markContactMessageAsRead";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 const DeleteModal = ({
   onConfirm,
@@ -61,6 +62,13 @@ export const ContactCard = ({
         await markContactMessageAsRead({ id, token, isRead });
         router.refresh();
       } catch (error) {
+        setTimeout(() => {
+          <ErrorToast
+            message={
+              error instanceof Error ? error.message : "Error desconocido"
+            }
+          />;
+        }, 1000);
         setMarkAsRead(!isRead);
       }
     }
@@ -81,7 +89,9 @@ export const ContactCard = ({
         setReplyMessage("");
         setResponding(false);
       } catch (error) {
-        console.error(error);
+        <ErrorToast
+          message={error instanceof Error ? error.message : "Error desconocido"}
+        />;
       }
     }
   };

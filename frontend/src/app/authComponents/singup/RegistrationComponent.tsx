@@ -10,6 +10,7 @@ import { AlertCircle, UserCheck } from "lucide-react";
 import MainButton from "@/components/shared/mainButton";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import { useRouter } from "next/navigation";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 const RegistrationComponent = ({ token }: { token: string }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -38,12 +39,7 @@ const RegistrationComponent = ({ token }: { token: string }) => {
     );
   }
   if (error) {
-    return (
-      <div className="flex flex-col items-center justify-center">
-        <AlertCircle size={50} />
-        <p>{error}</p>
-      </div>
-    );
+    return <ErrorToast message={error} />;
   }
   return (
     <section className="flex items-center justify-center bg-background mt-8 p-2">

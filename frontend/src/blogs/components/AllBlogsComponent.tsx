@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BlogCardComponent } from "./BlogCardComponent";
 import MainButton from "@/components/shared/mainButton";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 function AllBlogsComponent() {
   const dispatch = useDispatch<AppDispatch>();
@@ -30,7 +31,7 @@ function AllBlogsComponent() {
     );
   }
   if (error) {
-    return <p>{error}</p>;
+    return <ErrorToast message={error} />;
   }
   if (blogs) {
     return (

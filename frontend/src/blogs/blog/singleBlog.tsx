@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "@/store/store";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SingleBlogComponent } from "../components/SingleBlogComponent";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 export const SingleBlog = ({ blogId }: { blogId: number }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -30,7 +31,7 @@ export const SingleBlog = ({ blogId }: { blogId: number }) => {
     );
   }
   if (error) {
-    return <div>{error}</div>;
+    return <ErrorToast message={error} />;
   }
   if (blog) {
     if (data) {

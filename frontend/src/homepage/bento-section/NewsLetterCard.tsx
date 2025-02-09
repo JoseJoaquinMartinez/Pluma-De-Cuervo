@@ -1,4 +1,5 @@
 "use client";
+import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
 import { useState } from "react";
 
@@ -25,7 +26,6 @@ export const NewsLetterCard: React.FC = () => {
             return;
           });
         } else if (res.ok) {
-          //TODO añadir algun toaster bonito
           return res.json().then((succesData) => {
             setSuccesMessage(succesData.message);
             setTimeout(() => {
@@ -78,12 +78,8 @@ export const NewsLetterCard: React.FC = () => {
           onChange={(e) => setEmail(e.target.value)}
           aria-label="email"
         />
-        {/* //TODO añadir le toaster */}
-        {error && (
-          <p className="text-black text-center font-bold bg-red-500 opacity-50 rounded-xl mb-2">
-            {error}
-          </p>
-        )}
+
+        {error && <ErrorToast message={error} />}
         {succesMessage && (
           <p className="text-black text-center font-bold bg-green-500 opacity-50 rounded-xl mb-2">
             {succesMessage}

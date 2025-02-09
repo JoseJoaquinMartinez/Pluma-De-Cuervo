@@ -6,6 +6,7 @@ import { FormattedComment } from "../components/CommentCard";
 import { formatComment } from "./utils/formatComment";
 import { getRegularUserComments } from "./utils/getRegularUserComments";
 import { RegularUserCommentCard } from "../components/RegularUserCommentCard";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 export const RegularUserGetComment = () => {
   const [comments, setComments] = useState<FormattedComment[]>([]);
@@ -22,7 +23,11 @@ export const RegularUserGetComment = () => {
           );
           setComments(formattedComments);
         } catch (error) {
-          console.error("Error fetching comments:", error);
+          <ErrorToast
+            message={
+              error instanceof Error ? error.message : "Error desconocido"
+            }
+          />;
         }
       }
     };

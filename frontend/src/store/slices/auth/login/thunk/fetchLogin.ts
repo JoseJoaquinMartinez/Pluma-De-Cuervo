@@ -11,7 +11,7 @@ export const fetchLoginUser = createAsyncThunk<
 >("fetchLoginUser/fetchLoginUser", async ({ email, password }, thunkAPI) => {
   try {
     const response = await loginUser({ email, password });
-    if (!response) {
+    if (!response.ok) {
       return thunkAPI.rejectWithValue("Error iniciando sesión");
     }
     return response;

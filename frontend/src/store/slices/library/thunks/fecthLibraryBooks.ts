@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getBooksData } from "@/books/book/utils/getBooksData";
+import { BookCardComponentProps } from "@/books/interfaces/bookData";
 
 export const fetchLibraryBooks = createAsyncThunk<
   BookCardComponentProps[],
@@ -15,7 +16,7 @@ export const fetchLibraryBooks = createAsyncThunk<
   } catch (error) {
     if (error instanceof Error) {
       return thunkAPI.rejectWithValue(
-        error.message || "Error obteniendo los libros de la biblioteca",
+        error.message || "Error obteniendo los libros de la biblioteca"
       );
     }
     return thunkAPI.rejectWithValue("Error desconocido");

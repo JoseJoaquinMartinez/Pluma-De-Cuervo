@@ -7,6 +7,7 @@ import { getSingleBook } from "./utils/getSingleBook";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import MainButton from "@/components/shared/mainButton";
 import Image from "next/image";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 interface GetSingleBook {
   id: number;
@@ -40,9 +41,13 @@ export const EditBook = ({ bookId }: { bookId: number }) => {
           setImagenPreview(data.imagen);
         }
       } catch (error) {
-        if (error instanceof Error) {
-          console.error(error.message);
-        }
+        <ErrorToast
+          message={
+            error instanceof Error
+              ? error.message
+              : "Error al enviar el formulario:"
+          }
+        />;
       }
     };
     fetchBookData();
@@ -93,10 +98,13 @@ export const EditBook = ({ bookId }: { bookId: number }) => {
         router.push(`/libro/${data.updatedBook.id}`);
       }
     } catch (error) {
-      console.error(
-        "Error al enviar el formulario:",
-        error instanceof Error ? error.message : "Error desconocido"
-      );
+      <ErrorToast
+        message={
+          error instanceof Error
+            ? error.message
+            : "Error al enviar el formulario:"
+        }
+      />;
     }
   };
   if (loading) {

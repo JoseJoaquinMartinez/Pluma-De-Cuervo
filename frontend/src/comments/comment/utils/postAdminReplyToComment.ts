@@ -19,6 +19,9 @@ export const postAdminReplyToComment = async ({
       },
       body: JSON.stringify({ commentBody: commentBody }),
     });
+    if (!sendResponse.ok) {
+      throw new Error(`HTTP error! status: ${sendResponse.status}`);
+    }
     return sendResponse.json();
   } catch (error) {
     if (error instanceof Error) {

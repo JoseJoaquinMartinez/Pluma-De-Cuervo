@@ -5,6 +5,9 @@ export const getSingleBlog = async (blogId: number): Promise<SingleBlog> => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/get-single-blog-post/${blogId}`
     );
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
     const data = await response.json();
     const estimatedReadTimeToString = {
       ...data,

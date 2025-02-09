@@ -1,6 +1,7 @@
 "use client";
 import ChapterCard from "@/app/(un-auth-regular-user)/ultimos-capitulos/components/ChapterCard";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
+import ErrorToast from "@/components/shared/ErrorToaster";
 import { fetchAllChaptersFromABook } from "@/store/slices/singleBook/thunk/fetchAllChaptersFromABook";
 import { RootState, AppDispatch } from "@/store/store";
 import React, { useEffect } from "react";
@@ -28,7 +29,7 @@ export const AllChaptersComponent = ({ bookId }: { bookId: number }) => {
     );
   }
   if (error) {
-    return <p>{error}</p>;
+    return <ErrorToast message={error} />;
   }
 
   if (chapters) {

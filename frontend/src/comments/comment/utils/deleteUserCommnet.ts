@@ -13,6 +13,9 @@ export const deleteUserComment = async ({ commentId, token }: Props) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
     if (response.status === 204) {
       return true;
