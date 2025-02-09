@@ -6,6 +6,7 @@ import { RootState } from "@/store/store";
 import { updateCommentRead } from "../comment/utils/markCommentAsRead";
 import { postAdminReplyToComment } from "../comment/utils/postAdminReplyToComment";
 import { useRouter } from "next/navigation";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 export interface FormattedComment {
   id: number;
@@ -84,6 +85,13 @@ export const CommentCard = ({
         await updateCommentRead(id, newState, token);
         router.refresh();
       } catch (error) {
+        setTimeout(() => {
+          <ErrorToast
+            message={
+              error instanceof Error ? error.message : "Error desconocido"
+            }
+          />;
+        }, 1000);
         setMarkAsRead(!newState);
       }
     }

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TitlesFromChapterComponent } from "../components/TitlesFromChapterComponent";
 import { ChapterReadArea } from "../components/ChapterReadArea";
 import Link from "next/link";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 interface Props {
   bookId: number;
@@ -32,13 +33,13 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex flex-col items-center justify-center">
         <BookLoaderComponent />
       </div>
     );
   }
   if (error) {
-    return <div>{error}</div>;
+    return <ErrorToast message={error} />;
   }
 
   if (!chapter) {

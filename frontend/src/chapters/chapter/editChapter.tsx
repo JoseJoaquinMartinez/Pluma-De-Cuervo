@@ -1,5 +1,6 @@
 "use client";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
+import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
 import { RootState } from "@/store/store";
 import Image from "next/image";
@@ -37,7 +38,6 @@ export const EditChapter = ({
   });
   const [imagenPreview, setImagenPreview] = useState<string>(defaultImagen);
   const [chapterFile, setChapterFile] = useState<File | null>(null);
-  const [showTextArea, setShowTextArea] = useState<boolean>(true);
 
   useEffect(() => {
     const getChapterInfo = async () => {
@@ -62,7 +62,9 @@ export const EditChapter = ({
 
         setImagenPreview(data.imagen || defaultImagen);
       } catch (error) {
-        console.error("Error al obtener el capítulo:", error);
+        <ErrorToast
+          message={error instanceof Error ? error.message : "Error desconocido"}
+        />;
       }
     };
 
@@ -143,10 +145,9 @@ export const EditChapter = ({
         }, 2000);
       }
     } catch (error) {
-      console.error(
-        "Error al enviar el formulario:",
-        error instanceof Error ? error.message : "Error desconocido"
-      );
+      <ErrorToast
+        message={error instanceof Error ? error.message : "Error desconocido"}
+      />;
     }
   };
   if (loading) {

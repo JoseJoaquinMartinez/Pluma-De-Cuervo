@@ -6,6 +6,7 @@ import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/store/store";
 import { fetchBlogHomepage } from "@/store/slices/homepage/blogs/thunks/blogThunks";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 const BlogComponent = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,13 +21,16 @@ const BlogComponent = () => {
       dispatch(fetchBlogHomepage());
     }
   }, [dispatch, blogs]);
-  if (error) return <p className="text-red-500">Error: {error}</p>;
+
   return (
     <article className="flex flex-col gap-6">
       {loading ? (
-        <BookLoaderComponent />
+        <div className="flex flex-col items-center justify-center">
+          <BookLoaderComponent />
+        </div>
       ) : (
         <>
+          {error && <ErrorToast message={error} />}
           <div className="grid grid-col-1 md:grid-cols-3  mlg:grid-cols-5 gap-6">
             {blogs.map((blog) => (
               <BlogCard key={blog.id} {...blog} />

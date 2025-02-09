@@ -3,7 +3,7 @@ export const createNewUser = async (token: string) => {
   try {
     const response = await fetch(URL);
 
-    if (!response) {
+    if (!response.ok) {
       throw new Error("Error creando el usuario");
     }
     const data = await response.json();

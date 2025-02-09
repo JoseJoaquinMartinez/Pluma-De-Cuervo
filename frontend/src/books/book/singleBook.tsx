@@ -10,6 +10,7 @@ import Image from "next/image";
 import MainButton from "@/components/shared/mainButton";
 import SliderChapters from "../components/SliderChapters";
 import { BookStatusBadgeSingleBook } from "../components/BookStatusBadgeSingleBook";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 function SingleBook({ bookId }: { bookId: number }) {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,10 +34,14 @@ function SingleBook({ bookId }: { bookId: number }) {
   }, [bookId, book, dispatch]);
 
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <BookLoaderComponent />
+      </div>
+    );
   }
   if (error) {
-    return <p>{error}</p>;
+    return <ErrorToast message={error} />;
   }
 
   if (book) {
@@ -111,9 +116,14 @@ function SingleBook({ bookId }: { bookId: number }) {
             </section>
           )}
           <article className="gap-2 hidden md:grid md:grid-cols-3 lg:grid-cols-5 ">
-            {/*             //TODO give style to errors and BookLoader */}
-            {lastFiveChaptersLoading && <BookLoaderComponent />}
-            {lastFiveChaptersError && <p>{lastFiveChaptersError}</p>}
+            {lastFiveChaptersLoading && (
+              <div className="flex flex-col items-center justify-center">
+                <BookLoaderComponent />
+              </div>
+            )}
+            {lastFiveChaptersError && (
+              <ErrorToast message={lastFiveChaptersError} />
+            )}
             {lastFiveChapters &&
               lastFiveChapters.map(
                 ({ id, imagen, createdAt, estimatedReadTime, title }) => (

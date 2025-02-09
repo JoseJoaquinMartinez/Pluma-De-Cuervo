@@ -12,6 +12,9 @@ export const getUserCommentsOnChapter = async ({
     const response = await fetch(URL, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     return response.json();
   } catch (error) {
     if (error instanceof Error) return error.message;

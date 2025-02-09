@@ -1,6 +1,7 @@
 "use client";
 import ChapterCard from "@/app/(un-auth-regular-user)/ultimos-capitulos/components/ChapterCard";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
+import ErrorToast from "@/components/shared/ErrorToaster";
 import { fetchAllChaptersFromABook } from "@/store/slices/singleBook/thunk/fetchAllChaptersFromABook";
 import { RootState, AppDispatch } from "@/store/store";
 import React, { useEffect } from "react";
@@ -21,16 +22,22 @@ export const AllChaptersComponent = ({ bookId }: { bookId: number }) => {
   }, [chapters, bookId, dispatch]);
 
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <BookLoaderComponent />
+      </div>
+    );
   }
   if (error) {
-    return <p>{error}</p>;
+    return <ErrorToast message={error} />;
   }
 
   if (chapters) {
     return (
       <section className="flex flex-col max-w-screen-lg">
-        <h2 className="text-encabezados text-2xl  text-start mb-4 self-start px-2 mt-4">Capítulos</h2>
+        <h2 className="text-encabezados text-2xl  text-start mb-4 self-start px-2 mt-4">
+          Capítulos
+        </h2>
         {chapters && chapters.length === 0 && (
           <p>No hay capítulos que mostrar</p>
         )}

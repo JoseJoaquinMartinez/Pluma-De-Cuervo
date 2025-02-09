@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { RootState } from "@/store/store";
 import { getContactMessages } from "./utils/getContactMessages";
 import { deleteContactMessage } from "./utils/deleteMessage";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 export const ContactComponent = () => {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
@@ -19,7 +20,9 @@ export const ContactComponent = () => {
       const fetchedMessages = await getContactMessages(token);
       setMessages(fetchedMessages);
     } catch (error) {
-      console.error("Error fetching comments:", error);
+      <ErrorToast
+        message={error instanceof Error ? error.message : "Error desconocido"}
+      />;
     }
   };
   const handleDeleteComment = async (messageId: number) => {
@@ -32,7 +35,9 @@ export const ContactComponent = () => {
         await deleteContactMessage({ messageId, token });
         router.refresh();
       } catch (error) {
-        console.error("Error deleting comment:", error);
+        <ErrorToast
+          message={error instanceof Error ? error.message : "Error desconocido"}
+        />;
       }
     }
   };

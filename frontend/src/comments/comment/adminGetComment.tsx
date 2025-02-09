@@ -7,6 +7,7 @@ import { deleteComment } from "../comment/utils/deleteComment";
 import { CommentCard, FormattedComment } from "../components/CommentCard";
 import { formatComment } from "./utils/formatComment";
 import { useRouter } from "next/navigation";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 export const AdminGetComment = () => {
   const [comments, setComments] = useState<FormattedComment[]>([]);
@@ -26,7 +27,9 @@ export const AdminGetComment = () => {
         setComments(formattedComments);
         setFilteredComments(formattedComments);
       } catch (error) {
-        console.error("Error fetching comments:", error);
+        <ErrorToast
+          message={error instanceof Error ? error.message : "Error desconocido"}
+        />;
       }
     };
 
@@ -57,7 +60,9 @@ export const AdminGetComment = () => {
         await deleteComment({ commentId, token });
         router.refresh();
       } catch (error) {
-        console.error("Error deleting comment:", error);
+        <ErrorToast
+          message={error instanceof Error ? error.message : "Error desconocido"}
+        />;
       }
     }
   };

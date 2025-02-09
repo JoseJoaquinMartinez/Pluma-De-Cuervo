@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import Slider from "@/books/components/Slider";
 import CardDisplay from "@/books/components/cardDisplay";
 import MainButton from "@/components/shared/mainButton";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 const BookCardComponent = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,10 +24,14 @@ const BookCardComponent = () => {
   }, [dispatch, books]);
 
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <BookLoaderComponent />
+      </div>
+    );
   }
   if (error) {
-    return <p>{error}</p>;
+    return <ErrorToast message={error} />;
   }
   return (
     <>

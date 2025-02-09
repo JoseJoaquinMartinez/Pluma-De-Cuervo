@@ -1,5 +1,6 @@
 "use client";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
+import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
 import { RootState } from "@/store/store";
 import Image from "next/image";
@@ -112,10 +113,13 @@ export const CreateChapter = ({ bookId }: { bookId: number }) => {
         }, 2000);
       }
     } catch (error) {
-      console.error(
-        "Error al enviar el formulario:",
-        error instanceof Error ? error.message : "Error desconocido"
-      );
+      <ErrorToast
+        message={
+          error instanceof Error
+            ? error.message
+            : "Error al enviar el formulario:"
+        }
+      />;
     }
   };
   if (loading) {

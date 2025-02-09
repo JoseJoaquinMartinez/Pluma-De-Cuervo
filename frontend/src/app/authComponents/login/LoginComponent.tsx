@@ -18,8 +18,8 @@ export const LoginComponent = () => {
     loading,
   } = useSelector((state: RootState) => state.Authentication);
 
-  const handleLoginUser = ({ email, password }: AuthProps) => {
-    dispatch(fetchLoginUser({ email, password }));
+  const handleLoginUser = async ({ email, password }: AuthProps) => {
+    return await dispatch(fetchLoginUser({ email, password }));
   };
 
   return (

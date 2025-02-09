@@ -19,6 +19,9 @@ export const postRegularUserNewComment = async ({
       },
       body: JSON.stringify({ commentBody: comment }),
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     return response.json();
   } catch (error) {
     if (error instanceof Error) {

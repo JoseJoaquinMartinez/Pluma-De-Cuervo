@@ -8,6 +8,7 @@ import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 export const EditExistingBlog = ({ blogId }: { blogId: number }) => {
   const [formData, setFormData] = useState<SingleBlog>({
@@ -32,9 +33,13 @@ export const EditExistingBlog = ({ blogId }: { blogId: number }) => {
           setImagenPreview(data.imagen);
         }
       } catch (error) {
-        if (error instanceof Error) {
-          console.error(error.message);
-        }
+        <ErrorToast
+          message={
+            error instanceof Error
+              ? error.message
+              : "Error al enviar el formulario:"
+          }
+        />;
       }
     };
 
@@ -95,10 +100,9 @@ export const EditExistingBlog = ({ blogId }: { blogId: number }) => {
         }
       }, 2000);
     } catch (error) {
-      console.error(
-        "Error al enviar el formulario:",
-        error instanceof Error ? error.message : "Error desconocido"
-      );
+      <ErrorToast
+        message={error instanceof Error ? error.message : "Error desconocido"}
+      />;
     }
   };
 

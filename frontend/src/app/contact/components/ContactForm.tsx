@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ContactFormProps } from "../interfaces/contact";
 import MainButton from "@/components/shared/mainButton";
 import { postNewContactMessage } from "../utils/postNewContactMessage";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 export const ContactForm = () => {
   const [form, setForm] = useState<ContactFormProps>({
@@ -31,15 +32,17 @@ export const ContactForm = () => {
       return;
     }
     const newContactMessage = () => {
-      try{
-        postNewContactMessage({ ...form, setError, setSuccessMessage }).then((result) => {
-          setForm({
-            email: "",
-            message: "",
-          })
-        })
-      }catch(err){
-        console.error(err);
+      try {
+        postNewContactMessage({ ...form, setError, setSuccessMessage }).then(
+          (result) => {
+            setForm({
+              email: "",
+              message: "",
+            });
+          }
+        );
+      } catch (err) {
+        setError(err as string);
       }
     };
 
@@ -92,11 +95,14 @@ export const ContactForm = () => {
         </span>
 
         <MainButton name="Enviar" type="submit" />
-
       </form>
       <div className="flex items-center justify-center w-full min-w-[350px] md:min-w-[450px]">
-        {error  && <span className="text-black text-center font-bold bg-red-500 opacity-50 rounded w-full">{error}</span>}
-        {successMessage && <span className="text-black text-center font-bold bg-green-500 opacity-50 rounded w-full break-after-auto">{successMessage}</span>}
+        {error && <ErrorToast message={error} />}
+        {successMessage && (
+          <span className="text-black text-center font-bold bg-green-500 opacity-50 rounded w-full break-after-auto">
+            {successMessage}
+          </span>
+        )}
       </div>
     </div>
   );

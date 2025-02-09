@@ -5,6 +5,7 @@ import ChapterCard from "./components/ChapterCard";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/store/store";
 import { fetchLastTenChapters } from "@/store/slices/lastTenChapters/thunks/fetchLastTenChapters";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 export default function LastTenChapters() {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,13 +23,13 @@ export default function LastTenChapters() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center ">
+      <div className="flex flex-col items-center justify-center">
         <BookLoaderComponent />
       </div>
     );
   }
-  //TODO add the error toaster
-  if (error) return <p>{error}</p>;
+
+  if (error) return <ErrorToast message={error} />;
 
   return (
     <article className="flex flex-col gap-6">

@@ -47,6 +47,9 @@ const authSlice = createSlice({
       })
       .addCase(fetchCreateNewUser.rejected, (state, action) => {
         state.loading = false;
+        state.isLoggedIn = false;
+        state.token = null;
+        state.data = null;
         state.error = action.payload as string;
       })
 
@@ -63,6 +66,9 @@ const authSlice = createSlice({
       })
       .addCase(fetchLoginUser.rejected, (state, action) => {
         state.loading = false;
+        state.isLoggedIn = false;
+        state.token = null;
+        state.data = null;
         state.error = action.payload as string;
       });
   },

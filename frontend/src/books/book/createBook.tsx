@@ -1,5 +1,6 @@
 "use client";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
+import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
 import { RootState } from "@/store/store";
 import Image from "next/image";
@@ -67,15 +68,18 @@ export const CreateBook = () => {
         router.push(`/libro/${data.newBook.id}`);
       }
     } catch (error) {
-      console.error(
-        "Error al enviar el formulario:",
-        error instanceof Error ? error.message : "Error desconocido"
-      );
+      <ErrorToast
+        message={
+          error instanceof Error
+            ? error.message
+            : "Error al enviar el formulario:"
+        }
+      />;
     }
   };
   if (loading) {
     return (
-      <div className="felx flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
         <BookLoaderComponent />
       </div>
     );

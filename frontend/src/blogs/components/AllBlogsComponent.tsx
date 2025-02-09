@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BlogCardComponent } from "./BlogCardComponent";
 import MainButton from "@/components/shared/mainButton";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 function AllBlogsComponent() {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,10 +24,14 @@ function AllBlogsComponent() {
   }, [blogs, dispatch]);
 
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <BookLoaderComponent />
+      </div>
+    );
   }
   if (error) {
-    return <p>{error}</p>;
+    return <ErrorToast message={error} />;
   }
   if (blogs) {
     return (
