@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 import Providers from "../../providers/Providers";
+import CookieBanner from "@/components/shared/CookieBanner";
 
 const onest = localFont({
   src: "../../public/fonts/Onest-VariableFont_wght.ttf",
@@ -32,6 +33,7 @@ export default function RootLayout({
           <main className="flex-grow">{children}</main>
 
           <Footer />
+          <CookieBanner />
         </Providers>
       </body>
     </html>
