@@ -25,7 +25,7 @@ const CookieBanner = () => {
         Utilizamos cookies propias y de terceros para mejorar tu experiencia.{" "}
         <Link
           href="/politica-cookies"
-          className="text-botones underline hover:text-navBarActiveLink transition-colors"
+          className="text-whiteText underline hover:text-encabezados transition-colors"
         >
           Más información
         </Link>
