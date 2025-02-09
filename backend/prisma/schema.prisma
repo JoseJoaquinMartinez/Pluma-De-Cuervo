@@ -44,6 +44,9 @@ model RegularUser {
   password String
   role String @default("user")
 
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+
   regularUserData RegularUserData[]
 }
 

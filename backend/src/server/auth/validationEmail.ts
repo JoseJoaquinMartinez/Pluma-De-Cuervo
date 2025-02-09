@@ -25,12 +25,20 @@ router.post("/verify-email", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newUser = await prisma.regularUser.create({
+      data: {
+        email,
+        password: hashedPassword,
+        isVerified: false,
+        regularUserData: {
+          create: {},
+        },
+      },
+    });
 
-    const verifyEmailToken = jwt.sign(
-      { email, password: hashedPassword },
-      JWT_SECRET,
-      { expiresIn: "10m" }
-    );
+    const verifyEmailToken = jwt.sign({ email }, JWT_SECRET, {
+      expiresIn: "10m",
+    });
 
     const emailVerificationUrl = `${process.env.EMAIL_URL}?token=${verifyEmailToken}`;
 
