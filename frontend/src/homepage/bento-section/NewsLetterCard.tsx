@@ -1,6 +1,7 @@
 "use client";
 import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
+import SuccessToast from "@/components/shared/SuccessToast";
 import { useState } from "react";
 
 export const NewsLetterCard: React.FC = () => {
@@ -35,7 +36,7 @@ export const NewsLetterCard: React.FC = () => {
         }
       })
       .catch((error) => {
-        setError("Error de red. Inténtelo nuevamente");
+        setError(error.message || "Error de red. Inténtelo nuevamente");
         return;
       });
   };
@@ -54,6 +55,7 @@ export const NewsLetterCard: React.FC = () => {
 
     addNewSubscriberToTheList(email);
     setSuccesMessage("");
+    setEmail("");
   };
 
   return (
@@ -77,13 +79,12 @@ export const NewsLetterCard: React.FC = () => {
           className="flex-grow px-4 py-2 rounded-lg  mb-2 text-mainText"
           onChange={(e) => setEmail(e.target.value)}
           aria-label="email"
+          required
         />
 
         {error && <ErrorToast message={error} />}
         {succesMessage && (
-          <p className="text-black text-center font-bold bg-green-500 opacity-50 rounded-xl mb-2">
-            {succesMessage}
-          </p>
+          <SuccessToast message={succesMessage} duration={2000} />
         )}
         <MainButton name="!Únete¡" type="submit" />
       </form>
