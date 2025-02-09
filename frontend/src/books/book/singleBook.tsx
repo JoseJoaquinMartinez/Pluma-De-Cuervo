@@ -33,7 +33,11 @@ function SingleBook({ bookId }: { bookId: number }) {
   }, [bookId, book, dispatch]);
 
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <BookLoaderComponent />
+      </div>
+    );
   }
   if (error) {
     return <p>{error}</p>;
@@ -112,7 +116,11 @@ function SingleBook({ bookId }: { bookId: number }) {
           )}
           <article className="gap-2 hidden md:grid md:grid-cols-3 lg:grid-cols-5 ">
             {/*             //TODO give style to errors and BookLoader */}
-            {lastFiveChaptersLoading && <BookLoaderComponent />}
+            {lastFiveChaptersLoading && (
+              <div className="flex flex-col items-center justify-center">
+                <BookLoaderComponent />
+              </div>
+            )}
             {lastFiveChaptersError && <p>{lastFiveChaptersError}</p>}
             {lastFiveChapters &&
               lastFiveChapters.map(

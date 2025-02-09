@@ -23,7 +23,11 @@ export const SingleBlog = ({ blogId }: { blogId: number }) => {
   }, [blogId, dispatch]);
 
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <BookLoaderComponent />
+      </div>
+    );
   }
   if (error) {
     return <div>{error}</div>;

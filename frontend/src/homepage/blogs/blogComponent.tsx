@@ -24,7 +24,9 @@ const BlogComponent = () => {
   return (
     <article className="flex flex-col gap-6">
       {loading ? (
-        <BookLoaderComponent />
+        <div className="flex flex-col items-center justify-center">
+          <BookLoaderComponent />
+        </div>
       ) : (
         <>
           <div className="grid grid-col-1 md:grid-cols-3  mlg:grid-cols-5 gap-6">

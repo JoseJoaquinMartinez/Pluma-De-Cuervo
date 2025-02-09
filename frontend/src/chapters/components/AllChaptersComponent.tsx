@@ -21,7 +21,11 @@ export const AllChaptersComponent = ({ bookId }: { bookId: number }) => {
   }, [chapters, bookId, dispatch]);
 
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <BookLoaderComponent />
+      </div>
+    );
   }
   if (error) {
     return <p>{error}</p>;
@@ -30,7 +34,9 @@ export const AllChaptersComponent = ({ bookId }: { bookId: number }) => {
   if (chapters) {
     return (
       <section className="flex flex-col max-w-screen-lg">
-        <h2 className="text-encabezados text-2xl  text-start mb-4 self-start px-2 mt-4">Capítulos</h2>
+        <h2 className="text-encabezados text-2xl  text-start mb-4 self-start px-2 mt-4">
+          Capítulos
+        </h2>
         {chapters && chapters.length === 0 && (
           <p>No hay capítulos que mostrar</p>
         )}
