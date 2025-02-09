@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import "./utils/cronUserCleaning";
 
 //AUTH
 import authValidationRoute from "./server/auth/validationEmail";
