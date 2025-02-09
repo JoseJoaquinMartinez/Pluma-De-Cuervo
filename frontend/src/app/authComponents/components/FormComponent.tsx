@@ -11,6 +11,8 @@ import { EmailVerificationResponse } from "@/store/slices/auth/singup/thunk/fetc
 import { AuthProps } from "@/app/authComponents/data/singup";
 import { useRouter } from "next/navigation";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
+import ErrorToast from "@/components/shared/ErrorToaster";
+import { fetchLoginUser } from "@/store/slices/auth/login/thunk/fetchLogin";
 
 interface LoginResponse {
   token: string;
@@ -20,13 +22,13 @@ interface LoginResponse {
 type AuthResponse = LoginResponse | void;
 
 interface FormComponentProps {
-  formFieldsData: Array<SingUpInterface | ButtonProps | UnderlineText>;
+  formFieldsData: Array<any>;
   title: string;
   state: EmailVerificationResponse | null;
   error: string | null;
   loading: boolean;
   link: string;
-  dispatch: (props: AuthProps) => AuthResponse;
+  dispatch: (props: AuthProps) => Promise<any>;
   confirmationEmail: boolean;
 }
 interface FormFieldProps {
@@ -61,7 +63,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
     return passwordRegex.test(password);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (form.email.length < 2 || form.password.length < 2) {
       setErrorState("Por favor, rellena todos los campos");
@@ -85,9 +87,16 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       }
     }
 
-    dispatch({ email: form.email, password: form.password });
-    router.push(link);
-    return;
+    const resultAction = await dispatch({
+      email: form.email,
+      password: form.password,
+    });
+
+    if (fetchLoginUser.fulfilled.match(resultAction)) {
+      router.push(link);
+    } else {
+      setErrorState(resultAction.payload as string);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,9 +114,9 @@ export const FormComponent: React.FC<FormComponentProps> = ({
   }
   if (error) {
     return (
-      <div className="text-red-500 text-center">
-        <p>{error === "Network Error" ? "Error de conexión" : error}</p>
-      </div>
+      <ErrorToast
+        message={error === "Network Error" ? "Error de conexión" : error}
+      />
     );
   }
   return (
@@ -118,7 +127,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       <h2 className=" text-xl md:text-2xl font-semibold text-center mb-6 text-encabezados uppercase">
         {title}
       </h2>
-      <p>{errorState}</p>
+      {errorState && <ErrorToast message={errorState} />}
       {formFieldsData.map((field, index) =>
         "label" in field ? (
           <FormField

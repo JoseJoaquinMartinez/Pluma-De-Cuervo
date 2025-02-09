@@ -13,11 +13,13 @@ export const loginUser = async ({ email, password }: AuthProps) => {
       body: JSON.stringify({ email, password }),
     });
 
-    if (!response) {
-      throw new Error("Error iniciando sesión");
-    }
-    const data = await response.json();
+    if (!response.ok) {
+      const errorData = await response.json();
 
+      throw new Error(errorData.message || "Error iniciando sesión");
+    }
+
+    const data = await response.json();
     return data;
   } catch (error) {
     if (error instanceof Error) {
