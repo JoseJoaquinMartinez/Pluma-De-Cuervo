@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchCreateNewUser } from "@/store/slices/auth/singup/thunk/fetchCreateNewUser";
 import type { NewUserInterface } from "@/app/authComponents/interfaces/singupInterface";
 import { fetchLoginUser } from "./login/thunk/fetchLogin";
+import { fetchUpdateUserName } from "./singup/thunk/fetchUpdateUserName";
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -69,6 +70,18 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         state.token = null;
         state.data = null;
+        state.error = action.payload as string;
+      })
+      .addCase(fetchUpdateUserName.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUpdateUserName.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchUpdateUserName.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload as string;
       });
   },

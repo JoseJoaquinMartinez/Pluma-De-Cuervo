@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { logoutUser } from "@/store/slices/auth/authSlice";
 import { useRouter } from "next/navigation";
+import ChangeUserNameModal from "../shared/ChangeUserNameModal";
 
 export default function NavHamburguerButtonAndPaths() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+  const [showChangeName, setShowChangeName] = useState(false);
   const { isLoggedIn, data } = useSelector(
     (state: RootState) => state.Authentication
   );
@@ -27,15 +29,27 @@ export default function NavHamburguerButtonAndPaths() {
     dispatch(logoutUser());
     router.push("/");
   };
+
+  const showChangeNameFunction = () => {
+    setShowChangeName(!showChangeName);
+  };
   return (
     <>
       <article className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
         {isLoggedIn ? (
           <article className="items-center space-x-3 md:space-x-4 hidden md:flex">
-            {data?.user.role === "user" ? (
-              <span className="text-whiteText text-xl md:block">
-                {data?.user.regularUserData[0].userName}
-              </span>
+            {data?.user?.role === "user" ? (
+              <>
+                <span
+                  className="text-whiteText text-xl md:block hover:bg-encabezados/50 rounded-lg p-2 cursor-pointer"
+                  onClick={showChangeNameFunction}
+                >
+                  {data?.user?.regularUserData[0].userName}
+                </span>
+                {showChangeName && (
+                  <ChangeUserNameModal onClose={showChangeNameFunction} />
+                )}
+              </>
             ) : (
               <></>
             )}
