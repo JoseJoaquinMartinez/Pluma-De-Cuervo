@@ -11,7 +11,8 @@ router.post(
     const paragraphId = parseInt(req.params.paragraphId);
     const { commentBody } = req.body;
     const userId = req.user.id;
-
+    console.log(req.user.id);
+    console.log(userId);
     try {
       const existingUser = await prisma.regularUserData.findFirst({
         where: { regularUserId: userId },

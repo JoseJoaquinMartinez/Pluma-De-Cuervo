@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 interface AuthRequest extends Request {
   user?: {
-    userId: string;
+    id: string;
     role: string;
   };
 }
@@ -17,15 +17,16 @@ export const roleMiddleware = (requiredRole: string) => {
 
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
-        id: string;
+        userId: string;
         role: string;
       };
+
       if (decoded.role !== requiredRole) {
         return res
           .status(403)
           .json({ error: `Access denied for ${decoded.role}` });
       }
-      req.user = { userId: decoded.id, role: decoded.role };
+      req.user = { id: decoded.userId, role: decoded.role };
       next();
     } catch (error) {
       return res.status(403).json({ error: "Invalid token" });
