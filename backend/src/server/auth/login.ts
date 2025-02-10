@@ -26,12 +26,8 @@ router.post("/login", checkIfAdminLogin, async (req, res) => {
       return res.status(401).json({ message: "contraseña no válida" });
     }
 
-    const regularUserDataId =
-      existingUser.regularUserData.length > 0
-        ? existingUser.regularUserData[0].id
-        : null;
     const authToken = jwt.sign(
-      { userId: regularUserDataId, role: existingUser.role },
+      { userId: existingUser.id, role: existingUser.role },
       JWT_SECRET,
       {
         expiresIn: "2h",

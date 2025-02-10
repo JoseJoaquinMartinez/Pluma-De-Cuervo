@@ -34,7 +34,7 @@ const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      //Registro
+
       .addCase(fetchCreateNewUser.pending, (state) => {
         state.loading = true;
         state.error = null;

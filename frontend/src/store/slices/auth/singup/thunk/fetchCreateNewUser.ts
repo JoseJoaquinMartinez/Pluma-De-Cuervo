@@ -9,7 +9,7 @@ export const fetchCreateNewUser = createAsyncThunk<
 >("fetchCreateNewUser/fetchCreateNewUser", async (token, thunkAPI) => {
   try {
     const response = await createNewUser(token);
-    if (!response.ok) {
+    if (!response) {
       return thunkAPI.rejectWithValue("Error creando el usuario");
     }
     return response;
