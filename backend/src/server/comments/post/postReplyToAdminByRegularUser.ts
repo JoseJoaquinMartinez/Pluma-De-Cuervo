@@ -30,7 +30,6 @@ router.post(
         return res.status(404).json({ error: "Comentario no encontrado" });
       }
 
-      // Evitar que un usuario responda a otro usuario en lugar de al administrador
       if (existingComment.adminUserDataId === null) {
         return res.status(400).json({
           error: "Solo puedes responder a comentarios de administradores",

@@ -116,7 +116,7 @@ export const CommentCard = ({
       }
     }
   };
-
+  console.log(user);
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setResponse(e.target.value);
   };
