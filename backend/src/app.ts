@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import "./utils/cronUserCleaning";
 
+//User
+import changeUserName from "./server/user/userUpdateName";
+
 //AUTH
 import authValidationRoute from "./server/auth/validationEmail";
 import authRegistrationRoute from "./server/auth/registration";
@@ -64,6 +67,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+//USER
+app.use("/user", changeUserName);
 
 // AUTH ROUTES
 
