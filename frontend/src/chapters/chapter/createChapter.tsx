@@ -2,11 +2,12 @@
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
-import { RootState } from "@/store/store";
+import { fetchAllChaptersFromABook } from "@/store/slices/singleBook/thunk/fetchAllChaptersFromABook";
+import { AppDispatch, RootState } from "@/store/store";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 interface FormData {
   title: string;
@@ -21,6 +22,7 @@ const defaultImagen =
 
 export const CreateChapter = ({ bookId }: { bookId: number }) => {
   const { token } = useSelector((state: RootState) => state.Authentication);
+  const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
@@ -107,6 +109,7 @@ export const CreateChapter = ({ bookId }: { bookId: number }) => {
       const data = await response.json();
 
       if (data) {
+        dispatch(fetchAllChaptersFromABook(bookId));
         setTimeout(() => {
           setLoading(false);
           router.push(`/libro/${bookId}/capitulos/capitulo/${data.chapterId}`);
