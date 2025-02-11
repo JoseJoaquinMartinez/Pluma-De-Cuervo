@@ -34,8 +34,8 @@ export const getRegularUserComments = async (
           month: "2-digit",
           year: "numeric",
         }),
-        replies: [], // Se asigna siempre un array vacío para replies
-        user: getUserInfo(comment), // Agregar información del usuario
+        replies: comment.replies || [],
+        user: getUserInfo(comment),
       })
     );
 
