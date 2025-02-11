@@ -34,7 +34,7 @@ export const TitlesFromChapterComponent = ({
           </h2>
           {isLoggedIn && data?.user.role === "admin" ? (
             <MainButton
-              name="Editar libro"
+              name="Editar capítulo"
               link={`/admin/libros/libro/${bookId}/capitulo/${chapterId}/editar`}
             />
           ) : (

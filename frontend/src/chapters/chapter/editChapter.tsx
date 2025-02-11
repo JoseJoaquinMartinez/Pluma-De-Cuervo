@@ -2,11 +2,12 @@
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
-import { RootState } from "@/store/store";
+import { fetchSingleChapter } from "@/store/slices/chapter/thunks/fetchSingleChapter";
+import { AppDispatch, RootState } from "@/store/store";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 interface FormData {
   title: string;
@@ -28,6 +29,7 @@ export const EditChapter = ({
   chapterId: number;
 }) => {
   const { token } = useSelector((state: RootState) => state.Authentication);
+  const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
@@ -139,6 +141,7 @@ export const EditChapter = ({
       const data = await response.json();
 
       if (data) {
+        dispatch(fetchSingleChapter({ bookId, chapterId }));
         setTimeout(() => {
           setLoading(false);
           router.push(`/libro/${bookId}/capitulos/capitulo/${chapterId}`);
@@ -152,7 +155,7 @@ export const EditChapter = ({
   };
   if (loading) {
     return (
-      <div className="felx flex-col items-center justify-center w-full">
+      <div className="flex flex-col items-center justify-center w-full">
         <BookLoaderComponent />
       </div>
     );

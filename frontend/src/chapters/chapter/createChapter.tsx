@@ -3,6 +3,7 @@ import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
 import { fetchAllChaptersFromABook } from "@/store/slices/singleBook/thunk/fetchAllChaptersFromABook";
+import { fetchLastFiveChapters } from "@/store/slices/singleBook/thunk/fetchLastFiveChapters";
 import { AppDispatch, RootState } from "@/store/store";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -109,6 +110,7 @@ export const CreateChapter = ({ bookId }: { bookId: number }) => {
       const data = await response.json();
 
       if (data) {
+        dispatch(fetchLastFiveChapters(bookId));
         dispatch(fetchAllChaptersFromABook(bookId));
         setTimeout(() => {
           setLoading(false);
@@ -127,7 +129,7 @@ export const CreateChapter = ({ bookId }: { bookId: number }) => {
   };
   if (loading) {
     return (
-      <div className="felx flex-col items-center justify-center w-full">
+      <div className="flex flex-col items-center justify-center w-full">
         <BookLoaderComponent />
       </div>
     );

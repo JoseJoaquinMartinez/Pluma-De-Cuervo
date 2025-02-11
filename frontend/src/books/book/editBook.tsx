@@ -1,13 +1,14 @@
 "use client";
-import { RootState } from "@/store/store";
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import React, { ChangeEvent, FormEvent, use, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { getSingleBook } from "./utils/getSingleBook";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import MainButton from "@/components/shared/mainButton";
 import Image from "next/image";
 import ErrorToast from "@/components/shared/ErrorToaster";
+import { fetchSingleBookData } from "@/store/slices/singleBook/thunk/fetchSingleBookData";
 
 interface GetSingleBook {
   id: number;
@@ -28,6 +29,7 @@ export const EditBook = ({ bookId }: { bookId: number }) => {
     status: "",
   });
   const { token } = useSelector((state: RootState) => state.Authentication);
+  const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState<boolean>(false);
   const [imagenPreview, setImagenPreview] = useState<string>("");
   const router = useRouter();
@@ -95,6 +97,7 @@ export const EditBook = ({ bookId }: { bookId: number }) => {
       const data = await response.json();
       setLoading(false);
       if (data) {
+        dispatch(fetchSingleBookData(bookId));
         router.push(`/libro/${data.updatedBook.id}`);
       }
     } catch (error) {
@@ -109,7 +112,7 @@ export const EditBook = ({ bookId }: { bookId: number }) => {
   };
   if (loading) {
     return (
-      <div className="felx flex-col items-center justify-center w-full">
+      <div className="flex flex-col items-center justify-center w-full">
         <BookLoaderComponent />
       </div>
     );

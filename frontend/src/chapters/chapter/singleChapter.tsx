@@ -33,7 +33,7 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
 
   if (loading) {
     return (
-      <div className="felx flex-col items-center justify-center w-full">
+      <div className="flex flex-col items-center justify-center w-full">
         <BookLoaderComponent />
       </div>
     );
