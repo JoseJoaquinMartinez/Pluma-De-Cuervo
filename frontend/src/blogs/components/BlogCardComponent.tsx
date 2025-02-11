@@ -21,7 +21,7 @@ export const BlogCardComponent = ({
           customMinHeight="min-h-32"
         />
       </div>
-      <h2 className="text-encabezados py-2">{title}</h2>
+      <h2 className="text-encabezados p-2">{title}</h2>
       <MainButton name="Leer" link={`/blogs/all-blogs/blog/${id}`} />
       <div className="self-end">
         <span className="text-mainText opacity-50 text-sm px-2">
