@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { FormattedComment } from "../components/CommentCard";
-import { formatComment } from "./utils/formatComment";
+
 import { getRegularUserComments } from "./utils/getRegularUserComments";
 import { RegularUserCommentCard } from "../components/RegularUserCommentCard";
 import ErrorToast from "@/components/shared/ErrorToaster";
+import { formatCommentRegularUser } from "./utils/formatCommentRegularUser";
 
 export const RegularUserGetComment = () => {
   const [comments, setComments] = useState<FormattedComment[]>([]);
@@ -18,9 +19,11 @@ export const RegularUserGetComment = () => {
       if (token) {
         try {
           const fetchedComments = await getRegularUserComments(token);
+
           const formattedComments = fetchedComments.comments.map((comment) =>
-            formatComment(comment)
+            formatCommentRegularUser(comment)
           );
+
           setComments(formattedComments);
         } catch (error) {
           <ErrorToast
