@@ -79,7 +79,7 @@ export const CreateBook = () => {
   };
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center">
+      <div className="felx flex-col items-center justify-center w-full">
         <BookLoaderComponent />
       </div>
     );

@@ -110,13 +110,14 @@ export const CommentCard = ({
           token,
         });
         setResponse("");
+        setResponding(false);
         router.refresh();
       } catch (error) {
         console.error(error);
       }
     }
   };
-  console.log(user);
+
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setResponse(e.target.value);
   };

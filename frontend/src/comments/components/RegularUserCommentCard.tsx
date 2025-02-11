@@ -70,6 +70,7 @@ export const RegularUserCommentCard = ({
           token,
         });
         setResponse("");
+        setResponding(false);
         router.refresh();
       } catch (error) {
         console.error(error);

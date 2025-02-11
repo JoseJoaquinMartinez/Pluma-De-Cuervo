@@ -152,7 +152,7 @@ export const EditChapter = ({
   };
   if (loading) {
     return (
-      <div className="felx flex-col items-center justify-center">
+      <div className="felx flex-col items-center justify-center w-full">
         <BookLoaderComponent />
       </div>
     );
