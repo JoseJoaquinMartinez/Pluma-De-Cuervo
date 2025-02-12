@@ -2,11 +2,12 @@
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
-import { RootState } from "@/store/store";
+import { fetchAllBlogs } from "@/store/slices/blogs/thunks/fetchAllBlogs";
+import { AppDispatch, RootState } from "@/store/store";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 interface FormData {
   title: string;
@@ -19,6 +20,7 @@ const defaultImagen =
 
 export const CreateBlog = () => {
   const { token } = useSelector((state: RootState) => state.Authentication);
+  const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
@@ -74,6 +76,7 @@ export const CreateBlog = () => {
       const data = await response.json();
       setLoading(false);
       if (data) {
+        dispatch(fetchAllBlogs());
         router.push(`/blogs/all-blogs/blog/${data.newBlogPost.id}`);
       }
     } catch (error) {
@@ -88,7 +91,7 @@ export const CreateBlog = () => {
   };
   if (loading) {
     return (
-      <div className="felx flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center w-full">
         <BookLoaderComponent />
       </div>
     );
@@ -111,7 +114,7 @@ export const CreateBlog = () => {
             id="title"
             name="title"
             className="border border-encabezados/50 text-mainText md:text-xl  rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
-            placeholder="Escribe el título del libro"
+            placeholder="Escribe el título del blog"
             value={formData.title}
             onChange={(e) => handleInputChange(e, "title")}
             required

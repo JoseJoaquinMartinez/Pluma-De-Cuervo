@@ -2,11 +2,13 @@
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
-import { RootState } from "@/store/store";
+import { fetchAllBlogs } from "@/store/slices/blogs/thunks/fetchAllBlogs";
+import { fetchLibraryBooks } from "@/store/slices/library/thunks/fecthLibraryBooks";
+import { AppDispatch, RootState } from "@/store/store";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 interface FormData {
   title: string;
@@ -16,6 +18,7 @@ interface FormData {
 const defaultImagen =
   "https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp";
 export const CreateBook = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const { token } = useSelector((state: RootState) => state.Authentication);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -65,6 +68,7 @@ export const CreateBook = () => {
       const data = await response.json();
       setLoading(false);
       if (data) {
+        dispatch(fetchLibraryBooks());
         router.push(`/libro/${data.newBook.id}`);
       }
     } catch (error) {
@@ -79,7 +83,7 @@ export const CreateBook = () => {
   };
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center w-full">
         <BookLoaderComponent />
       </div>
     );

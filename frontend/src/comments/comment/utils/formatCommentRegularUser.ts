@@ -1,7 +1,10 @@
 import { FormattedComment } from "@/comments/components/CommentCard";
 import { Comment, Comments } from "@/comments/data/comment";
 
-export const formatComment = (comment: Comment): FormattedComment => {
+export const formatCommentRegularUser = (
+  comment: Comment,
+  parentParagraph?: FormattedComment["paragraph"]
+): FormattedComment => {
   const user =
     comment.regularUserData?.regularUser.email ||
     comment.adminUserData?.adminUser.email
@@ -17,6 +20,22 @@ export const formatComment = (comment: Comment): FormattedComment => {
         }
       : undefined;
 
+  // Si el comentario tiene su propio párrafo, se usa; de lo contrario,
+  // se utiliza el párrafo del padre (y usamos el operador ! para indicar
+  // que estamos seguros de que existe).
+  const paragraphData = comment.paragraph
+    ? {
+        id: comment.paragraph.id,
+        paragraphText: comment.paragraph.paragraphText,
+        chapter: {
+          title: comment.paragraph.chapter.title,
+          book: {
+            title: comment.paragraph.chapter.book.title,
+          },
+        },
+      }
+    : parentParagraph!;
+
   return {
     id: comment.id,
     createdAt: new Date(comment.createdAt).toLocaleDateString("es-ES", {
@@ -26,17 +45,10 @@ export const formatComment = (comment: Comment): FormattedComment => {
     }),
     commentBody: comment.commentBody,
     read: comment.read,
-    paragraph: {
-      id: comment.paragraph.id,
-      paragraphText: comment.paragraph.paragraphText,
-      chapter: {
-        title: comment.paragraph.chapter.title,
-        book: {
-          title: comment.paragraph.chapter.book.title,
-        },
-      },
-    },
+    paragraph: paragraphData,
     user,
-    replies: (comment.replies || []).map((reply) => formatComment(reply)),
+    replies: (comment.replies || []).map((reply) =>
+      formatCommentRegularUser(reply, paragraphData)
+    ),
   };
 };

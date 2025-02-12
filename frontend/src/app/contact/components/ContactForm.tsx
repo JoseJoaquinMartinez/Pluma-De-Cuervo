@@ -57,7 +57,7 @@ export const ContactForm = () => {
       >
         <label
           htmlFor="email"
-          className="text-mainText text-xl md:text-2xl mt-5 "
+          className="text-mainText text-xl md:text-2xl my-5 "
           aria-label="Correo Electrónico"
         >
           Correo Electrónico
@@ -68,14 +68,14 @@ export const ContactForm = () => {
           name="email"
           value={form.email}
           placeholder="Tu email"
-          className="flex-grow px-4 py-2 rounded-lg  mt-4 text-mainText"
+          className="border w-full border-encabezados/50 text-mainText md:text-xl  rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
           onChange={handleInputChange}
           aria-label="email input"
           required
         />
         <label
           htmlFor="message"
-          className="text-mainText text-xl md:text-2xl mt-6 "
+          className="text-mainText text-xl md:text-2xl my-6 "
           aria-label="Tu mensaje"
         >
           Aquí tu mensaje
@@ -85,7 +85,7 @@ export const ContactForm = () => {
           name="message"
           value={form.message}
           placeholder="Escribe aquí tu mensaje"
-          className="flex-grow px-4 py-2 rounded-lg  mt-4 text-mainText mb-10"
+          className="border w-full mb-4 border-encabezados/50 text-mainText md:text-xl  rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
           onChange={handleInputChange}
           maxLength={maxLength}
           rows={5}

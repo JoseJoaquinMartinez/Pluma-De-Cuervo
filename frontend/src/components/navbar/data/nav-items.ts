@@ -9,7 +9,7 @@ export const navItems = [
   },
   {
     link: "/blogs/all-blogs",
-    name: "Blog",
+    name: "Blogs",
   },
 ];
 export const adminNavItems = [
@@ -23,7 +23,7 @@ export const adminNavItems = [
   },
   {
     link: "/blogs/all-blogs",
-    name: "Blog",
+    name: "Blogs",
   },
   {
     link: "/admin/comentarios",
@@ -42,7 +42,7 @@ export const regularNavItems = [
   },
   {
     link: "/blogs/all-blogs",
-    name: "Blog",
+    name: "Blogs",
   },
   {
     link: "/comentarios",

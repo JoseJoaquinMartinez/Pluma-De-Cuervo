@@ -29,13 +29,9 @@ export const getRegularUserComments = async (
     const formattedComments: ExtendedComment[] = rawComments.map(
       (comment: Comment) => ({
         ...comment,
-        createdAt: new Date(comment.createdAt).toLocaleDateString("es-ES", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        }),
-        replies: [], // Se asigna siempre un array vacío para replies
-        user: getUserInfo(comment), // Agregar información del usuario
+
+        replies: comment.replies || [],
+        user: getUserInfo(comment),
       })
     );
 

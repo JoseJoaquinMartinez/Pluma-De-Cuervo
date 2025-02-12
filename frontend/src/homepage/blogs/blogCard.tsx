@@ -12,12 +12,14 @@ const BlogCard = ({
 }: lastFiveBlogInterface) => {
   return (
     <article className="flex flex-col items-center bg-cardsBackground text-mainText rounded-xl">
-      <ImageComponent
-        imagen={imagen}
-        title={title}
-        customMaxHeight="max-h-32"
-        customMinHeight="min-h-32"
-      />
+      <div>
+        <ImageComponent
+          imagen={imagen}
+          title={title}
+          customMaxHeight="max-h-32"
+          customMinHeight="min-h-32"
+        />
+      </div>
 
       <div className=" flex flex-col items-center mt-10 px-2">
         <h2 className="text-encabezados mb-6 text-xl">{title}</h2>

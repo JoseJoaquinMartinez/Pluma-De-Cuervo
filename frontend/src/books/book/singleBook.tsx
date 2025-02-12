@@ -35,7 +35,7 @@ function SingleBook({ bookId }: { bookId: number }) {
 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center w-full">
         <BookLoaderComponent />
       </div>
     );
@@ -117,7 +117,7 @@ function SingleBook({ bookId }: { bookId: number }) {
           )}
           <article className="gap-2 hidden md:grid md:grid-cols-3 lg:grid-cols-5 ">
             {lastFiveChaptersLoading && (
-              <div className="flex flex-col items-center justify-center">
+              <div className="flex flex-col items-center justify-center w-full">
                 <BookLoaderComponent />
               </div>
             )}
