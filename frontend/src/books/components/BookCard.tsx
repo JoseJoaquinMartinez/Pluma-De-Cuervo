@@ -12,7 +12,7 @@ const BookCard = ({
   status,
 }: BookCardComponentProps) => {
   return (
-    <article className="flex flex-col items-center justify-center w-full max-w-[400px] md:max-w-full">
+    <article className="flex flex-col items-center justify-center w-full ">
       <div className="mb-4 w-full h-64 relative">
         <Image
           src={imagen}

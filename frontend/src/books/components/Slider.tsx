@@ -26,8 +26,8 @@ const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
   };
 
   return (
-    <section className="flex flex-col items-center w-full overflow-hidden">
-      <article className="w-full flex justify-center items-center overflow-hidden transition-transform ease-in-out duration-500">
+    <section className="flex flex-col items-center justify-center w-full overflow-hidden">
+      <article className="w-full  overflow-hidden transition-transform ease-in-out duration-500">
         <div
           className="w-full flex transition-transform duration-500 ease-in-out"
           style={{
