@@ -2,19 +2,19 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const CookieBanner = () => {
+const CommentParagraphBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    const cookiePreferences = localStorage.getItem("cookiePreferences");
-    if (!cookiePreferences) {
+    const ParagraphComments = localStorage.getItem("ParagraphComments");
+    if (!ParagraphComments) {
       setShowBanner(true);
     }
   }, []);
 
   const handleAcceptAll = () => {
     localStorage.setItem(
-      "cookiePreferences",
+      "ParagraphComments",
       JSON.stringify({
         necessary: true,
       })
@@ -28,14 +28,7 @@ const CookieBanner = () => {
   return (
     <div className="fixed bottom-0 left-0 w-full bg-navFoot text-whiteText p-4 text-center z-50">
       <p className="mb-2">
-        Utilizamos cookies propias necesarias para el funcionamiento del sitio.
-        {` `}
-        <Link
-          href="/politica-cookies"
-          className="text-whiteText underline hover:text-encabezados transition-colors"
-        >
-          Más información
-        </Link>
+        Puedes dejar comentarios haciendo click sobre los párrafos.
       </p>
       <div className="space-x-4">
         <button
@@ -44,15 +37,9 @@ const CookieBanner = () => {
         >
           Aceptar Cookies
         </button>
-        {/*  <button
-          onClick={handleRejectNonEssential}
-          className="bg-gray-600 px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
-        >
-          Solo necesarias
-        </button> */}
       </div>
     </div>
   );
 };
 
-export default CookieBanner;
+export default CommentParagraphBanner;

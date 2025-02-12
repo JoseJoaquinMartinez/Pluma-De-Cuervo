@@ -8,6 +8,7 @@ import { TitlesFromChapterComponent } from "../components/TitlesFromChapterCompo
 import { ChapterReadArea } from "../components/ChapterReadArea";
 import Link from "next/link";
 import ErrorToast from "@/components/shared/ErrorToaster";
+import CommentParagraphBanner from "@/components/shared/CommentParagraphBanner";
 
 interface Props {
   bookId: number;
@@ -64,13 +65,16 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
         />
       )}
       {!isLoggedIn && (
-        <p className="text-mainText text-xl self-center">
-          Tu perspectiva importa.{" "}
-          <Link href={"/auth/singup"} className="text-encabezados">
-            Registrate
-          </Link>
-          , comenta y enriquece las historias desde dentro. 🖋️
-        </p>
+        <>
+          <p className="text-mainText text-xl self-center">
+            Tu perspectiva importa.{" "}
+            <Link href={"/auth/singup"} className="text-encabezados">
+              Registrate
+            </Link>
+            , comenta y enriquece las historias desde dentro. 🖋️
+          </p>
+          <CommentParagraphBanner />
+        </>
       )}
 
       <ChapterReadArea {...chapter} />
