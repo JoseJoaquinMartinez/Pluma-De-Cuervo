@@ -18,7 +18,7 @@ interface GetSingleBook {
   status: string;
 }
 
-const statusOptions = ["ACTIVO", "DISCONTINUADO", "COMPLETADO"];
+const statusOptions = ["ACTIVO", "DESCONTINUADO", "COMPLETADO"];
 
 export const EditBook = ({ bookId }: { bookId: number }) => {
   const [formData, setFormData] = useState<GetSingleBook>({
@@ -85,6 +85,7 @@ export const EditBook = ({ bookId }: { bookId: number }) => {
     if (formData.imagen) {
       submitFormData.append("imagen", formData.imagen);
     }
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/book/put-existing-book/${bookId}`,

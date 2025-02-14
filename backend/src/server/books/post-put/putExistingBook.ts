@@ -20,11 +20,11 @@ router.put(
     if (imagen) dataToUpdate.imagen = imagen;
     if (Synopsis) dataToUpdate.Synopsis = Synopsis;
     if (status) {
-      const validStatuses = ["ACTIVO", "DISCONTINUADO", "COMPLETADO"];
+      const validStatuses = ["ACTIVO", "DESCONTINUADO", "COMPLETADO"];
       if (!validStatuses.includes(status)) {
         return res.status(400).json({
           message:
-            "El estado del libro no es válido. Opciones: ACTIVO, DISCONTINUADO, COMPLETADO.",
+            "El estado del libro no es válido. Opciones: ACTIVO, DESCONTINUADO, COMPLETADO.",
         });
       }
       dataToUpdate.status = status;
