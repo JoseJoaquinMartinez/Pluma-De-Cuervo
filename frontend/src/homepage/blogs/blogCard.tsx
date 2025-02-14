@@ -14,14 +14,13 @@ const BlogCard = ({ id, title, imagen, createdAt }: lastFiveBlogInterface) => {
           customMinHeight="min-h-32"
         />
       </div>
-
-      <div className=" flex flex-col items-center mt-10 px-2">
-        <h2 className="text-encabezados mb-6 text-xl">{title}</h2>
-        <MainButton name="Leer" link={`/blogs/all-blogs/blog/${id}`} />
+      <div className="w-full  md:h-20 m-2">
+        <h2 className="text-encabezados    w-full text-center">{title}</h2>
       </div>
-      <div className=" text-mainText opacity-50 text-sm self-end p-2">
+      <MainButton name="Leer" link={`/blogs/all-blogs/blog/${id}`} />
+      <footer className="text-mainText opacity-50 text-sm self-end p-2">
         <p>{createdAt}</p>
-      </div>
+      </footer>
     </article>
   );
 };
