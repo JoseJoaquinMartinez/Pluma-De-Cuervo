@@ -13,7 +13,6 @@ router.get("/get-last-five-blogs", async (req, res) => {
         id: true,
         imagen: true,
         title: true,
-        estimatedReadTime: true,
         createdAt: true,
       },
     });

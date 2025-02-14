@@ -14,7 +14,6 @@ export const SingleBlogComponent = ({
   imagen,
   createdAt,
   blogText,
-  estimatedReadTime,
   role,
 }: IsAdminLoggedIn) => {
   return (
@@ -40,9 +39,7 @@ export const SingleBlogComponent = ({
         </div>
         <h2 className="text-encabezados text-2xl">{title}</h2>
         <p className="text-mainText/50 text-sm">GPS</p>
-        <span className="text-mainText/50 text-sm">
-          {createdAt} · {estimatedReadTime}
-        </span>
+        <span className="text-mainText/50 text-sm">{createdAt}</span>
       </section>
 
       <section className="mt-2 bg-cardsBackground rounded-lg">

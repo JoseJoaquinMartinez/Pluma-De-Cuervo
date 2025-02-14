@@ -6,7 +6,6 @@ export interface AllExistingBlog {
   title: string;
   imagen: string;
   createdAt: string;
-  estimatedReadTime: string;
 }
 
 export interface SingleBlog {
@@ -15,5 +14,4 @@ export interface SingleBlog {
   blogText: string;
   imagen: string | File;
   createdAt: string;
-  estimatedReadTime: string;
 }

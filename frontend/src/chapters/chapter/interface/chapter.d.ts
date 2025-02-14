@@ -4,7 +4,6 @@ export interface ChapterProps {
   imagen: string;
   chapterNumber: number;
   createdAt: string;
-  estimatedReadTime: string;
   bookId: number;
   paragraph: Paragraph[];
   bookTitle: string;

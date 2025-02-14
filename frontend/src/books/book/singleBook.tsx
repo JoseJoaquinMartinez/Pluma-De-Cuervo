@@ -125,24 +125,23 @@ function SingleBook({ bookId }: { bookId: number }) {
               <ErrorToast message={lastFiveChaptersError} />
             )}
             {lastFiveChapters &&
-              lastFiveChapters.map(
-                ({ id, imagen, createdAt, estimatedReadTime, title }) => (
-                  <ChapterCard
-                    key={id}
-                    id={id}
-                    imagen={imagen}
-                    createdAt={createdAt}
-                    estimatedReadTime={estimatedReadTime}
-                    title={title}
-                    bookId={bookId}
-                  />
-                )
-              )}
+              lastFiveChapters.map(({ id, imagen, createdAt, title }) => (
+                <ChapterCard
+                  key={id}
+                  id={id}
+                  imagen={imagen}
+                  createdAt={createdAt}
+                  title={title}
+                  bookId={bookId}
+                />
+              ))}
           </article>
           <article className="flex flex-col w-96 md:hidden px-2">
             {lastFiveChaptersLoading && <BookLoaderComponent />}
             {lastFiveChaptersError && <p>{lastFiveChaptersError}</p>}
-            {lastFiveChapters && <SliderChapters chapters={lastFiveChapters} />}
+            {lastFiveChapters && (
+              <SliderChapters chapters={lastFiveChapters} bookId={bookId} />
+            )}
           </article>
           <article className="self-center mt-4">
             <MainButton

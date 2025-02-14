@@ -42,19 +42,16 @@ export const AllChaptersComponent = ({ bookId }: { bookId: number }) => {
           <p>No hay capítulos que mostrar</p>
         )}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {chapters.map(
-            ({ id, title, createdAt, estimatedReadTime, imagen }) => (
-              <ChapterCard
-                key={id}
-                id={id}
-                imagen={imagen}
-                createdAt={createdAt}
-                estimatedReadTime={estimatedReadTime}
-                title={title}
-                bookId={bookId}
-              />
-            )
-          )}
+          {chapters.map(({ id, title, createdAt, imagen }) => (
+            <ChapterCard
+              key={id}
+              id={id}
+              imagen={imagen}
+              createdAt={createdAt}
+              title={title}
+              bookId={bookId}
+            />
+          ))}
         </div>
       </section>
     );

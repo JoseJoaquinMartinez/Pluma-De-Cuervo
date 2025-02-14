@@ -9,11 +9,11 @@ export const getSingleBlog = async (blogId: number): Promise<SingleBlog> => {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
     const data = await response.json();
-    const estimatedReadTimeToString = {
+    const createdAtToString = {
       ...data,
       createdAt: new Date(data.createdAt).toLocaleDateString(),
     };
-    return estimatedReadTimeToString;
+    return createdAtToString;
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);

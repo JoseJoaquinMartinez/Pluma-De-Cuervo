@@ -95,7 +95,6 @@ describe("GET getCommentsByAdmin", () => {
       imagen: "image.jpg",
       chapterNumber: 10,
       createdAt: new Date(),
-      estimatedReadTime: "10 ",
       bookId: 3,
     });
 

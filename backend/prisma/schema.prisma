@@ -82,7 +82,7 @@ model Chapter {
   chapterNumber Int @default(autoincrement())
   paragraph Paragraph[]
   createdAt DateTime @default(now())
-  estimatedReadTime String @default("")
+  
 
   book Book @relation(fields: [bookId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   bookId Int
@@ -131,7 +131,7 @@ model Blog {
   imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
   blogText String
   createdAt DateTime @default(now())
-  estimatedReadTime String @default("")
+  
 
 }
 

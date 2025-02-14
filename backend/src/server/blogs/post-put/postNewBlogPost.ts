@@ -11,7 +11,7 @@ router.post(
   upload.single("imagen"),
   uploadToCloudinary,
   async (req, res) => {
-    const { title, blogText, estimatedReadTime } = req.body;
+    const { title, blogText } = req.body;
     const imagen = req.body.cloudinaryUrl || undefined;
 
     try {
@@ -20,7 +20,6 @@ router.post(
           title: title,
           imagen: imagen,
           blogText: blogText,
-          estimatedReadTime: estimatedReadTime,
         },
       });
       return res.status(200).json({ newBlogPost });

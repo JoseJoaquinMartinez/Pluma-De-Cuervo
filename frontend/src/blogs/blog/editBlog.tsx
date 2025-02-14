@@ -15,7 +15,6 @@ export const EditExistingBlog = ({ blogId }: { blogId: number }) => {
     id: blogId,
     title: "",
     blogText: "",
-    estimatedReadTime: "",
     createdAt: "",
     imagen: "",
   });
@@ -68,7 +67,7 @@ export const EditExistingBlog = ({ blogId }: { blogId: number }) => {
     const value = e.target.value;
     setFormData({
       ...formData,
-      [field]: field === "estimatedReadTime" ? `${value} min` : value,
+      [field]: value,
     });
   };
 
@@ -79,7 +78,7 @@ export const EditExistingBlog = ({ blogId }: { blogId: number }) => {
 
     submitFormData.append("title", formData.title);
     submitFormData.append("blogText", formData.blogText);
-    submitFormData.append("estimatedReadTime", formData.estimatedReadTime);
+
     if (formData.imagen) {
       submitFormData.append("imagen", formData.imagen);
     }
@@ -151,22 +150,6 @@ export const EditExistingBlog = ({ blogId }: { blogId: number }) => {
           />
         </div>
         <div className="flex flex-col">
-          <label
-            htmlFor="estimatedReadTime"
-            className="text-encabezados md:text-xl my-2"
-          >
-            Tiempo estimado de lectura
-          </label>
-          <input
-            type="number"
-            id="estimatedReadTime"
-            name="estimatedReadTime"
-            className="border border-encabezados/50 text-mainText md:text-xl rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-encabezados"
-            placeholder="Tiempo estimado de lectura"
-            value={formData.estimatedReadTime.replace(" min", "")}
-            onChange={(e) => handleInputChange(e, "estimatedReadTime")}
-            required
-          />
           <label className="text-encabezados md:text-xl">
             Imagen (opcional)
           </label>

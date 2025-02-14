@@ -7,7 +7,6 @@ import { ImageComponent } from "@/components/shared/ImageComponent";
 export const BlogCardComponent = ({
   id,
   title,
-  estimatedReadTime,
   imagen,
   createdAt,
 }: AllExistingBlog) => {
@@ -25,7 +24,7 @@ export const BlogCardComponent = ({
       <MainButton name="Leer" link={`/blogs/all-blogs/blog/${id}`} />
       <div className="self-end">
         <span className="text-mainText opacity-50 text-sm px-2">
-          {createdAt} · {estimatedReadTime}
+          {createdAt}
         </span>
       </div>
     </article>

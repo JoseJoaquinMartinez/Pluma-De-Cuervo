@@ -6,7 +6,7 @@ export async function createNewChapter(
   res: Response,
   next: NextFunction
 ) {
-  const { title, bookId, estimatedReadTime } = req.body;
+  const { title, bookId } = req.body;
   const imagen = req.body.cloudinaryUrl || undefined;
 
   try {
@@ -15,7 +15,6 @@ export async function createNewChapter(
         title: title,
         imagen: imagen,
         bookId: parseInt(bookId),
-        estimatedReadTime: estimatedReadTime,
       },
     });
     if (!chapter) {

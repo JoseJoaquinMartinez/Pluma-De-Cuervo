@@ -3,13 +3,7 @@ import MainButton from "@/components/shared/mainButton";
 import { lastFiveBlogInterface } from "./interfaces/blog";
 import { ImageComponent } from "@/components/shared/ImageComponent";
 
-const BlogCard = ({
-  id,
-  title,
-  imagen,
-  estimatedReadTime,
-  createdAt,
-}: lastFiveBlogInterface) => {
+const BlogCard = ({ id, title, imagen, createdAt }: lastFiveBlogInterface) => {
   return (
     <article className="flex flex-col items-center bg-cardsBackground text-mainText rounded-xl">
       <div>
@@ -26,9 +20,7 @@ const BlogCard = ({
         <MainButton name="Leer" link={`/blogs/all-blogs/blog/${id}`} />
       </div>
       <div className=" text-mainText opacity-50 text-sm self-end p-2">
-        <p>
-          {createdAt} · {estimatedReadTime}
-        </p>
+        <p>{createdAt}</p>
       </div>
     </article>
   );

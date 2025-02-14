@@ -2,26 +2,26 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import ChapterCard from '@/app/(un-auth-regular-user)/ultimos-capitulos/components/ChapterCard';
+import ChapterCard from "@/app/(un-auth-regular-user)/ultimos-capitulos/components/ChapterCard";
 import { LastFiveChapters } from "../interfaces/bookData";
 
-const SliderChapters = ({ chapters }: { chapters: LastFiveChapters[] }) => {
-    const [activeChapter, setActiveChapater] = useState<number>(0);
+interface SliderChaptersProps {
+  chapters: LastFiveChapters[];
+  bookId: number;
+}
 
-    
-      
-  
-    const clickNext = () => {
-      setActiveChapater((prev) => (prev === chapters.length - 1 ? 0 : prev + 1));
-     
-    };
-  
-    const clickPrev = () => {
-      setActiveChapater((prev) => (prev === 0 ? chapters.length - 1 : prev - 1));
-      
-    };
-  
-    return (
+const SliderChapters = ({ chapters, bookId }: SliderChaptersProps) => {
+  const [activeChapter, setActiveChapater] = useState<number>(0);
+
+  const clickNext = () => {
+    setActiveChapater((prev) => (prev === chapters.length - 1 ? 0 : prev + 1));
+  };
+
+  const clickPrev = () => {
+    setActiveChapater((prev) => (prev === 0 ? chapters.length - 1 : prev - 1));
+  };
+
+  return (
     <section className="flex flex-col">
       <article className="w-full flex justify-center items-center overflow-hidden transition-transform ease-in-out duration-500">
         <div
@@ -31,20 +31,17 @@ const SliderChapters = ({ chapters }: { chapters: LastFiveChapters[] }) => {
           }}
         >
           {chapters.map(
-            (
-              { id, title, estimatedReadTime, imagen, createdAt }: LastFiveChapters,
-              index,
-            ) => (
+            ({ id, title, imagen, createdAt }: LastFiveChapters, index) => (
               <div key={id} className="w-full flex-shrink-0">
                 <ChapterCard
                   id={id}
                   title={title}
-                  estimatedReadTime={estimatedReadTime}
                   imagen={imagen}
                   createdAt={createdAt}
+                  bookId={bookId}
                 />
               </div>
-            ),
+            )
           )}
         </div>
       </article>
@@ -75,6 +72,6 @@ const SliderChapters = ({ chapters }: { chapters: LastFiveChapters[] }) => {
       </article>
     </section>
   );
-  };
+};
 
 export default SliderChapters;

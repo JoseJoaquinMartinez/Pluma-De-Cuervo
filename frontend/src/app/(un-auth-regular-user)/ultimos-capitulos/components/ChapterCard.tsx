@@ -7,7 +7,6 @@ const ChapterCard = ({
   id: chapterId,
   title,
   imagen,
-  estimatedReadTime,
   createdAt,
   bookId,
 }: LastTenChapterProp) => {
@@ -28,9 +27,7 @@ const ChapterCard = ({
         />
       </div>
       <div className=" text-mainText opacity-50 text-sm self-end p-2">
-        <p>
-          {createdAt} · {estimatedReadTime}
-        </p>
+        <p>{createdAt}</p>
       </div>
     </article>
   );

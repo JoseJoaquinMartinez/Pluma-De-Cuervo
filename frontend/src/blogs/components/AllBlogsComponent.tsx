@@ -48,13 +48,12 @@ function AllBlogsComponent() {
         </div>
         {blogs && blogs.length === 0 && <p>No hay blogs que mostrar</p>}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {blogs.map(({ id, title, createdAt, estimatedReadTime, imagen }) => (
+          {blogs.map(({ id, title, createdAt, imagen }) => (
             <BlogCardComponent
               key={id}
               id={id}
               title={title}
               createdAt={createdAt}
-              estimatedReadTime={estimatedReadTime}
               imagen={imagen}
             />
           ))}

@@ -13,7 +13,6 @@ router.get("/get-last-ten-chapters", async (req, res) => {
         id: true,
         imagen: true,
         title: true,
-        estimatedReadTime: true,
         createdAt: true,
         bookId: true,
       },

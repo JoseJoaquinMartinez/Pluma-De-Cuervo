@@ -12,7 +12,6 @@ router.get("/get-all-blog-posts", async (req, res) => {
         title: true,
         imagen: true,
         createdAt: true,
-        estimatedReadTime: true,
       },
     });
     return res.status(200).json(allExistingBlogs);

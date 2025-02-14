@@ -17,14 +17,14 @@ export interface LastFiveChapters {
   id: number;
   imagen: string;
   title: string;
-  estimatedReadTime: string;
+
   createdAt: string;
 }
 export interface Chapter {
   bookId: number;
   chapterNumber: number;
   createdAt: string;
-  estimatedReadTime: string;
+
   id: number;
   title: string;
   imagen: string;
