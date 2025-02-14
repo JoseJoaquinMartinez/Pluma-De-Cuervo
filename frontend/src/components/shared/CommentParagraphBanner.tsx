@@ -16,7 +16,7 @@ const CommentParagraphBanner = () => {
     localStorage.setItem(
       "ParagraphComments",
       JSON.stringify({
-        necessary: true,
+        ParagraphComments: true,
       })
     );
 
@@ -35,7 +35,7 @@ const CommentParagraphBanner = () => {
           onClick={handleAcceptAll}
           className="bg-botones px-4 py-2 rounded-md hover:bg-botonesSecundarios transition-colors"
         >
-          Aceptar Cookies
+          Aceptar
         </button>
       </div>
     </div>

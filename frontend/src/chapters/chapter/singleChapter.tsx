@@ -64,6 +64,7 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
           bookId={bookId}
         />
       )}
+      {isLoggedIn && <CommentParagraphBanner />}
       {!isLoggedIn && (
         <>
           <p className="text-mainText text-xl self-center">
@@ -73,7 +74,6 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
             </Link>
             , comenta y enriquece las historias desde dentro. 🖋️
           </p>
-          <CommentParagraphBanner />
         </>
       )}
 
