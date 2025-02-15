@@ -62,11 +62,15 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: "https://pluma-de-cuervo.vercel.app/",
+  origin: "https://pluma-de-cuervo-h5js.vercel.app",
   credentials: true,
 };
 
 app.use(cors(corsOptions));
+
+app.get("/", (req, res) => {
+  res.send("Backend en funcionamiento");
+});
 
 //USER
 app.use("/user", changeUserName);
