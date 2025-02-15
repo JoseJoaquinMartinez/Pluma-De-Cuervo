@@ -2,9 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/index.js",
-      "use": "@vercel/node",
-      "config": { "includeFiles": ["dist/**"] }
+      "src": "./index.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -17,7 +16,7 @@
         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
       },
       "continue": true,
-      "dest": "dist/index.js"
+      "dest": "/"
     }
   ]
 }
