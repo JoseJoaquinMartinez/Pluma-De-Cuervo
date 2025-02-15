@@ -44,7 +44,7 @@ export const ContactComponent = () => {
 
   useEffect(() => {
     fetchComments();
-  }, [token]);
+  }, [token, fetchComments]);
 
   const filteredMessages = messages.filter((message) => {
     if (filter === "all") return true;

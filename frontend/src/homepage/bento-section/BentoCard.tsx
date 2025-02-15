@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import type { BentoSectionProps } from "./interface/bentoSection";
 import MainButton from "@/components/shared/mainButton";
 import { ImageComponent } from "@/components/shared/ImageComponent";
@@ -25,7 +23,7 @@ export const BentoCard: React.FC<BentoSectionProps> = ({
         <div className="mlg:w-1/2 flex flex-col  p-4">
           <h2 className="text-xl font-bold text-encabezados">{title}</h2>
           <p className="my-2 text-mainText">{text}</p>
-          {(buttonLink || buttonText) && (
+          {buttonLink && buttonText && (
             <MainButton link={buttonLink} name={buttonText} />
           )}
         </div>

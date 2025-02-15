@@ -30,7 +30,7 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
     if (!chapter || chapter.id !== chapterId) {
       dispatch(fetchSingleChapter({ bookId, chapterId }));
     }
-  }, [chapterId, dispatch]);
+  }, [chapterId, dispatch, bookId, chapter]);
 
   if (loading) {
     return (

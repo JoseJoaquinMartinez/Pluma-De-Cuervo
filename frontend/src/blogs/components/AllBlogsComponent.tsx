@@ -22,7 +22,7 @@ function AllBlogsComponent() {
     if (!blogs || !fetched) {
       dispatch(fetchAllBlogs());
     }
-  }, [fetched, dispatch]);
+  }, [fetched, dispatch, blogs]);
 
   if (loading) {
     return (

@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from "@/store/store";
 
 import { fetchCreateNewUser } from "@/store/slices/auth/singup/thunk/fetchCreateNewUser";
 
-import { AlertCircle, UserCheck } from "lucide-react";
+import { UserCheck } from "lucide-react";
 
 import MainButton from "@/components/shared/mainButton";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
@@ -29,7 +29,7 @@ const RegistrationComponent = ({ token }: { token: string }) => {
         router.push("/");
       }, 3000);
     }
-  }, [token]);
+  }, [token, dispatch]);
 
   if (loading) {
     return (

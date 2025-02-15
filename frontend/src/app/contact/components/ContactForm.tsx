@@ -34,7 +34,7 @@ export const ContactForm = () => {
     const newContactMessage = () => {
       try {
         postNewContactMessage({ ...form, setError, setSuccessMessage }).then(
-          (result) => {
+          () => {
             setForm({
               email: "",
               message: "",

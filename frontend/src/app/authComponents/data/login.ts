@@ -20,8 +20,7 @@ export const LOGINFIELDS = [
     placeHolder: "Contraseña",
   },
   {
-    name: "Iniciar sesión",
-    type: "submit",
+    ...({ name: "Iniciar sesión", type: "submit" } as ButtonProps),
   },
   {
     text: "¿No tienes una cuenta? Regístrate",

@@ -2,7 +2,6 @@
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import ErrorToast from "@/components/shared/ErrorToaster";
 import MainButton from "@/components/shared/mainButton";
-import { fetchAllBlogs } from "@/store/slices/blogs/thunks/fetchAllBlogs";
 import { fetchLibraryBooks } from "@/store/slices/library/thunks/fecthLibraryBooks";
 import { AppDispatch, RootState } from "@/store/store";
 import Image from "next/image";

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchLoginUser } from "@/store/slices/auth/login/thunk/fetchLogin";
 import type { NewUserInterface } from "@/app/authComponents/interfaces/singupInterface";
-import { log } from "console";
 
 const initialState: {
   data: NewUserInterface | null;

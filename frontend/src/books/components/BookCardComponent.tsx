@@ -6,7 +6,7 @@ import { fetchLibraryBooks } from "@/store/slices/library/thunks/fecthLibraryBoo
 import { useEffect } from "react";
 import Slider from "@/books/components/Slider";
 import CardDisplay from "@/books/components/cardDisplay";
-import MainButton from "@/components/shared/mainButton";
+
 import ErrorToast from "@/components/shared/ErrorToaster";
 
 const BookCardComponent = () => {

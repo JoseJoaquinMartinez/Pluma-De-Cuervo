@@ -31,7 +31,7 @@ const SliderChapters = ({ chapters, bookId }: SliderChaptersProps) => {
           }}
         >
           {chapters.map(
-            ({ id, title, imagen, createdAt }: LastFiveChapters, index) => (
+            ({ id, title, imagen, createdAt }: LastFiveChapters) => (
               <div key={id} className="w-full flex-shrink-0">
                 <ChapterCard
                   id={id}

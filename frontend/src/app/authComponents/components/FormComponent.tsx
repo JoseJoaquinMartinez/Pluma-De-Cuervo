@@ -1,61 +1,55 @@
 "use client";
-
 import React, { useMemo, useState } from "react";
-
 import { FormField } from "./FormFieldComponent";
-import { SingUpInterface, UnderlineText } from "../interfaces/singupInterface";
-import { ButtonProps } from "@/components/interfaces/interfaz";
 import MainButton from "@/components/shared/mainButton";
 import Link from "next/link";
 import { EmailVerificationResponse } from "@/store/slices/auth/singup/thunk/fetchEmailVerification";
-import { AuthProps } from "@/app/authComponents/data/singup";
+import { AuthProps, FormFieldData } from "@/app/authComponents/data/singup";
 import { useRouter } from "next/navigation";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import ErrorToast from "@/components/shared/ErrorToaster";
-import { fetchLoginUser } from "@/store/slices/auth/login/thunk/fetchLogin";
+// Importa el tipo unión
 
-interface LoginResponse {
-  token: string;
-  message: string;
+interface AsyncThunkActionResult {
+  meta: { requestStatus: "fulfilled" | "rejected" };
+  payload: unknown;
 }
 
-type AuthResponse = LoginResponse | void;
-
 interface FormComponentProps {
-  formFieldsData: Array<any>;
+  formFieldsData: FormFieldData[];
   title: string;
   state: EmailVerificationResponse | null;
   error: string | null;
   loading: boolean;
   link: string;
-  dispatch: (props: AuthProps) => Promise<any>;
+  dispatch: (props: AuthProps) => Promise<AsyncThunkActionResult>;
   confirmationEmail: boolean;
 }
-interface FormFieldProps {
+
+interface FormFieldValues {
   [key: string]: string;
 }
 
 export const FormComponent: React.FC<FormComponentProps> = ({
   title,
   formFieldsData,
-  state,
-  error,
   loading,
   link,
   dispatch,
   confirmationEmail,
 }) => {
   const formElements = useMemo(() => {
-    const formFields: FormFieldProps = {};
+    const inputs: FormFieldValues = {};
     formFieldsData.forEach((field) => {
       if ("label" in field) {
-        formFields[field.name] = "";
+        inputs[field.name] = "";
       }
     });
-    return formFields;
+    return inputs;
   }, [formFieldsData]);
+
   const router = useRouter();
-  const [form, setForm] = useState<FormFieldProps>(formElements);
+  const [form, setForm] = useState<FormFieldValues>(formElements);
   const [errorState, setErrorState] = useState<string | null>(null);
 
   const isValidPassword = (password: string) => {
@@ -65,7 +59,13 @@ export const FormComponent: React.FC<FormComponentProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (form.email.length < 2 || form.password.length < 2) {
+
+    if (
+      !form.email ||
+      form.email.length < 2 ||
+      !form.password ||
+      form.password.length < 2
+    ) {
       setErrorState("Por favor, rellena todos los campos");
       return;
     }
@@ -92,7 +92,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       password: form.password,
     });
 
-    if (fetchLoginUser.fulfilled.match(resultAction)) {
+    if (resultAction.meta.requestStatus === "fulfilled") {
       router.push(link);
     } else {
       setErrorState(resultAction.payload as string);
@@ -108,6 +108,7 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       [e.target.name]: e.target.value,
     });
   };
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center w-full">
@@ -121,38 +122,44 @@ export const FormComponent: React.FC<FormComponentProps> = ({
       onSubmit={handleSubmit}
       className="bg-cardsBackground p-6 rounded-lg shadow-md max-w-lg mx-auto flex flex-col"
     >
-      <h2 className=" text-xl md:text-2xl font-semibold text-center mb-6 text-encabezados uppercase">
+      <h2 className="text-xl md:text-2xl font-semibold text-center mb-6 text-encabezados uppercase">
         {title}
       </h2>
       {errorState && <ErrorToast message={errorState} />}
-      {formFieldsData.map((field, index) =>
-        "label" in field ? (
-          <FormField
-            key={index}
-            label={field.label}
-            type={field.type}
-            name={field.name}
-            placeHolder={field.placeHolder}
-            onChange={handleChange}
-          />
-        ) : "text" in field ? (
-          <Link
-            key={index}
-            href={field.link}
-            className="text-mainText/60 self-center mt-2 text-sm md:text-base hover:text-mainText transition-all"
-          >
-            {field.text}
-          </Link>
-        ) : (
-          <div key={index} className="mt-6 self-center">
-            <MainButton
+      {formFieldsData.map((field, index) => {
+        if ("label" in field) {
+          return (
+            <FormField
+              key={index}
+              label={field.label}
               type={field.type}
               name={field.name}
-              disabled={loading}
+              placeHolder={field.placeHolder || ""}
+              onChange={handleChange}
             />
-          </div>
-        )
-      )}
+          );
+        } else if ("text" in field) {
+          return (
+            <Link
+              key={index}
+              href={field.link}
+              className="text-mainText/60 self-center mt-2 text-sm md:text-base hover:text-mainText transition-all"
+            >
+              {field.text}
+            </Link>
+          );
+        } else {
+          return (
+            <div key={index} className="mt-6 self-center">
+              <MainButton
+                type={field.type as "submit" | "reset" | "button"}
+                name={field.name}
+                disabled={loading}
+              />
+            </div>
+          );
+        }
+      })}
     </form>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+
 import MainButton from "@/components/shared/mainButton";
 import type { OtherWorkProps } from "./data/otherWorkData";
 import { ImageComponent } from "@/components/shared/ImageComponent";

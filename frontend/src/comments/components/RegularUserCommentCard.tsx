@@ -6,6 +6,7 @@ import { RootState } from "@/store/store";
 import { updateCommentRead } from "../comment/utils/markCommentAsRead";
 import { useRouter } from "next/navigation";
 import { postRegularUserReplyToComment } from "../comment/utils/postRegularUserReplyToComment";
+import ErrorToast from "@/components/shared/ErrorToaster";
 
 export interface FormattedComment {
   id: number;
@@ -53,6 +54,9 @@ export const RegularUserCommentCard = ({
         router.refresh();
       } catch (error) {
         setMarkAsRead(!newState);
+        if (error instanceof Error) {
+          return <ErrorToast message={error.message} />;
+        }
       }
     }
   };
@@ -73,7 +77,9 @@ export const RegularUserCommentCard = ({
         setResponding(false);
         router.refresh();
       } catch (error) {
-        console.error(error);
+        if (error instanceof Error) {
+          return <ErrorToast message={error.message} />;
+        }
       }
     }
   };

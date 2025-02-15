@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import BlogCard from "./blogCard";
 import MainButton from "@/components/shared/mainButton";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";

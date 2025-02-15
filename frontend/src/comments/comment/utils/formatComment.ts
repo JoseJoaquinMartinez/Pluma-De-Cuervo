@@ -1,5 +1,5 @@
 import { FormattedComment } from "@/comments/components/CommentCard";
-import { Comment, Comments } from "@/comments/data/comment";
+import { Comment } from "@/comments/data/comment";
 
 export const formatComment = (comment: Comment): FormattedComment => {
   const user =

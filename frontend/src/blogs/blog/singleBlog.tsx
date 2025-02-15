@@ -21,7 +21,7 @@ export const SingleBlog = ({ blogId }: { blogId: number }) => {
     if (!blog || blog.id !== blogId) {
       dispatch(fetchSingleBlog(blogId));
     }
-  }, [blogId, dispatch]);
+  }, [blogId, dispatch, blog]);
 
   if (loading) {
     return (
