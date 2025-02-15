@@ -4,6 +4,11 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+enum BookStatus {
+  ACTIVO
+  DESCONTINUADO
+  COMPLETADO
+}
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,17 +23,17 @@ model AdminUser {
   
   email String @unique
   password String
+  role String @default("admin")
 
   adminUserData AdminUserData[]
 }
 
 model AdminUserData {
   id Int @id @default(autoincrement())
-  
-  role String @default("admin")
+   
   comments Comment[]
 
-  adminUser AdminUser @relation(fields: [adminUserId], references: [id])
+  adminUser AdminUser @relation(fields: [adminUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   adminUserId Int
 }
 
@@ -37,6 +42,10 @@ model RegularUser {
 
   email String @unique
   password String
+  role String @default("user")
+
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
 
   regularUserData RegularUserData[]
 }
@@ -45,12 +54,11 @@ model RegularUserData {
   id Int @id @default(autoincrement())
 
   userName String? @default("Aventurero")
-  imagen String?
-  role String @default("user")
-
+  
+ 
   comments Comment[]
 
-  regularUser RegularUser @relation(fields: [regularUserId], references: [id])
+  regularUser RegularUser @relation(fields: [regularUserId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   regularUserId Int
 
 }
@@ -59,7 +67,9 @@ model Book {
   id Int @id @default(autoincrement())
 
   title String @unique
-  image String?
+  imagen String? @default("https://res.cloudinary.com/dk9juz4fp/image/upload/v1739611427/Pluma%20de%20Cuervo/igvlg1cr6ntol97a2ct5.jpg")
+  Synopsis String @default("")
+  status BookStatus @default(ACTIVO)
 
   chapter Chapter[]
 }
@@ -68,11 +78,13 @@ model Chapter {
   id Int @id @default(autoincrement())
 
   title String @unique
-  image String? 
-  chapterNumer Int
+  imagen String? @default("https://res.cloudinary.com/dk9juz4fp/image/upload/v1739611427/Pluma%20de%20Cuervo/igvlg1cr6ntol97a2ct5.jpg")
+  chapterNumber Int @default(autoincrement())
   paragraph Paragraph[]
+  createdAt DateTime @default(now())
+  
 
-  book Book @relation(fields: [bookId], references: [id])
+  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   bookId Int
 }
 
@@ -81,35 +93,65 @@ model Paragraph {
 
   paragraphNumber Int
   comment Comment[]
-  paragraphText String[]
+  paragraphText String
+  paragraphType String
 
-  chapter Chapter @relation(fields: [chapterId], references: [id])
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   chapterId Int
 
 }
 
 model Comment {
-  id Int @id  @default(autoincrement())
+  id               Int        @id @default(autoincrement())
+  commentBody      String
+  createdAt        DateTime    @default(now())
+  read             Boolean @default(false)
 
-  createdAt DateTime @default(now())
-  commentBody String
+  
 
-  paragraph Paragraph @relation(fields: [paragraphId], references: [id])
-  paragraphId Int
+  paragraph        Paragraph  @relation(fields: [paragraphId], references: [id])
+  paragraphId      Int
 
-  regularUserData RegularUserData @relation(fields: [regularUserDataId], references: [id])
-  regularUserDataId Int
+  regularUserData  RegularUserData? @relation(fields: [regularUserDataId], references: [id])
+  regularUserDataId Int?
 
-  adminUserData AdminUserData @relation(fields: [adminUserDataId], references: [id])
-  adminUserDataId Int
+  adminUserData    AdminUserData? @relation(fields: [adminUserDataId], references: [id])
+  adminUserDataId  Int?
+
+  parentCommentId  Int?        
+  parentComment    Comment?    @relation("CommentParent", fields: [parentCommentId], references: [id])
+  replies          Comment[]   @relation("CommentParent")
+  
 }
 
 model Blog {
   id Int @id @default(autoincrement())
 
   title String @unique
-  imagen String?
-  blogText String[]
+  imagen String? @default("https://res.cloudinary.com/dk9juz4fp/image/upload/v1739611427/Pluma%20de%20Cuervo/igvlg1cr6ntol97a2ct5.jpg")
+  blogText String
   createdAt DateTime @default(now())
+  
+
+}
+
+model NewsLetterSubscriber {
+  id Int @id @default(autoincrement())
+
+  email String @unique
+  createdAt DateTime @default(now())
+  unsubscribeToken String @unique
+
+}
+
+model ContactForm {
+  id Int @id @default(autoincrement())
+  
+  email String 
+  isRead Boolean @default(false)
+  message String 
+
+  createdAt DateTime @default(now())
+  
 
 }

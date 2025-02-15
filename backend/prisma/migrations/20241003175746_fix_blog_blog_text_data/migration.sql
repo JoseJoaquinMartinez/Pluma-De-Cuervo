@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Blog" ALTER COLUMN "blogText" SET NOT NULL,
+ALTER COLUMN "blogText" SET DATA TYPE TEXT;
