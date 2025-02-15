@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import "./utils/cronUserCleaning";
-
+/* 
 //User
 import changeUserName from "./server/user/userUpdateName";
 
@@ -55,7 +55,7 @@ import getUnreadMessages from "./server/contact-form/get/getUnreadMessages";
 import putSetMessageToRead from "./server/contact-form/put/putMessageAsRead";
 import replyToContactMessage from "./server/contact-form/post/sendReplyToMessage";
 import markContactMessageAsRead from "./server/contact-form/patch/markContactMessageAsRead";
-import deleteContactMessage from "./server/contact-form/delete/deleteContactMessage";
+import deleteContactMessage from "./server/contact-form/delete/deleteContactMessage"; */
 
 const app = express();
 
@@ -82,7 +82,7 @@ app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
 
-//USER
+/* //USER
 app.use("/user", changeUserName);
 
 // AUTH ROUTES
@@ -174,3 +174,4 @@ app.use("/contact", markContactMessageAsRead);
 app.use("/contact", deleteContactMessage);
 
 export default app;
+ */
