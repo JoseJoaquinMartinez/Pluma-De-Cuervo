@@ -29,7 +29,7 @@ const RegistrationComponent = ({ token }: { token: string }) => {
         router.push("/");
       }, 3000);
     }
-  }, [token, dispatch]);
+  }, [token, dispatch, router]);
 
   if (loading) {
     return (

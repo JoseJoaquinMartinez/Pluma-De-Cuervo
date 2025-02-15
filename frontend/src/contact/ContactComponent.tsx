@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { ContactCard } from "./components/ContactCard";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ export const ContactComponent = () => {
   const { token } = useSelector((state: RootState) => state.Authentication);
   const router = useRouter();
 
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     if (!token) return;
     try {
       const fetchedMessages = await getContactMessages(token);
@@ -24,7 +24,8 @@ export const ContactComponent = () => {
         message={error instanceof Error ? error.message : "Error desconocido"}
       />;
     }
-  };
+  }, [token]);
+
   const handleDeleteComment = async (messageId: number) => {
     if (token) {
       try {
@@ -44,7 +45,7 @@ export const ContactComponent = () => {
 
   useEffect(() => {
     fetchComments();
-  }, [token, fetchComments]);
+  }, [fetchComments]);
 
   const filteredMessages = messages.filter((message) => {
     if (filter === "all") return true;

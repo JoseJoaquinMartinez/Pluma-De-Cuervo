@@ -10,8 +10,9 @@ export const getAllChaptersFromABook = async (
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
-    const allChapters: BookProps[] = await response.json();
-    const chaptersArray: Chapter[] = allChapters.chapter;
+
+    const book: BookProps = await response.json();
+    const chaptersArray: Chapter[] = book.chapter;
 
     const formatedChapters = chaptersArray.map((chapter) => ({
       ...chapter,
@@ -21,6 +22,7 @@ export const getAllChaptersFromABook = async (
         year: "numeric",
       }),
     }));
+
     return formatedChapters;
   } catch (error) {
     console.error(error);
