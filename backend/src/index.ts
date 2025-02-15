@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import "./utils/cronUserCleaning";
 
-/* //User
+//User
 import changeUserName from "./server/user/userUpdateName";
 
 //AUTH
@@ -55,7 +55,7 @@ import getUnreadMessages from "./server/contact-form/get/getUnreadMessages";
 import putSetMessageToRead from "./server/contact-form/put/putMessageAsRead";
 import replyToContactMessage from "./server/contact-form/post/sendReplyToMessage";
 import markContactMessageAsRead from "./server/contact-form/patch/markContactMessageAsRead";
-import deleteContactMessage from "./server/contact-form/delete/deleteContactMessage"; */
+import deleteContactMessage from "./server/contact-form/delete/deleteContactMessage";
 
 const app = express();
 
@@ -78,7 +78,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-/* //USER
+//USER
 app.use("/user", changeUserName);
 
 // AUTH ROUTES
@@ -167,6 +167,6 @@ app.use("/contact", putSetMessageToRead);
 app.use("/contact", markContactMessageAsRead);
 
 //DELETE
-app.use("/contact", deleteContactMessage); */
+app.use("/contact", deleteContactMessage);
 
 export default app;
