@@ -1,19 +1,14 @@
 {
   "compilerOptions": {
-    "types": ["jest"],
+    "target": "ES6",
     "module": "commonjs",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es6",
-    "noImplicitAny": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*", "src/types/*"]
-    }
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "tests"]
+  "exclude": ["node_modules"]
 }
