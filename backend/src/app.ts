@@ -70,8 +70,7 @@ const corsOptions = {
   credentials: true,
 };
 
-/* app.use(cors(corsOptions)); */
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.send("Backend en funcionamiento");
