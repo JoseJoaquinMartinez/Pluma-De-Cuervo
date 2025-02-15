@@ -74,6 +74,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
 //USER
 app.use("/user", changeUserName);
 
