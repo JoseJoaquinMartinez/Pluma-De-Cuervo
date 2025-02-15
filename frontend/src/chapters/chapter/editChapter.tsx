@@ -18,7 +18,7 @@ interface FormData {
 }
 
 const defaultImagen =
-  "https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp";
+  "https://res.cloudinary.com/dk9juz4fp/image/upload/v1739611427/Pluma%20de%20Cuervo/igvlg1cr6ntol97a2ct5.jpg";
 
 export const EditChapter = ({
   bookId,
@@ -216,13 +216,15 @@ export const EditChapter = ({
           <label className="text-encabezados md:text-xl">
             Imagen (opcional)
           </label>
-          <Image
-            src={imagenPreview}
-            width={300}
-            height={300}
-            alt="Imagen de la portada del libro"
-            className="rounded-xl my-3 aspect-auto"
-          />
+          {imagenPreview ? (
+            <Image
+              src={imagenPreview}
+              width={300}
+              height={300}
+              alt="Imagen de la portada del libro"
+              className="rounded-xl my-3 aspect-auto"
+            />
+          ) : null}
           <div className="flex flex-col md:flex-row justify-center items-center ">
             <label
               htmlFor="fileImagenUpload"

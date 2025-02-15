@@ -3,13 +3,15 @@ import { fetchAllBlogs } from "./thunks/fetchAllBlogs";
 import type { Blogs } from "@/blogs/interface/blogs";
 
 const initialState: {
-  data: Blogs | null;
+  data: Blogs;
   loading: boolean;
   error: string | null;
+  fetched: boolean;
 } = {
-  data: null,
+  data: [],
   loading: false,
   error: null,
+  fetched: false,
 };
 
 const allBlogsSlice = createSlice({
@@ -21,6 +23,7 @@ const allBlogsSlice = createSlice({
       .addCase(fetchAllBlogs.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
+        state.fetched = true;
       })
       .addCase(fetchAllBlogs.pending, (state) => {
         state.loading = true;
@@ -28,6 +31,7 @@ const allBlogsSlice = createSlice({
       .addCase(fetchAllBlogs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        state.fetched = true;
       });
   },
 });

@@ -174,13 +174,15 @@ export const EditBook = ({ bookId }: { bookId: number }) => {
           <label className="text-encabezados md:text-xl">
             Imagen (opcional)
           </label>
-          <Image
-            src={imagenPreview}
-            width={300}
-            height={300}
-            alt="Imagen de la portada del libro"
-            className="rounded-xl my-3 aspect-auto"
-          />
+          {imagenPreview ? (
+            <Image
+              src={imagenPreview}
+              width={300}
+              height={300}
+              alt="Imagen de la portada del libro"
+              className="rounded-xl my-3 aspect-auto"
+            />
+          ) : null}
           <div className="flex flex-col md:flex-row justify-center items-center ">
             <label
               htmlFor="fileUpload"

@@ -9,6 +9,10 @@ export const fetchAllBlogs = createAsyncThunk<
 >("fetchAllBlogs/fetchAllBlogs", async (_, thunkAPI) => {
   try {
     const response = await getAllBlogs();
+
+    if (response.length === 0) {
+      return [];
+    }
     if (!response) {
       throw new Error("Blogs no encontrados");
     }

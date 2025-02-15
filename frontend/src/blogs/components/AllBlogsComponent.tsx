@@ -14,14 +14,15 @@ function AllBlogsComponent() {
     data: blogs,
     loading,
     error,
+    fetched,
   } = useSelector((state: RootState) => state.AllBlogs);
   const { data } = useSelector((state: RootState) => state.Authentication);
 
   useEffect(() => {
-    if (!blogs || blogs?.length === 0) {
+    if (!blogs || !fetched) {
       dispatch(fetchAllBlogs());
     }
-  }, [blogs, dispatch]);
+  }, [fetched, dispatch]);
 
   if (loading) {
     return (
@@ -46,7 +47,11 @@ function AllBlogsComponent() {
             )}
           </article>
         </div>
-        {blogs && blogs.length === 0 && <p>No hay blogs que mostrar</p>}
+        {blogs && blogs.length === 0 && (
+          <p className="text-mainText text-xl">
+            Aún no hay blogs publicados, pronto traeremos nuevas noticias
+          </p>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {blogs.map(({ id, title, createdAt, imagen }) => (
             <BlogCardComponent

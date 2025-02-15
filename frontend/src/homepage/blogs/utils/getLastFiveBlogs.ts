@@ -12,6 +12,9 @@ export default async function getLastFiveBlogs() {
     }
 
     const blogData = await response.json();
+    if (blogData.length === 0) {
+      return [];
+    }
 
     return blogData.map((blog: lastFiveBlogInterface) => ({
       ...blog,

@@ -57,7 +57,7 @@ router.post("/verify-email", async (req, res) => {
           style="background-color: #9C1209; text-align: center; padding: 20px;"
         >
           <img
-            src="https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp"
+            src="https://res.cloudinary.com/dk9juz4fp/image/upload/v1739611427/Pluma%20de%20Cuervo/igvlg1cr6ntol97a2ct5.jpg"
             alt="Pluma de Cuervo Logo"
             style="width: 120px; border-radius: 8px;"
           />

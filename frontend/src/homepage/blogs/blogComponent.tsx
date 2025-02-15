@@ -14,13 +14,14 @@ const BlogComponent = () => {
     data: blogs,
     loading,
     error,
+    fetched,
   } = useSelector((state: RootState) => state.blogHomepage);
 
   useEffect(() => {
-    if (blogs.length === 0) {
+    if (!fetched) {
       dispatch(fetchBlogHomepage());
     }
-  }, [dispatch, blogs]);
+  }, [dispatch, fetched]);
 
   return (
     <article className="flex flex-col gap-6">
@@ -31,14 +32,23 @@ const BlogComponent = () => {
       ) : (
         <>
           {error && <ErrorToast message={error} />}
+          {blogs && blogs.length === 0 && (
+            <article className="flex flex-col items-center text-center justify-center w-full">
+              <p className="text-mainText text-xl">
+                Aún no hay blogs publicados, pronto traeremos nuevas noticias
+              </p>
+            </article>
+          )}
           <div className="grid grid-col-1 md:grid-cols-3  mlg:grid-cols-5 gap-6">
             {blogs.map((blog) => (
               <BlogCard key={blog.id} {...blog} />
             ))}
           </div>
-          <div className="self-center">
-            <MainButton link="/blogs/all-blogs" name="Más Noticias" />
-          </div>
+          {blogs && blogs.length > 0 && (
+            <div className="self-center">
+              <MainButton link="/blogs/all-blogs" name="Más Noticias" />
+            </div>
+          )}
         </>
       )}
     </article>

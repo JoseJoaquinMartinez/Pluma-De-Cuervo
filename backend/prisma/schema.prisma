@@ -67,7 +67,7 @@ model Book {
   id Int @id @default(autoincrement())
 
   title String @unique
-  imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
+  imagen String? @default("https://res.cloudinary.com/dk9juz4fp/image/upload/v1739611427/Pluma%20de%20Cuervo/igvlg1cr6ntol97a2ct5.jpg")
   Synopsis String @default("")
   status BookStatus @default(ACTIVO)
 
@@ -78,7 +78,7 @@ model Chapter {
   id Int @id @default(autoincrement())
 
   title String @unique
-  imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
+  imagen String? @default("https://res.cloudinary.com/dk9juz4fp/image/upload/v1739611427/Pluma%20de%20Cuervo/igvlg1cr6ntol97a2ct5.jpg")
   chapterNumber Int @default(autoincrement())
   paragraph Paragraph[]
   createdAt DateTime @default(now())
@@ -128,7 +128,7 @@ model Blog {
   id Int @id @default(autoincrement())
 
   title String @unique
-  imagen String? @default("https://res.cloudinary.com/dpnlm16li/image/upload/v1736969871/dap8vll9qrsgiziwniqo.webp")
+  imagen String? @default("https://res.cloudinary.com/dk9juz4fp/image/upload/v1739611427/Pluma%20de%20Cuervo/igvlg1cr6ntol97a2ct5.jpg")
   blogText String
   createdAt DateTime @default(now())
   

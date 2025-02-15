@@ -6,10 +6,12 @@ const initialState: {
   data: BlogHomepageState[];
   loading: boolean;
   error: string | null;
+  fetched: boolean;
 } = {
   data: [],
   loading: false,
   error: null,
+  fetched: false,
 };
 
 const blogHomepageSlice = createSlice({
@@ -25,10 +27,12 @@ const blogHomepageSlice = createSlice({
       .addCase(fetchBlogHomepage.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
+        state.fetched = true;
       })
       .addCase(fetchBlogHomepage.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+        state.fetched = true;
       });
   },
 });
