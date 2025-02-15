@@ -62,7 +62,11 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: "https://pluma-de-cuervo-h5js.vercel.app",
+  origin: [
+    "https://pluma-de-cuervo.vercel.app",
+    "https://pluma-de-cuervo-h5js.vercel.app",
+    "http://localhost:3001",
+  ],
   credentials: true,
 };
 
