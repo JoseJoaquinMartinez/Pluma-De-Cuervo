@@ -2,6 +2,7 @@ import { ButtonProps } from "@/components/interfaces/interfaz";
 import { SingUpInterface, UnderlineText } from "../interfaces/singupInterface";
 
 export type SingUpFields = Array<SingUpInterface | ButtonProps | UnderlineText>;
+export type FormFieldData = SingUpInterface | ButtonProps | UnderlineText;
 
 export const SINGUPFIELDS: SingUpFields = [
   {
