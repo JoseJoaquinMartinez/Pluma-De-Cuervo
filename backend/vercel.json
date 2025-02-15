@@ -5,21 +5,15 @@
       "src": "src/index.ts",
       "use": "@vercel/node",
       "config": {
-        "distDir": "dist"
+        "distDir": "dist",
+        "includeFiles": ["dist/**"]
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "headers": {
-        "Access-Control-Allow-Origin": "https://pluma-de-cuervo-h5js.vercel.app",
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-      },
-      "continue": true,
-      "dest": "src/index.js"
+      "dest": "src/index.ts"
     }
   ]
 }

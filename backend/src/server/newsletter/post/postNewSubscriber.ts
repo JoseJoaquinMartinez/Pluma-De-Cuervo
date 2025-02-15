@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const router = Router();
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 router.post("/post-new-subscriber", async (req, res) => {
   const { email } = req.body;
@@ -28,12 +28,10 @@ router.post("/post-new-subscriber", async (req, res) => {
       },
     });
 
-    return res
-      .status(201)
-      .json({
-        message: "Usuario registrado en la newsLetter",
-        unsubscribeToken,
-      });
+    return res.status(201).json({
+      message: "Usuario registrado en la newsLetter",
+      unsubscribeToken,
+    });
   } catch (error) {
     if (error instanceof Error) {
       return res

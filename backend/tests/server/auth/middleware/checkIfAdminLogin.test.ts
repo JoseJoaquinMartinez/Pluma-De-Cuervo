@@ -20,7 +20,7 @@ jest.mock("jsonwebtoken", () => ({
 }));
 jest.mock("bcrypt");
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 const ENDPOINT = "/auth/login";
 

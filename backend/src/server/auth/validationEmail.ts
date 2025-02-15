@@ -8,7 +8,10 @@ import jwt from "jsonwebtoken";
 
 const router = Router();
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET no está definido en .env");
+}
 
 const saltRounds = 10;
 
@@ -35,6 +38,10 @@ router.post("/verify-email", async (req, res) => {
         },
       },
     });
+
+    if (!email) {
+      return res.status(400).json({ error: "Email es requerido" });
+    }
 
     const verifyEmailToken = jwt.sign({ email }, JWT_SECRET, {
       expiresIn: "10m",
@@ -102,7 +109,7 @@ router.post("/verify-email", async (req, res) => {
 
     res.status(200).json({ message: "Email enviado" });
   } catch (error) {
-    console.error(error);
+    console.error("Error en verificación de email:", error);
     res.status(500).json({ error: "Error inesperado" });
   } finally {
     await prisma.$disconnect();

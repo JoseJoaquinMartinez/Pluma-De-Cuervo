@@ -37,7 +37,7 @@ jest.mock("../../../../src/utils/verifyToken.ts", () => {
   return { verifyToken: verifyTokenMock };
 });
 const MCOKCOMMENTID = 1;
-const JWT_SECRET = process.env.JWT_SECRET || "testsecret";
+const JWT_SECRET = (process.env.JWT_SECRET as string) || "testsecret";
 const ENDPOINT = `/comment/post-comment-response-by-admin/${MCOKCOMMENTID}`;
 const MOCKREPLYCOMMENT = {
   commentBody: "Test reply",

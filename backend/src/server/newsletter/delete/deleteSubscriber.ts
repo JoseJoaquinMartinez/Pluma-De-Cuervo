@@ -5,7 +5,7 @@ import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 const router = Router();
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 router.get("/delete-subscriber", roleMiddleware("admin"), async (req, res) => {
   const { unsubscribeToken } = req.query;

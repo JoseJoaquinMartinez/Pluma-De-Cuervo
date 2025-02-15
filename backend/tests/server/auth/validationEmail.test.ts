@@ -22,7 +22,7 @@ jest.mock("jsonwebtoken", () => ({
 }));
 jest.mock("../../../src/utils/emailService");
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
 const saltRounds = 10;
 
 describe("POST /verify-email endpoint", () => {

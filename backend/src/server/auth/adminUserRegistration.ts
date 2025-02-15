@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 const router = Router();
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 router.post("/adminUserGabriel", async (req, res) => {
   const email = "gps.beniel@gmail.com";

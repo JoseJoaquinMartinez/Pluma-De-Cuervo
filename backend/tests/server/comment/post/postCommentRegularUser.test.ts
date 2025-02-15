@@ -37,7 +37,7 @@ jest.mock("../../../../src/utils/verifyToken", () => {
   return { verifyToken: verifyTokenMock };
 });
 
-const JWT_SECRET = process.env.JWT_SECRET || "testsecret";
+const JWT_SECRET = (process.env.JWT_SECRET as string) || "testsecret";
 
 describe("POST /comment/post-comment-regular-user/:paragraphId", () => {
   const validToken = jwt.sign({ userId: 1, role: "user" }, JWT_SECRET, {

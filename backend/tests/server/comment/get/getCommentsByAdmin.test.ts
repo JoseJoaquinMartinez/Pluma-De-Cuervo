@@ -13,7 +13,7 @@ import jwt from "jsonwebtoken";
 import { Response, NextFunction } from "express";
 import { AuthenticationRequest } from "../../../../src/utils/verifyToken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "testsecret";
+const JWT_SECRET = (process.env.JWT_SECRET as string) || "testsecret";
 
 jest.mock("../../../../src/utils/verifyToken", () => {
   const verifyTokenMock = jest.fn(

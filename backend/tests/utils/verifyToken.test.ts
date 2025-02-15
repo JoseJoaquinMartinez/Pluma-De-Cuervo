@@ -4,7 +4,7 @@ import app from "../../src/app";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
-const JWT_SECRET = process.env.JWT_SECRET || "testJWTSECRET";
+const JWT_SECRET = (process.env.JWT_SECRET as string) || "testJWTSECRET";
 import { AuthenticationRequest } from "../../src/utils/verifyToken";
 import { verifyToken } from "../../src/utils/verifyToken";
 

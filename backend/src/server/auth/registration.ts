@@ -1,9 +1,12 @@
 import { Router } from "express";
 import prisma from "../../../client";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
+interface VerificationTokenPayload extends JwtPayload {
+  email: string;
+}
 
 router.get("/registration", async (req, res) => {
   const { token } = req.query;
@@ -13,9 +16,11 @@ router.get("/registration", async (req, res) => {
   }
 
   try {
-    const { email } = jwt.verify(token as string, JWT_SECRET) as {
-      email: string;
-    };
+    const decoded = jwt.verify(
+      token as string,
+      JWT_SECRET
+    ) as VerificationTokenPayload;
+    const { email } = decoded;
 
     const existingUser = await prisma.regularUser.findFirst({
       where: { email },

@@ -7,7 +7,7 @@
     "dev": "tsx watch src/index.ts",
     "postinstall": "prisma generate",
     "start": "node dist/index.js",
-    "build": "prisma generate && rimraf dist && tsc",
+    "build": "prisma generate && rimraf dist && tsc && cp -r src/prisma dist/prisma",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "test": "jest",

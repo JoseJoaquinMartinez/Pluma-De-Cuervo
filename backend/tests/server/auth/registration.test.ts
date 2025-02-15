@@ -19,7 +19,7 @@ jest.mock("jsonwebtoken", () => ({
   verify: jest.fn(),
 }));
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 const ENDPOINT = "/auth/registration";
 

@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const ADMIN_EMAIL = "gps.beniel@gmail.com";
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 export const checkIfAdminLogin = async (
   req: Request,

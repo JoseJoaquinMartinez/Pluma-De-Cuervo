@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { checkIfAdminLogin } from "./middleware/checkIfAdminLogin";
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 router.post("/login", checkIfAdminLogin, async (req, res) => {
   const { email, password } = req.body;
