@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import "./utils/cronUserCleaning";
-/* 
-//User
+
+/* //User
 import changeUserName from "./server/user/userUpdateName";
 
 //AUTH
@@ -171,7 +171,6 @@ app.use("/contact", putSetMessageToRead);
 app.use("/contact", markContactMessageAsRead);
 
 //DELETE
-app.use("/contact", deleteContactMessage);
+app.use("/contact", deleteContactMessage); */
 
 export default app;
- */
