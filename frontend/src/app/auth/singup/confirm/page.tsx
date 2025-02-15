@@ -1,10 +1,11 @@
 "use client";
+
 import React, { Suspense } from "react";
 import RegistrationComponent from "@/app/authComponents/singup/RegistrationComponent";
 import { useSearchParams } from "next/navigation";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 
-export default function SingUpConfirmationPage() {
+function TokenHandler() {
   const params = useSearchParams();
   const token = params?.get("token");
 
@@ -16,6 +17,10 @@ export default function SingUpConfirmationPage() {
     );
   }
 
+  return <RegistrationComponent token={token} />;
+}
+
+export default function SingUpConfirmationPage() {
   return (
     <Suspense
       fallback={
@@ -25,7 +30,7 @@ export default function SingUpConfirmationPage() {
       }
     >
       <section className="flex flex-col items-center justify-center">
-        <RegistrationComponent token={token} />
+        <TokenHandler />
       </section>
     </Suspense>
   );
