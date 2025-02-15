@@ -20,7 +20,7 @@ export default function ChangeUserNameModal({
     if (!newUserName.trim() || !data?.user?.id) return;
     try {
       if (token) {
-        const response = dispatch(
+        dispatch(
           fetchUpdateUserName({
             token,
             userName: newUserName,

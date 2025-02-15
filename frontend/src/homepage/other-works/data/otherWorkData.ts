@@ -1,5 +1,3 @@
-import omniCeniza from "../../../../public/home-images/OMNI CENIZAS.webp";
-
 export interface OtherWorkProps {
   title: string;
   text: string;

@@ -43,7 +43,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
   useEffect(() => {
     const chapterId = chapter.id;
     if (token && data?.user.role === "user") {
-      const fetchUserComments = getUserCommentsOnChapter({
+      getUserCommentsOnChapter({
         chapterId,
         token,
       }).then((response) => {
@@ -56,7 +56,7 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
         setUpdatedUserComments(simplifiedComments);
       });
     }
-  }, [chapter.id, token]);
+  }, [chapter.id, token, data?.user.role]);
 
   const closeModalOnOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).id === "modal-overlay") {
@@ -80,78 +80,76 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
         />
       )}
 
-      {chapter.paragraph.map(
-        ({ id, paragraphNumber, paragraphText, paragraphType }) => {
-          const hasComment = updatedUserComments.some(
-            (comment) => comment.paragraphId === id
-          );
+      {chapter.paragraph.map(({ id, paragraphText, paragraphType }) => {
+        const hasComment = updatedUserComments.some(
+          (comment) => comment.paragraphId === id
+        );
 
-          if (paragraphType === "paragraph") {
-            return (
-              <div className="flex flex-col" key={id}>
-                {isLoggedIn && hasComment && (
-                  <span
-                    className="self-end text-2xl md:text-3xl text-encabezados"
-                    onClick={() => handleOpenComment(id)}
-                  >
-                    <MessageCircle />
-                  </span>
-                )}
-                <p
-                  className="text-mainText mb-4"
-                  dangerouslySetInnerHTML={{ __html: paragraphText }}
+        if (paragraphType === "paragraph") {
+          return (
+            <div className="flex flex-col" key={id}>
+              {isLoggedIn && hasComment && (
+                <span
+                  className="self-end text-2xl md:text-3xl text-encabezados"
                   onClick={() => handleOpenComment(id)}
-                />
-              </div>
-            );
-          }
-
-          if (paragraphType === "table") {
-            const parser = new DOMParser();
-            const tableDoc = parser.parseFromString(paragraphText, "text/html");
-            const rows = Array.from(tableDoc.querySelectorAll("tr"));
-
-            return (
-              <div
-                className="flex flex-col text-xs md:text-base items-center justify-center"
-                key={id}
-              >
-                {isLoggedIn && hasComment && (
-                  <span
-                    className="self-end text-2xl md:text-3xl text-encabezados"
-                    onClick={() => handleOpenComment(id)}
-                  >
-                    <MessageCircle />
-                  </span>
-                )}
-                <div onClick={() => handleOpenComment(id)}>
-                  <table className="table-auto mb-4 border-collapse text-mainText border border-gray-300">
-                    <tbody>
-                      {rows.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
-                          {Array.from(row.querySelectorAll("td, th")).map(
-                            (cell, cellIndex) => (
-                              <td
-                                key={cellIndex}
-                                className="border border-gray-400 px-4 py-2 text-left"
-                                dangerouslySetInnerHTML={{
-                                  __html: cell.innerHTML,
-                                }}
-                              />
-                            )
-                          )}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            );
-          }
-
-          return null;
+                >
+                  <MessageCircle />
+                </span>
+              )}
+              <p
+                className="text-mainText mb-4"
+                dangerouslySetInnerHTML={{ __html: paragraphText }}
+                onClick={() => handleOpenComment(id)}
+              />
+            </div>
+          );
         }
-      )}
+
+        if (paragraphType === "table") {
+          const parser = new DOMParser();
+          const tableDoc = parser.parseFromString(paragraphText, "text/html");
+          const rows = Array.from(tableDoc.querySelectorAll("tr"));
+
+          return (
+            <div
+              className="flex flex-col text-xs md:text-base items-center justify-center"
+              key={id}
+            >
+              {isLoggedIn && hasComment && (
+                <span
+                  className="self-end text-2xl md:text-3xl text-encabezados"
+                  onClick={() => handleOpenComment(id)}
+                >
+                  <MessageCircle />
+                </span>
+              )}
+              <div onClick={() => handleOpenComment(id)}>
+                <table className="table-auto mb-4 border-collapse text-mainText border border-gray-300">
+                  <tbody>
+                    {rows.map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        {Array.from(row.querySelectorAll("td, th")).map(
+                          (cell, cellIndex) => (
+                            <td
+                              key={cellIndex}
+                              className="border border-gray-400 px-4 py-2 text-left"
+                              dangerouslySetInnerHTML={{
+                                __html: cell.innerHTML,
+                              }}
+                            />
+                          )
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        }
+
+        return null;
+      })}
     </div>
   );
 };

@@ -5,8 +5,8 @@ export interface Comment {
   commentBody: string;
   paragraphId: number;
   regularUserDataId: number;
-  adminUserDataId: any;
-  parentCommentId: any;
+  adminUserDataId: number | null;
+  parentCommentId: number | null;
   createdAt: string;
 }
 

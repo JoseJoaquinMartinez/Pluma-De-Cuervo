@@ -1,4 +1,3 @@
-import { SectionComponent } from "@/homepage/components/SectionComponent";
 import { ImageComponent } from "@/components/shared/ImageComponent";
 import { ContactForm } from "./components/ContactForm";
 
