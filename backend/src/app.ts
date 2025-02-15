@@ -74,10 +74,6 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.get("/", (req, res) => {
-  res.send("Backend en funcionamiento");
-});
-
 //USER
 app.use("/user", changeUserName);
 
