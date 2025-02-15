@@ -19,7 +19,7 @@
         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
       },
       "continue": true,
-      "dest": "dist/index.js"
+      "dest": "src/index.js"
     }
   ]
 }
