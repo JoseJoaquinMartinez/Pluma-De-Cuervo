@@ -82,8 +82,20 @@ import replyToContactMessage from "./server/contact-form/post/sendReplyToMessage
 import markContactMessageAsRead from "./server/contact-form/patch/markContactMessageAsRead";
 import deleteContactMessage from "./server/contact-form/delete/deleteContactMessage";
 
+app.get("/health", (req, res) => {
+  res.status(200).send("OK");
+});
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.status(200).send("Hello World!");
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+  // Añadimos más logs para debug
+  console.log("Environment variables:");
+  console.log("PORT:", process.env.PORT);
+  console.log("NODE_ENV:", process.env.NODE_ENV);
 });
 
 /* const PORT = process.env.PORT || 3000;
