@@ -2,6 +2,31 @@ import express from "express";
 import cors from "cors";
 import "./utils/cronUserCleaning";
 
+const app = express();
+
+app.use(express.json());
+
+const corsOptions = {
+  origin: [
+    "https://pluma-de-cuervo.vercel.app",
+    "https://pluma-de-cuervo-h5js.vercel.app",
+    "http://localhost:3001",
+    "http://localhost:3000",
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPSTIONS"],
+  allowedHeaders: [
+    "Origin",
+    "X-Requested-With",
+    "Content-Type",
+    "Accept",
+    "Authorization",
+  ],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
 //User
 import changeUserName from "./server/user/userUpdateName";
 
@@ -56,30 +81,6 @@ import putSetMessageToRead from "./server/contact-form/put/putMessageAsRead";
 import replyToContactMessage from "./server/contact-form/post/sendReplyToMessage";
 import markContactMessageAsRead from "./server/contact-form/patch/markContactMessageAsRead";
 import deleteContactMessage from "./server/contact-form/delete/deleteContactMessage";
-
-const app = express();
-
-app.use(express.json());
-
-const corsOptions = {
-  origin: [
-    "https://pluma-de-cuervo.vercel.app",
-    "https://pluma-de-cuervo-h5js.vercel.app",
-    "http://localhost:3001",
-    "http://localhost:3000",
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  allowedHeaders: [
-    "Origin",
-    "X-Requested-With",
-    "Content-Type",
-    "Accept",
-    "Authorization",
-  ],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
