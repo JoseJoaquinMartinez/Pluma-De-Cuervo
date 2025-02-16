@@ -3,8 +3,8 @@ builder = "nixpacks"
 buildCommand = "cd backend && npm install && npm run build"
 
 [deploy]
-startCommand = "cd backend && npm run start"
-healthcheckPath = "/" # Ajusta esto a tu ruta de healthcheck
+startCommand = "cd backend && node dist/index.js"
+healthcheckPath = "/health" # Cambiamos la ruta del healthcheck
 restartPolicyType = "on_failure"
 
 [service]
