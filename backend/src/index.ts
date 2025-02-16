@@ -10,6 +10,7 @@ const corsOptions = {
   origin: [
     "https://pluma-de-cuervo.vercel.app",
     "https://pluma-de-cuervo-h5js.vercel.app",
+    "https://pluma-de-cuervo-production.up.railway.app/",
     "http://localhost:3001",
     "http://localhost:3000",
   ],
