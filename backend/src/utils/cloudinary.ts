@@ -7,10 +7,7 @@ import {
 } from "cloudinary";
 import sharp from "sharp";
 import fs from "fs";
-import path from "path";
-import * as mkdirp from "mkdirp";
 
-// Configuración de Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -39,22 +36,14 @@ const multerConfig = {
   },
 };
 
-// Almacenamiento en memoria (útil para subir directamente a Cloudinary)
 const memoryStorage = multer.memoryStorage();
 export const upload: Multer = multer({
   ...multerConfig,
   storage: memoryStorage,
 });
 
-// Configuración para almacenar en disco usando el directorio escribible en Vercel (/tmp/uploads)
-const uploadPath = path.join("/tmp", "uploads");
-// Creamos el directorio si no existe
-mkdirp.sync(uploadPath);
-
 const diskStorage = multer.diskStorage({
-  destination: (_req, _file, cb) => {
-    cb(null, uploadPath);
-  },
+  destination: "tmp/uploads/",
   filename: (_req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, `${file.fieldname}-${uniqueSuffix}-${file.originalname}`);
@@ -88,6 +77,7 @@ export const uploadToCloudinary = async (
         imageBuffer = file.buffer;
       } else {
         imageBuffer = await fs.promises.readFile(file.path);
+
         await fs.promises.unlink(file.path).catch(console.error);
       }
     } catch (error) {
