@@ -49,8 +49,8 @@ router.get("/registration", async (req, res) => {
 
     res.cookie("authToken", authToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
     });
 
     const userToReturn = {

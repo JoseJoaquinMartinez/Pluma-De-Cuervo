@@ -39,8 +39,8 @@ export const checkIfAdminLogin = async (
       );
       res.cookie("authToken", authToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
       });
       const adminToReturn = {
         id: existingAdmin.id,
