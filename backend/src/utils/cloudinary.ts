@@ -1,9 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import multer, { Multer } from "multer";
-import { v2 as cloudinary } from "cloudinary";
+import {
+  v2 as cloudinary,
+  UploadApiResponse,
+  UploadApiErrorResponse,
+} from "cloudinary";
 import sharp from "sharp";
+import fs from "fs";
 
-// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -11,10 +15,13 @@ cloudinary.config({
   secure: true,
 });
 
-// Multer configuration
+interface CloudinaryFile extends Express.Multer.File {
+  buffer: Buffer;
+}
+
 const multerConfig = {
   limits: {
-    fileSize: 5 * 1024 * 1024, // Limit file size to 5MB
+    fileSize: 5 * 1024 * 1024,
   },
   fileFilter: (
     _req: Request,
@@ -22,21 +29,32 @@ const multerConfig = {
     cb: multer.FileFilterCallback
   ) => {
     if (file.fieldname === "imagen" && !file.mimetype.startsWith("image/")) {
-      cb(new Error("Solo se permiten archivos de imagen")); // Only allow images
+      cb(new Error("Solo se permiten archivos de imagen"));
       return;
     }
     cb(null, true);
   },
 };
 
-// Use memory storage instead of disk storage
 const memoryStorage = multer.memoryStorage();
 export const upload: Multer = multer({
   ...multerConfig,
-  storage: memoryStorage, // Store files in memory
+  storage: memoryStorage,
 });
 
-// Middleware to upload files to Cloudinary
+/* const diskStorage = multer.diskStorage({
+  destination: "uploads/",
+  filename: (_req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, `${file.fieldname}-${uniqueSuffix}-${file.originalname}`);
+  },
+}); */
+
+export const uploadFields = multer({
+  ...multerConfig,
+  storage: memoryStorage,
+});
+
 export const uploadToCloudinary = async (
   req: Request,
   res: Response,
@@ -50,52 +68,59 @@ export const uploadToCloudinary = async (
         : undefined);
 
     if (!file) {
-      return next(); // No file to process, proceed to the next middleware
+      return next();
     }
 
     let imageBuffer: Buffer;
+    try {
+      if (file.buffer) {
+        imageBuffer = file.buffer;
+      } else {
+        imageBuffer = await fs.promises.readFile(file.path);
 
-    // If using memory storage, the file is already in memory
-    if (file.buffer) {
-      imageBuffer = file.buffer;
-    } else {
-      throw new Error("Archivo no encontrado en memoria");
+        await fs.promises.unlink(file.path).catch(console.error);
+      }
+    } catch (error) {
+      console.error("Error leyendo el archivo:", error);
+      return next(new Error("Error procesando el archivo de imagen"));
     }
 
-    // Resize the image using Sharp
     let resizedBuffer: Buffer;
     try {
       resizedBuffer = await sharp(imageBuffer)
-        .resize({ width: 800, height: 600, fit: "inside" }) // Resize image
+        .resize({ width: 800, height: 600, fit: "inside" })
         .toBuffer();
     } catch (error) {
       console.error("Error procesando la imagen:", error);
       return next(new Error("Error procesando la imagen"));
     }
 
-    // Upload the resized image to Cloudinary
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         resource_type: "auto",
-        folder: "Pluma de Cuervo", // Specify the folder in Cloudinary
+        folder: "Pluma de Cuervo",
       },
-      (err: any, result: any) => {
+      (
+        err: UploadApiErrorResponse | undefined,
+        result: UploadApiResponse | undefined
+      ) => {
         if (err) {
           console.error("Error cargando la imagen a Cloudinary:", err);
-          return next(err); // Pass the error to the next middleware
+          return next(err);
         }
         if (!result) {
           console.error("Error indefinido cargando la imagen a Cloudinary");
           return next(new Error("Carga a Cloudinary error inesperado"));
         }
-        req.body.cloudinaryUrl = result.secure_url; // Save the Cloudinary URL to the request body
-        next(); // Proceed to the next middleware
+
+        req.body.cloudinaryUrl = result.secure_url;
+        next();
       }
     );
 
-    uploadStream.end(resizedBuffer); // End the stream with the resized buffer
+    uploadStream.end(resizedBuffer);
   } catch (error) {
     console.error("Error in uploadToCloudinary middleware:", error);
-    next(error); // Pass the error to the next middleware
+    next(error);
   }
 };
