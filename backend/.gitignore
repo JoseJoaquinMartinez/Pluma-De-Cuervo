@@ -3,6 +3,7 @@
 .env
 /postgres/
 /uploads/
+/tmp/
 /node_modules
 /coverage
 
