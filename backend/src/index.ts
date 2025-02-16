@@ -13,7 +13,7 @@ const corsOptions = {
     "http://localhost:3001",
     "http://localhost:3000",
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPSTIONS"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: [
     "Origin",
     "X-Requested-With",
