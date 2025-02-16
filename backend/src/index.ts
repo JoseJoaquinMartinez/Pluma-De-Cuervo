@@ -66,6 +66,7 @@ const corsOptions = {
     "https://pluma-de-cuervo.vercel.app",
     "https://pluma-de-cuervo-h5js.vercel.app",
     "http://localhost:3001",
+    "http://localhost:3000",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: [
@@ -84,12 +85,10 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Servidor local en http://localhost:${PORT}`);
-  });
-}
+/* const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor local en http://localhost:${PORT}`);
+}); */
 
 //USER
 app.use("/user", changeUserName);
