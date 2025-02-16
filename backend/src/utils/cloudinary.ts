@@ -1,16 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import multer, { Multer } from "multer";
-import {
-  v2 as cloudinary,
-  UploadApiResponse,
-  UploadApiErrorResponse,
-} from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 import sharp from "sharp";
-import fs from "fs";
-import path from "path";
-import * as mkdirp from "mkdirp";
 
-// Configuración de Cloudinary
+// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -18,13 +11,10 @@ cloudinary.config({
   secure: true,
 });
 
-interface CloudinaryFile extends Express.Multer.File {
-  buffer: Buffer;
-}
-
+// Multer configuration
 const multerConfig = {
   limits: {
-    fileSize: 5 * 1024 * 1024,
+    fileSize: 5 * 1024 * 1024, // Limit file size to 5MB
   },
   fileFilter: (
     _req: Request,
@@ -32,40 +22,21 @@ const multerConfig = {
     cb: multer.FileFilterCallback
   ) => {
     if (file.fieldname === "imagen" && !file.mimetype.startsWith("image/")) {
-      cb(new Error("Solo se permiten archivos de imagen"));
+      cb(new Error("Solo se permiten archivos de imagen")); // Only allow images
       return;
     }
     cb(null, true);
   },
 };
 
-// Almacenamiento en memoria (útil para subir directamente a Cloudinary)
+// Use memory storage instead of disk storage
 const memoryStorage = multer.memoryStorage();
 export const upload: Multer = multer({
   ...multerConfig,
-  storage: memoryStorage,
+  storage: memoryStorage, // Store files in memory
 });
 
-// Configuración para almacenar en disco usando el directorio escribible en Vercel (/tmp/uploads)
-const uploadPath = path.join("/tmp", "uploads");
-// Creamos el directorio si no existe
-mkdirp.sync(uploadPath);
-
-const diskStorage = multer.diskStorage({
-  destination: (_req, _file, cb) => {
-    cb(null, uploadPath);
-  },
-  filename: (_req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, `${file.fieldname}-${uniqueSuffix}-${file.originalname}`);
-  },
-});
-
-export const uploadFields = multer({
-  ...multerConfig,
-  storage: diskStorage,
-});
-
+// Middleware to upload files to Cloudinary
 export const uploadToCloudinary = async (
   req: Request,
   res: Response,
@@ -79,58 +50,52 @@ export const uploadToCloudinary = async (
         : undefined);
 
     if (!file) {
-      return next();
+      return next(); // No file to process, proceed to the next middleware
     }
 
     let imageBuffer: Buffer;
-    try {
-      if (file.buffer) {
-        imageBuffer = file.buffer;
-      } else {
-        imageBuffer = await fs.promises.readFile(file.path);
-        await fs.promises.unlink(file.path).catch(console.error);
-      }
-    } catch (error) {
-      console.error("Error leyendo el archivo:", error);
-      return next(new Error("Error procesando el archivo de imagen"));
+
+    // If using memory storage, the file is already in memory
+    if (file.buffer) {
+      imageBuffer = file.buffer;
+    } else {
+      throw new Error("Archivo no encontrado en memoria");
     }
 
+    // Resize the image using Sharp
     let resizedBuffer: Buffer;
     try {
       resizedBuffer = await sharp(imageBuffer)
-        .resize({ width: 800, height: 600, fit: "inside" })
+        .resize({ width: 800, height: 600, fit: "inside" }) // Resize image
         .toBuffer();
     } catch (error) {
       console.error("Error procesando la imagen:", error);
       return next(new Error("Error procesando la imagen"));
     }
 
+    // Upload the resized image to Cloudinary
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         resource_type: "auto",
-        folder: "Pluma de Cuervo",
+        folder: "Pluma de Cuervo", // Specify the folder in Cloudinary
       },
-      (
-        err: UploadApiErrorResponse | undefined,
-        result: UploadApiResponse | undefined
-      ) => {
+      (err: any, result: any) => {
         if (err) {
           console.error("Error cargando la imagen a Cloudinary:", err);
-          return next(err);
+          return next(err); // Pass the error to the next middleware
         }
         if (!result) {
           console.error("Error indefinido cargando la imagen a Cloudinary");
           return next(new Error("Carga a Cloudinary error inesperado"));
         }
-
-        req.body.cloudinaryUrl = result.secure_url;
-        next();
+        req.body.cloudinaryUrl = result.secure_url; // Save the Cloudinary URL to the request body
+        next(); // Proceed to the next middleware
       }
     );
 
-    uploadStream.end(resizedBuffer);
+    uploadStream.end(resizedBuffer); // End the stream with the resized buffer
   } catch (error) {
     console.error("Error in uploadToCloudinary middleware:", error);
-    next(error);
+    next(error); // Pass the error to the next middleware
   }
 };
