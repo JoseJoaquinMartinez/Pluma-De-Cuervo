@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 import { upload, uploadToCloudinary } from "../../../utils/cloudinary";
 
@@ -37,9 +37,11 @@ router.put(
       }
       return res.status(200).json({ updatedBlog });
     } catch (error) {
-      return res.status(500).json({
-        error: `Error inesperado actualizando el blog ${error.message}`,
-      });
+      if (error instanceof Error) {
+        return res.status(500).json({ message: error.message });
+      } else {
+        return res.status(500).json({ message: "Algo salió mal" });
+      }
     } finally {
       prisma.$disconnect();
     }

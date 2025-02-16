@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import multer from "multer";
 import fs from "fs";
 import { fileContentManagement } from "../utils/fileContentManagement";

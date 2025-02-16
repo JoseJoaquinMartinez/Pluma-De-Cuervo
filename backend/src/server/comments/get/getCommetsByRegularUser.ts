@@ -1,7 +1,6 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { AuthenticationRequest } from "../../../utils/verifyToken";
-import { formattedComments } from "../../../utils/formattedComments";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 const router = Router();
@@ -10,7 +9,7 @@ router.get(
   "/get-comment-by-regularUser",
   roleMiddleware("user"),
   async (req: AuthenticationRequest, res) => {
-    const userId = req.user.id;
+    const userId = req.user?.id;
 
     try {
       const existingUser = await prisma.regularUserData.findFirst({

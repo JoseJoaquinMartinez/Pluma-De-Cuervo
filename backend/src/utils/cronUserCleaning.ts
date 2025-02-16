@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import prisma from "../../client";
+import prisma from "../client";
 
 cron.schedule("0 0 * * *", async () => {
   const deletedUsers = await prisma.regularUser.deleteMany({

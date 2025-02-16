@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../client";
+import prisma from "../../client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { checkIfAdminLogin } from "./middleware/checkIfAdminLogin";

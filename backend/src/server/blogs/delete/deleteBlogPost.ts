@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 
@@ -17,7 +17,6 @@ router.delete(
 
     try {
       const existingBlog = await prisma.blog.delete({ where: { id: blogId } });
-
       return res.status(200).json({ message: "Entrada de blog eliminada" });
     } catch (error) {
       if (
@@ -28,12 +27,14 @@ router.delete(
           .status(404)
           .json({ message: "Entrada de blog no encontrada" });
       } else {
-        return res.status(500).json({
-          error: `Error inesperando eliminando la entrada de blog ${error.message}`,
-        });
+        let errorMessage = "Error inesperado eliminando la entrada de blog";
+        if (error instanceof Error) {
+          errorMessage += `: ${error.message}`;
+        }
+        return res.status(500).json({ error: errorMessage });
       }
     } finally {
-      prisma.$disconnect();
+      await prisma.$disconnect();
     }
   }
 );

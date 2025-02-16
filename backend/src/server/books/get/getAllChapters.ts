@@ -1,11 +1,11 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 
 const router = Router();
 
 router.get("/get-all-chapters/:bookId", async (req, res) => {
   const bookId = parseInt(req.params.bookId);
-  
+
   try {
     const existingBook = await prisma.book.findFirst({
       where: {

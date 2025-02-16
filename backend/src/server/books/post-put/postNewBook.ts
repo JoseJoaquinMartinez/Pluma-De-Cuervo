@@ -1,7 +1,8 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 import { upload, uploadToCloudinary } from "../../../utils/cloudinary";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 const router = Router();
 
@@ -23,7 +24,10 @@ router.post(
       });
       return res.status(201).json({ newBook });
     } catch (error) {
-      if (error.code === "P2002") {
+      if (
+        error instanceof PrismaClientKnownRequestError &&
+        error.code === "P2002"
+      ) {
         return res
           .status(409)
           .json({ message: "Libro con este titulo ya existe." });
@@ -31,6 +35,8 @@ router.post(
         return res
           .status(500)
           .json({ error: `Error inesperado creando libro ${error.message}` });
+      } else {
+        return res.status(500).json({ message: "Algo salió mal" });
       }
     } finally {
       prisma.$disconnect();

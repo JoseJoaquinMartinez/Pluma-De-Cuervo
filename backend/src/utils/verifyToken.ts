@@ -1,13 +1,20 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
+if (!JWT_SECRET) {
+  throw new Error("Missing JWT_SECRET");
+}
 
 export interface AuthenticationRequest extends Request {
   user?: {
     id: number;
     role: string;
   };
+}
+export interface CustomJwtPayload extends JwtPayload {
+  userId: number;
+  role: string;
 }
 
 export const verifyToken = (
@@ -27,14 +34,14 @@ export const verifyToken = (
     return res.status(401).json({ error: "Formato de token no válido" });
   }
   try {
-    const { userId, role } = jwt.verify(token, JWT_SECRET) as {
-      userId: number;
-      role: string;
-    };
+    const decodedToken = jwt.verify(token, JWT_SECRET) as CustomJwtPayload;
 
-    req.user = { id: userId, role: role };
-
-    next();
+    if (decodedToken.userId && decodedToken.role) {
+      req.user = { id: decodedToken.userId, role: decodedToken.role };
+      next();
+    } else {
+      return res.status(403).json({ error: "Token inválido o incompleto" });
+    }
   } catch (error) {
     return res.status(403).json({ error: "Fallo al autenticar el token" });
   }

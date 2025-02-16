@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { roleMiddleware } from "../..//auth/middleware/checkRole";
 import { AuthenticationRequest } from "../../../utils/verifyToken";
 
@@ -9,7 +9,7 @@ router.get(
   roleMiddleware("user"),
   async (req: AuthenticationRequest, res) => {
     const ChapterId = parseInt(req.params.ChapterId);
-    const RegularUserId = req.user.id;
+    const RegularUserId = req.user?.id;
 
     try {
       const existingUser = await prisma.regularUserData.findFirst({

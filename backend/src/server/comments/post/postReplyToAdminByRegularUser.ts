@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { AuthenticationRequest } from "../../../utils/verifyToken";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 
@@ -10,7 +10,7 @@ router.post(
   roleMiddleware("user"),
   async (req: AuthenticationRequest, res) => {
     const commentId = parseInt(req.params.commentId);
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const { commentBody } = req.body;
 
     try {
@@ -51,9 +51,13 @@ router.post(
         message: "Respuesta del usuario creada con éxito",
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ error: `Error inesperado: ${error.message}` });
+      if (error instanceof Error) {
+        return res
+          .status(500)
+          .json({ error: `Error inesperado: ${error.message}` });
+      } else {
+        return res.status(500).json({ error: "Error inesperado" });
+      }
     }
   }
 );

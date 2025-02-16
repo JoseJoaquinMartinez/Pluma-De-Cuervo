@@ -1,12 +1,17 @@
 import { Router } from "express";
-import prisma from "../../../../client";
-import jwt from "jsonwebtoken";
+import prisma from "../../../client";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 const router = Router();
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
-
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET no está definido en .env");
+}
+interface VerificationTokenPayload extends JwtPayload {
+  email: string;
+}
 router.get("/delete-subscriber", roleMiddleware("admin"), async (req, res) => {
   const { unsubscribeToken } = req.query;
 
@@ -14,9 +19,11 @@ router.get("/delete-subscriber", roleMiddleware("admin"), async (req, res) => {
     return res.status(400).json({ error: "Token inválido" });
   }
   try {
-    const { email } = jwt.verify(unsubscribeToken, JWT_SECRET) as {
-      email: string;
-    };
+    const decoded = jwt.verify(
+      unsubscribeToken as string,
+      JWT_SECRET
+    ) as VerificationTokenPayload;
+    const { email } = decoded;
     const subscriberToDelete = await prisma.newsLetterSubscriber.delete({
       where: { email },
     });
@@ -32,6 +39,8 @@ router.get("/delete-subscriber", roleMiddleware("admin"), async (req, res) => {
       return res
         .status(500)
         .json({ error: `Error eliminado al subscriptor ${error.message}` });
+    } else {
+      return res.status(500).json({ error: `Error eliminado al subscriptor` });
     }
   }
 });

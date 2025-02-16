@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 
 export async function createNewChapter(
   req: Request,

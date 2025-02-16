@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { AuthenticationRequest } from "../../../utils/verifyToken";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 const router = Router();
@@ -10,7 +10,7 @@ router.post(
   async (req: AuthenticationRequest, res) => {
     const paragraphId = parseInt(req.params.paragraphId);
     const { commentBody } = req.body;
-    const userId = req.user.id;
+    const userId = req.user?.id;
 
     try {
       const existingUser = await prisma.regularUserData.findFirst({
@@ -42,9 +42,13 @@ router.post(
         .status(201)
         .json({ newComment, message: "Comentario creado con éxito" });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ error: `Error inesperado: ${error.message}` });
+      if (error instanceof Error) {
+        return res
+          .status(500)
+          .json({ error: `Error inesperado: ${error.message}` });
+      } else {
+        return res.status(500).json({ error: "Error inesperado" });
+      }
     }
   }
 );

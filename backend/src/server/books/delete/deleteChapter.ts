@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 
@@ -30,9 +30,11 @@ router.delete(
       ) {
         return res.status(404).json({ message: "Capítulo no encontrado" });
       } else {
-        return res.status(500).json({
-          error: `Error inesperando eliminando el capítulo ${error.message}`,
-        });
+        if (error instanceof Error) {
+          return res.status(500).json({ message: error.message });
+        } else {
+          return res.status(500).json({ message: "Algo salió mal" });
+        }
       }
     } finally {
       prisma.$disconnect();

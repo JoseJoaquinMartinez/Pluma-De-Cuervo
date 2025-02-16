@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

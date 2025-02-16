@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { AuthenticationRequest } from "../../../utils/verifyToken";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 
@@ -11,7 +11,7 @@ router.post(
   async (req: AuthenticationRequest, res) => {
     const commentId = parseInt(req.params.commentId);
     const { commentBody } = req.body;
-    const adminId = req.user.id;
+    const adminId = req.user?.id;
 
     try {
       const existingAdmin = await prisma.adminUserData.findFirst({
@@ -55,9 +55,13 @@ router.post(
         message: "Respuesta del administrador creada con éxito",
       });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ error: `Error inesperado: ${error.message}` });
+      if (error instanceof Error) {
+        return res
+          .status(500)
+          .json({ error: `Error inesperado: ${error.message}` });
+      } else {
+        return res.status(500).json({ error: "Error inesperado" });
+      }
     }
   }
 );

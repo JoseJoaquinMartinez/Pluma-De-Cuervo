@@ -1,4 +1,4 @@
-import { FormattedComment } from "../types";
+/* import { FormattedComment } from "../types";
 
 export function formattedComments(userComments: FormattedComment[]) {
   return userComments.map((comment) => ({
@@ -34,3 +34,4 @@ export function formattedComments(userComments: FormattedComment[]) {
       })) || [],
   }));
 }
+ */

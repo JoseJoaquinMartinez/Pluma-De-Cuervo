@@ -1,5 +1,5 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 
 const router = Router();

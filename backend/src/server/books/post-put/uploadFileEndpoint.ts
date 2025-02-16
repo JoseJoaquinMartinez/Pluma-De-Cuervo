@@ -1,6 +1,6 @@
 import { uploadFields, uploadToCloudinary } from "./../../../utils/cloudinary";
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import fs from "fs";
 import { createNewChapter } from "../middleware/createChapter";
 import { roleMiddleware } from "../../auth/middleware/checkRole";
@@ -57,12 +57,10 @@ router.post(
         });
       }
 
-      res
-        .status(200)
-        .json({
-          chapterId: chapterId,
-          message: "Capítulo creado exitosamente",
-        });
+      res.status(200).json({
+        chapterId: chapterId,
+        message: "Capítulo creado exitosamente",
+      });
     } catch (error) {
       console.error("Error creating chapter content:", error);
       res.status(500).json({

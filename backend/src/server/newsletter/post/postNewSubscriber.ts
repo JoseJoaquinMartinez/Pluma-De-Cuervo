@@ -1,10 +1,13 @@
 import { Router } from "express";
-import prisma from "../../../../client";
+import prisma from "../../../client";
 import jwt from "jsonwebtoken";
 
 const router = Router();
 
 const JWT_SECRET = process.env.JWT_SECRET as string;
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET no está definido en .env");
+}
 
 router.post("/post-new-subscriber", async (req, res) => {
   const { email } = req.body;
