@@ -1,9 +1,9 @@
 import { Router } from "express";
 import prisma from "../../../client";
-import multer from "multer";
+
 import fs from "fs";
 import { fileContentManagement } from "../utils/fileContentManagement";
-import { extractContentFromTextArea } from "../utils/extractContentFromTextArea";
+
 import { roleMiddleware } from "../../auth/middleware/checkRole";
 import { uploadFields, uploadToCloudinary } from "../../../utils/cloudinary";
 
