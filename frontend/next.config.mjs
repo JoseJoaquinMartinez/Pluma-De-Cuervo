@@ -2,13 +2,8 @@
 const nextConfig = {
   async rewrites() {
     return [
-      // Excluye las rutas /api/auth/* para que sean manejadas localmente
       {
-        source: "/api/auth/:path*",
-        destination: "/api/auth/:path*", // Mantén estas rutas locales
-      },
-      // Redirige otras rutas /api/* al backend externo, ajustando la ruta
-      {
+        // Todas las rutas que empiecen con /api/ se redirigen al backend
         source: "/api/:path*",
         destination: process.env.NEXT_PUBLIC_BACKEND_URL
           ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/:path*`
