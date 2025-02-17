@@ -41,6 +41,7 @@ export const checkIfAdminLogin = async (
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        domain: process.env.DOMAIN,
       });
       const adminToReturn = {
         id: existingAdmin.id,
