@@ -8,11 +8,7 @@ if (!JWT_SECRET) {
 }
 
 const adminLoggedInRoutes = /^\/admin/;
-const loggedInRoutes = [
-  "/auth/login",
-  "/auth/singup",
-  "/auth/singup/email-validation",
-];
+const loggedInRoutes = ["/auth/singup/email-validation"];
 const regularUserRoutes = ["/comentarios"];
 
 export default async function middleware(req: NextRequest) {
