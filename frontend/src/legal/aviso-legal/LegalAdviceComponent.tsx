@@ -15,7 +15,7 @@ export const LegalAdviceComponent = () => {
       <p>
         Titular: Gabriel Pastor Sánchez
         <br />
-        Correo Electrónico: gps.beniel@gmail.com
+        Correo Electrónico: plumadecuervoweb@gmail.com
       </p>
       <h2 className="text-xl font-semibold mt-6 mb-2 text-encabezados">
         2. Objeto
