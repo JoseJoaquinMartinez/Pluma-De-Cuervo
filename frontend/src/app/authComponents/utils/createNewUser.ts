@@ -1,5 +1,5 @@
 export const createNewUser = async (token: string) => {
-  const URL = `/api/auth/registration?token=${token}`;
+  const URL = `/auth/registration?token=${token}`;
   try {
     const response = await fetch(URL, {
       method: "GET",
