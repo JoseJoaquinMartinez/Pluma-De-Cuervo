@@ -11,7 +11,13 @@ router.get("/get-all-chapters/:bookId", async (req, res) => {
       where: {
         id: bookId,
       },
-      include: { chapter: true },
+      include: {
+        chapter: {
+          orderBy: {
+            createdAt: "asc",
+          },
+        },
+      },
     });
 
     if (!existingBook) {
