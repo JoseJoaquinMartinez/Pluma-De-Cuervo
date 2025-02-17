@@ -51,6 +51,7 @@ router.get("/registration", async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
+      domain: process.env.DOMAIN,
     });
 
     const userToReturn = {

@@ -37,6 +37,7 @@ router.post("/login", checkIfAdminLogin, async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
+      domain: process.env.DOMAIN,
     });
     const userToReturn = {
       id: existingUser.id,
