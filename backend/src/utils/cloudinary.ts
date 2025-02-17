@@ -42,17 +42,17 @@ export const upload: Multer = multer({
   storage: memoryStorage,
 });
 
-/* const diskStorage = multer.diskStorage({
+const diskStorage = multer.diskStorage({
   destination: "uploads/",
   filename: (_req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, `${file.fieldname}-${uniqueSuffix}-${file.originalname}`);
   },
-}); */
+});
 
 export const uploadFields = multer({
   ...multerConfig,
-  storage: memoryStorage,
+  storage: diskStorage,
 });
 
 export const uploadToCloudinary = async (
