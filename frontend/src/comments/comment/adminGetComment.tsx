@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { getUserCommentsByAdmin } from "./utils/adminGetUserComments";
@@ -18,23 +18,23 @@ export const AdminGetComment = () => {
   const { token } = useSelector((state: RootState) => state.Authentication);
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      if (!token) return;
-      try {
-        const fetchedComments = await getUserCommentsByAdmin(token);
-        const formattedComments = fetchedComments.comments.map(formatComment);
-        setComments(formattedComments);
-        setFilteredComments(formattedComments);
-      } catch (error) {
-        <ErrorToast
-          message={error instanceof Error ? error.message : "Error desconocido"}
-        />;
-      }
-    };
-
-    fetchComments();
+  const fetchComments = useCallback(async () => {
+    if (!token) return;
+    try {
+      const fetchedComments = await getUserCommentsByAdmin(token);
+      const formattedComments = fetchedComments.comments.map(formatComment);
+      setComments(formattedComments);
+      setFilteredComments(formattedComments);
+    } catch (error) {
+      <ErrorToast
+        message={error instanceof Error ? error.message : "Error desconocido"}
+      />;
+    }
   }, [token]);
+
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
 
   useEffect(() => {
     setFilteredComments(() => {
@@ -107,6 +107,7 @@ export const AdminGetComment = () => {
             key={comment.id}
             {...comment}
             onDelete={handleDeleteComment}
+            refreshComments={fetchComments}
           />
         ))
       ) : (

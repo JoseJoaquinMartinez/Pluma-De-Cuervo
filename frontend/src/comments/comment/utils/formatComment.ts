@@ -19,11 +19,7 @@ export const formatComment = (comment: Comment): FormattedComment => {
 
   return {
     id: comment.id,
-    createdAt: new Date(comment.createdAt).toLocaleDateString("es-ES", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    }),
+    createdAt: comment.createdAt,
     commentBody: comment.commentBody,
     read: comment.read,
     paragraph: {
