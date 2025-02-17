@@ -1,4 +1,4 @@
-import { BookProps, Chapter } from "@/books/interfaces/bookData";
+import { Chapter } from "@/books/interfaces/bookData";
 
 export const getAllChaptersFromABook = async (
   bookId: number
