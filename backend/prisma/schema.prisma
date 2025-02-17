@@ -109,7 +109,7 @@ model Comment {
 
   
 
-  paragraph        Paragraph  @relation(fields: [paragraphId], references: [id])
+  paragraph        Paragraph  @relation(fields: [paragraphId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   paragraphId      Int
 
   regularUserData  RegularUserData? @relation(fields: [regularUserDataId], references: [id])
@@ -119,7 +119,7 @@ model Comment {
   adminUserDataId  Int?
 
   parentCommentId  Int?        
-  parentComment    Comment?    @relation("CommentParent", fields: [parentCommentId], references: [id])
+  parentComment    Comment?    @relation("CommentParent", fields: [parentCommentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   replies          Comment[]   @relation("CommentParent")
   
 }

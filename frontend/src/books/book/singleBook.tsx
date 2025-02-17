@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
@@ -11,20 +11,82 @@ import MainButton from "@/components/shared/mainButton";
 import SliderChapters from "../components/SliderChapters";
 import { BookStatusBadgeSingleBook } from "../components/BookStatusBadgeSingleBook";
 import ErrorToast from "@/components/shared/ErrorToaster";
+import { useRouter } from "next/navigation";
+
+const DeleteModal = ({
+  onConfirm,
+  onCancel,
+}: {
+  onConfirm: () => void;
+  onCancel: () => void;
+}) => (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="bg-cardsBackground p-4 rounded-lg shadow-lg">
+      <p className="text-mainText">
+        ¿Estás seguro de que deseas eliminar este libro?
+      </p>
+      <div className="flex justify-end gap-2 mt-4">
+        <button
+          className="bg-encabezados hover:bg-encabezados/90 text-white px-4 py-2 rounded"
+          onClick={onConfirm}
+        >
+          Sí
+        </button>
+        <button
+          className="bg-botones hover:bg-botones/90 px-4 py-2 rounded"
+          onClick={onCancel}
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+);
 
 function SingleBook({ bookId }: { bookId: number }) {
   const dispatch = useDispatch<AppDispatch>();
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const router = useRouter();
   const {
     data: book,
     loading,
     error,
   } = useSelector((state: RootState) => state.singleBook);
-  const { data } = useSelector((state: RootState) => state.Authentication);
+  const { data, token } = useSelector(
+    (state: RootState) => state.Authentication
+  );
   const {
     data: lastFiveChapters,
     loading: lastFiveChaptersLoading,
     error: lastFiveChaptersError,
   } = useSelector((state: RootState) => state.lastFiveChapters);
+
+  const onDelete = async (bookId: number) => {
+    if (token) {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/book//delete-book/${bookId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          router.push("/admin/libros");
+        } else {
+          throw new Error("No se pudo eliminar el libro");
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          <ErrorToast message={error.message} />;
+        } else {
+          <ErrorToast message="Error desconocido" />;
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     if (!book || book.id !== bookId) {
@@ -88,10 +150,16 @@ function SingleBook({ bookId }: { bookId: number }) {
                     link={`/admin/libros/libro/${bookId}/capitulo/crear`}
                   />
                 </div>
-                <div className="">
+                <div className="flex flex-col md:flex-row gap-2">
                   <MainButton
                     name="Editar Libro"
                     link={`/admin/libros/libro/${bookId}/editar`}
+                  />
+                  <MainButton
+                    name="Eliminar Libro"
+                    onClick={() => {
+                      setOpenDeleteModal(true);
+                    }}
                   />
                 </div>
               </section>
@@ -150,6 +218,15 @@ function SingleBook({ bookId }: { bookId: number }) {
             />
           </article>
         </section>
+        {openDeleteModal && (
+          <DeleteModal
+            onConfirm={() => {
+              onDelete(bookId);
+              setOpenDeleteModal(false);
+            }}
+            onCancel={() => setOpenDeleteModal(false)}
+          />
+        )}
       </section>
     );
   }
