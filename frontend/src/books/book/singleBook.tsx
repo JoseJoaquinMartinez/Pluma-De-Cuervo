@@ -74,7 +74,7 @@ function SingleBook({ bookId }: { bookId: number }) {
           }
         );
         if (response.ok) {
-          router.push("/admin/libros");
+          router.push("/biblioteca");
         } else {
           throw new Error("No se pudo eliminar el libro");
         }

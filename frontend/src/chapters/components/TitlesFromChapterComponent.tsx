@@ -79,7 +79,7 @@ export const TitlesFromChapterComponent = ({
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        router.push(`/libros/libro/${bookId}`);
+        router.push(`/libro/${bookId}`);
       } catch (error) {
         if (error instanceof Error) {
           <ErrorToast message={error.message} />;
