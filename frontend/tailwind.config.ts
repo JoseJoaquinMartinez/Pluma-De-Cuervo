@@ -15,7 +15,7 @@ const config: Config = {
         navFoot:
           "#591A06" /* 554039 - color marrón default 591A06  color ladrillo brillante*/,
         whiteText: "#F5F5F5",
-        mainText: "#4A4A4A",
+        mainText: "#1F1C1C",
         commentBackground: "#FBEAEF",
         background: "#B8A79D",
         cardsBackground: "#DCD4CC",
@@ -66,7 +66,7 @@ const config: Config = {
         {
           respectPrefix: true,
           respectImportant: true,
-        },
+        }
       );
     },
   ],
