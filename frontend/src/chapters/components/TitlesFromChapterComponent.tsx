@@ -108,6 +108,10 @@ export const TitlesFromChapterComponent = ({
                   setOpenDeleteModal(true);
                 }}
               />
+              <MainButton
+                name="Crear capítulo"
+                link={`/admin/libros/libro/${bookId}/capitulo/${chapterId}/crear`}
+              />
             </div>
           ) : (
             <></>

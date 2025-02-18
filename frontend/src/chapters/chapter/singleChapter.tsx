@@ -12,7 +12,6 @@ import CommentParagraphBanner from "@/components/shared/CommentParagraphBanner";
 import MainButton from "@/components/shared/mainButton";
 import { fetchNextChapter } from "@/store/slices/chapter/thunks/fetchNextChapter";
 import { useRouter } from "next/navigation";
-import SuccessToast from "@/components/shared/SuccessToast";
 import { resetState } from "@/store/slices/chapter/singleChapterSlice";
 import { fetchPreviousChapter } from "@/store/slices/chapter/thunks/fetchPreviousChapter";
 
@@ -95,7 +94,7 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
   if (!chapter) {
     return <div>Capítulo no encontrado</div>;
   }
-  //TODO añadir botones para ir al siguiente o anterior capítulo
+
   return (
     <article className="flex flex-col max-w-screen-xl">
       {data ? (
