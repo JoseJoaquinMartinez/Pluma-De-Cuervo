@@ -7,7 +7,7 @@ export const LegalAdviceComponent = () => {
         En cumplimiento con el deber de información dispuesto en la Ley 34/2002
         de Servicios de la Sociedad de la Información y del Comercio Electrónico
         (LSSI-CE), se informa que el presente sitio web es propiedad de Gabriel
-        Pastor Sánchez, con correo de contacto en gps.beniel@gmail.com.
+        Pastor Sánchez, con correo de contacto en plumadecuervoweb@gmail.com.
       </p>
       <h2 className="text-xl font-semibold mt-6 mb-2 text-encabezados">
         1. Datos Identificativos

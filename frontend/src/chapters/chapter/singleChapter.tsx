@@ -14,6 +14,7 @@ import { fetchNextChapter } from "@/store/slices/chapter/thunks/fetchNextChapter
 import { useRouter } from "next/navigation";
 import { resetState } from "@/store/slices/chapter/singleChapterSlice";
 import { fetchPreviousChapter } from "@/store/slices/chapter/thunks/fetchPreviousChapter";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 interface Props {
   bookId: number;
@@ -129,6 +130,7 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
       <section className="flex justify-center gap-2 mt-2">
         <MainButton name="Anterior" onClick={handlePreviousChapter} />
         <MainButton name="Siguiente" onClick={handleNextChapter} />
+        <ScrollToTop />
       </section>
     </article>
   );
