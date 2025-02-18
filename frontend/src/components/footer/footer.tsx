@@ -6,11 +6,11 @@ import SecondaryButton from "../shared/SecondaryButton";
 export default function Footer() {
   return (
     <div className="bg-navFoot w-full mt-10">
-      <section className="max-w-screen-xl flex flex-col md:flex-row items-center justify-between h-auto mx-auto px-4 py-6">
+      <section className="max-w-screen-xl flex flex-col md:flex-row items-center justify-between h-auto mx-auto px-4 py-2">
         <Link href="/" className="flex items-center space-x-3">
           <Logo />
         </Link>
-        <div className="flex justify-center items-center w-full md:w-auto my-4 md:my-0">
+        <div className="flex justify-center items-center w-full md:w-auto my-2 md:my-0">
           <Link
             href="https://www.tiktok.com/@novelaxpalabras"
             target="_blank"
@@ -22,7 +22,7 @@ export default function Footer() {
         <SecondaryButton link="/contact" name="Contacto" />
       </section>
 
-      <article className="border-t border-whiteText mt-4">
+      <article className="border-t border-whiteText">
         <section className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-center text-sm text-whiteText py-4 space-y-2 md:space-y-0 md:space-x-6">
           <Link href="/aviso-legal" className="hover:underline">
             Aviso Legal
