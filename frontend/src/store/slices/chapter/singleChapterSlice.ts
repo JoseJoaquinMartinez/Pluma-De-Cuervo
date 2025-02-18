@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchSingleChapter } from "./thunks/fetchSingleChapter";
 import type { ChapterProps } from "@/chapters/chapter/interface/chapter";
 import { fetchNextChapter } from "./thunks/fetchNextChapter";
+import { fetchPreviousChapter } from "./thunks/fetchPreviousChapter";
 
 const initialState: {
   data: ChapterProps | null;
@@ -41,6 +42,18 @@ const getSingleChapterSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchNextChapter.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(fetchPreviousChapter.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchPreviousChapter.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchPreviousChapter.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

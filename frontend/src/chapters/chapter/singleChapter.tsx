@@ -14,6 +14,7 @@ import { fetchNextChapter } from "@/store/slices/chapter/thunks/fetchNextChapter
 import { useRouter } from "next/navigation";
 import SuccessToast from "@/components/shared/SuccessToast";
 import { resetState } from "@/store/slices/chapter/singleChapterSlice";
+import { fetchPreviousChapter } from "@/store/slices/chapter/thunks/fetchPreviousChapter";
 
 interface Props {
   bookId: number;
@@ -43,6 +44,28 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
       .unwrap()
       .then((nextChapter) => {
         router.push(`/libro/${bookId}/capitulos/capitulo/${nextChapter.id}`);
+      })
+      .catch((error) => {
+        if (error === "No hay más capítulos.") {
+          dispatch(resetState());
+          router.push(`/libro/${bookId}`);
+        } else {
+          if (error instanceof Error) {
+            <ErrorToast message={`Error inesperado ${error.message}`} />;
+          } else {
+            <ErrorToast message="Error inesperado" />;
+          }
+        }
+      });
+  }, [dispatch, bookId, chapterId, router]);
+
+  const handlePreviousChapter = useCallback(async () => {
+    dispatch(fetchPreviousChapter({ bookId, chapterId }))
+      .unwrap()
+      .then((previousChapter) => {
+        router.push(
+          `/libro/${bookId}/capitulos/capitulo/${previousChapter.id}`
+        );
       })
       .catch((error) => {
         if (error === "No hay más capítulos.") {
@@ -105,6 +128,7 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
 
       <ChapterReadArea {...chapter} />
       <section className="flex justify-center gap-2 mt-2">
+        <MainButton name="Anterior" onClick={handlePreviousChapter} />
         <MainButton name="Siguiente" onClick={handleNextChapter} />
       </section>
     </article>
