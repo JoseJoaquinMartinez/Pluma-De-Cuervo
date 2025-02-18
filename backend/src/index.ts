@@ -11,8 +11,7 @@ const corsOptions = {
     "https://pluma-de-cuervo.vercel.app",
     "https://pluma-de-cuervo-h5js.vercel.app",
     "https://pluma-de-cuervo-production.up.railway.app/",
-    "http://localhost:3001",
-    "http://localhost:3000",
+    "https://www.plumadecuervo.com/",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: [
