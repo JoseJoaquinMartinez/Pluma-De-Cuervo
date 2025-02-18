@@ -2,13 +2,18 @@
 import { BookLoaderComponent } from "@/components/shared/BookLoader";
 import { fetchSingleChapter } from "@/store/slices/chapter/thunks/fetchSingleChapter";
 import { AppDispatch, RootState } from "@/store/store";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TitlesFromChapterComponent } from "../components/TitlesFromChapterComponent";
 import { ChapterReadArea } from "../components/ChapterReadArea";
 import Link from "next/link";
 import ErrorToast from "@/components/shared/ErrorToaster";
 import CommentParagraphBanner from "@/components/shared/CommentParagraphBanner";
+import MainButton from "@/components/shared/mainButton";
+import { fetchNextChapter } from "@/store/slices/chapter/thunks/fetchNextChapter";
+import { useRouter } from "next/navigation";
+import SuccessToast from "@/components/shared/SuccessToast";
+import { resetState } from "@/store/slices/chapter/singleChapterSlice";
 
 interface Props {
   bookId: number;
@@ -17,6 +22,7 @@ interface Props {
 
 export const SingleChapter = ({ bookId, chapterId }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const {
     data: chapter,
     loading,
@@ -31,6 +37,26 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
       dispatch(fetchSingleChapter({ bookId, chapterId }));
     }
   }, [chapterId, dispatch, bookId, chapter]);
+
+  const handleNextChapter = useCallback(async () => {
+    dispatch(fetchNextChapter({ bookId, chapterId }))
+      .unwrap()
+      .then((nextChapter) => {
+        router.push(`/libro/${bookId}/capitulos/capitulo/${nextChapter.id}`);
+      })
+      .catch((error) => {
+        if (error === "No hay más capítulos.") {
+          dispatch(resetState());
+          router.push(`/libro/${bookId}`);
+        } else {
+          if (error instanceof Error) {
+            <ErrorToast message={`Error inesperado ${error.message}`} />;
+          } else {
+            <ErrorToast message="Error inesperado" />;
+          }
+        }
+      });
+  }, [dispatch, bookId, chapterId, router]);
 
   if (loading) {
     return (
@@ -78,6 +104,9 @@ export const SingleChapter = ({ bookId, chapterId }: Props) => {
       )}
 
       <ChapterReadArea {...chapter} />
+      <section className="flex justify-center gap-2 mt-2">
+        <MainButton name="Siguiente" onClick={handleNextChapter} />
+      </section>
     </article>
   );
 };

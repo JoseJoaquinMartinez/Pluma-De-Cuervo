@@ -52,6 +52,7 @@ import putExistingChapter from "./server/books/post-put/modifyExistingChapter";
 import deleteChapter from "./server/books/delete/deleteChapter";
 import getLastTenChapters from "./server/books/get/getLastTenChapters";
 import getLastFiveChapters from "./server/books/get/getLastFiveChaptersFromABook";
+import nextChapter from "./server/chapters/get/nextChapter";
 
 // BLOGS
 import postNewBlogPost from "./server/blogs/post-put/postNewBlogPost";
@@ -128,6 +129,7 @@ app.use("/book", putExistingChapter);
 //GET
 app.use("/book", getAllBooks);
 app.use("/book", getSingleBook);
+app.use("/book", nextChapter);
 
 app.use("/book", getSingleChapter);
 app.use("/book", getAllChaptersFromBook);

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchSingleChapter } from "./thunks/fetchSingleChapter";
 import type { ChapterProps } from "@/chapters/chapter/interface/chapter";
+import { fetchNextChapter } from "./thunks/fetchNextChapter";
 
 const initialState: {
   data: ChapterProps | null;
@@ -15,7 +16,9 @@ const initialState: {
 const getSingleChapterSlice = createSlice({
   name: "getSingleChapter",
   initialState,
-  reducers: {},
+  reducers: {
+    resetState: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSingleChapter.fulfilled, (state, action) => {
@@ -28,7 +31,20 @@ const getSingleChapterSlice = createSlice({
       .addCase(fetchSingleChapter.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(fetchNextChapter.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchNextChapter.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchNextChapter.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
+export const { resetState } = getSingleChapterSlice.actions;
 export default getSingleChapterSlice.reducer;
