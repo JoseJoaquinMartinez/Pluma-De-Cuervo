@@ -10,8 +10,8 @@ const corsOptions = {
   origin: [
     "https://pluma-de-cuervo.vercel.app",
     "https://pluma-de-cuervo-h5js.vercel.app",
-    "https://pluma-de-cuervo-production.up.railway.app/",
-    "https://www.plumadecuervo.com/",
+    "https://pluma-de-cuervo-production.up.railway.app",
+    "https://www.plumadecuervo.com",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: [
