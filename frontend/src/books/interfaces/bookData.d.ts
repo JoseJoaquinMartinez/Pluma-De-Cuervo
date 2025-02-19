@@ -4,7 +4,6 @@ export interface BookCardComponentProps {
   Synopsis: string;
   imagen: string;
   status: string;
-  bookId: number;
 }
 export interface BookProps {
   id: number;
