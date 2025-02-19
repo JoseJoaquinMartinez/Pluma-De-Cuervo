@@ -21,7 +21,7 @@ export const getAllChaptersFromABook = async (
         year: "numeric",
       }),
     }));
-    console.log(formatedChapters);
+
     return formatedChapters;
   } catch (error) {
     console.error(error);

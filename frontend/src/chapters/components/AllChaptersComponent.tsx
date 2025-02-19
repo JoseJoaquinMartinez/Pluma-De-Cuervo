@@ -16,10 +16,8 @@ export const AllChaptersComponent = ({ bookId }: { bookId: number }) => {
   } = useSelector((state: RootState) => state.getAllChaptersFromABook);
 
   useEffect(() => {
-    if (chapters?.length === 0) {
-      dispatch(fetchAllChaptersFromABook(bookId));
-    }
-  }, [chapters, bookId, dispatch]);
+    dispatch(fetchAllChaptersFromABook(bookId));
+  }, [bookId, dispatch]);
 
   if (loading) {
     return (
