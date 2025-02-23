@@ -87,6 +87,8 @@ import deleteContactMessage from "./server/contact-form/delete/deleteContactMess
 
 //OTHER WORKS
 import getOtherWorks from "./server/other-works/get/getOtherWorks";
+import postOtherWork from "./server/other-works/post/postOtherWork";
+import putOtherWork from "./server/other-works/put/putOtherWork";
 
 app.get("/health", (req, res) => {
   res.status(200).send("OK");
@@ -204,5 +206,7 @@ app.use("/contact", deleteContactMessage);
 
 //OTHER WORKS
 app.use("/other-works", getOtherWorks);
+app.use("/other-works", postOtherWork);
+app.use("/other-works", putOtherWork);
 
 export default app;
