@@ -41,9 +41,12 @@ export default function NavHamburguerButtonAndPaths() {
             {data?.user?.role === "user" ? (
               <>
                 <span
-                  className="text-whiteText text-xl md:block hover:bg-encabezados/50 rounded-lg p-2 cursor-pointer"
+                  className="text-whiteText text-xl md:block hover:bg-encabezados/50 rounded-lg p-2 cursor-pointer relative group"
                   onClick={showChangeNameFunction}
                 >
+                  <span className="absolute top-full left-1/2 transform -translate-x-1/2 bg-navFoot text-whiteText text-sm p-2 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap z-50 pointer-events-none">
+                    Puedes cambiar el nombre de usuario haciendo click
+                  </span>
                   {data?.user?.regularUserData[0].userName}
                 </span>
                 {showChangeName && (
