@@ -39,6 +39,5 @@ export async function extractContentFromWord(
     content.push({ type, value });
   });
 
-  console.log(content);
   return content;
 }

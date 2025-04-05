@@ -11,6 +11,9 @@ router.get("/get-all-chapters/:bookId", async (req, res) => {
       where: {
         id: bookId,
       },
+      select: {
+        imagen: true,
+      },
     });
 
     if (!existingBook) {
@@ -21,7 +24,15 @@ router.get("/get-all-chapters/:bookId", async (req, res) => {
       where: { bookId },
       orderBy: { createdAt: "asc" },
     });
-    return res.status(200).json(chapters);
+    if (!chapters) {
+      res.status(404).json({ message: "Capítulos no encontrados" });
+    }
+    const response = chapters.map((chapter) => ({
+      ...chapter,
+      bookImg: existingBook?.imagen,
+    }));
+
+    return res.status(200).json(response);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ error: `Error inesperado ${error.message}` });

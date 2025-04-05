@@ -15,6 +15,11 @@ router.get("/get-last-ten-chapters", async (req, res) => {
         title: true,
         createdAt: true,
         bookId: true,
+        book: {
+          select: {
+            imagen: true,
+          },
+        },
       },
     });
 
@@ -23,7 +28,14 @@ router.get("/get-last-ten-chapters", async (req, res) => {
         .status(404)
         .json({ error: "Últimos capítulos no encontrados" });
     }
-    return res.status(200).json(lastTenChapters);
+    const formattedChapters = lastTenChapters.map((chapter) => {
+      const { book, ...chapterData } = chapter;
+      return {
+        ...chapterData,
+        bookImg: book.imagen,
+      };
+    });
+    return res.status(200).json(formattedChapters);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({

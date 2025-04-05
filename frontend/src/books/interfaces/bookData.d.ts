@@ -17,6 +17,7 @@ export interface LastFiveChapters {
   id: number;
   imagen: string;
   title: string;
+  bookImg: string;
 
   createdAt: string;
 }
@@ -24,6 +25,7 @@ export interface Chapter {
   bookId: number;
   chapterNumber: number;
   createdAt: string;
+  bookImg: string;
 
   id: number;
   title: string;

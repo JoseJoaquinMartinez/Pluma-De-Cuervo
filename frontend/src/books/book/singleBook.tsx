@@ -105,7 +105,7 @@ function SingleBook({ bookId }: { bookId: number }) {
   if (error) {
     return <ErrorToast message={error} />;
   }
-
+  console.log(lastFiveChapters);
   if (book) {
     return (
       <section className="flex flex-col items-center mt-5 lg:max-w-screen-xl ">
@@ -193,16 +193,19 @@ function SingleBook({ bookId }: { bookId: number }) {
               <ErrorToast message={lastFiveChaptersError} />
             )}
             {lastFiveChapters &&
-              lastFiveChapters.map(({ id, imagen, createdAt, title }) => (
-                <ChapterCard
-                  key={id}
-                  id={id}
-                  imagen={imagen}
-                  createdAt={createdAt}
-                  title={title}
-                  bookId={bookId}
-                />
-              ))}
+              lastFiveChapters.map(
+                ({ id, imagen, createdAt, title, bookImg }) => (
+                  <ChapterCard
+                    key={id}
+                    id={id}
+                    bookImg={bookImg}
+                    imagen={imagen}
+                    createdAt={createdAt}
+                    title={title}
+                    bookId={bookId}
+                  />
+                )
+              )}
           </article>
           <article className="flex flex-col w-96 md:hidden px-2">
             {lastFiveChaptersLoading && <BookLoaderComponent />}

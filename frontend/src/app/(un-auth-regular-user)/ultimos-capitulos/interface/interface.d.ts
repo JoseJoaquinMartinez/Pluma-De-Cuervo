@@ -4,4 +4,5 @@ export interface LastTenChapterProp {
   title: string;
   createdAt: string;
   bookId: number;
+  bookImg: string;
 }
