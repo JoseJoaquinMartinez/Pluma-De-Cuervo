@@ -11,6 +11,9 @@ router.get("/get-last-five-chapters/:bookId", async (req, res) => {
       where: {
         id: bookId,
       },
+      select: {
+        imagen: true,
+      },
     });
 
     if (!existingBook) {
@@ -30,7 +33,11 @@ router.get("/get-last-five-chapters/:bookId", async (req, res) => {
     if (!lastFiveChapters) {
       res.status(404).json({ message: "Capítulos no encontrados" });
     }
-    return res.status(200).json(lastFiveChapters);
+    const response = lastFiveChapters.map((chapter) => ({
+      ...chapter,
+      bookImg: existingBook?.imagen,
+    }));
+    return res.status(200).json(response);
   } catch (error) {
     if (error instanceof Error) {
       res.status(500).json({ error: `Error inesperado ${error.message}` });

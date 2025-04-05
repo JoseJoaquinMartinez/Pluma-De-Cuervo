@@ -8,12 +8,13 @@ const ChapterCard = ({
   title,
   imagen,
   createdAt,
+  bookImg,
   bookId,
 }: LastTenChapterProp) => {
   return (
     <article className="flex flex-col items-center bg-cardsBackground text-mainText rounded-xl">
       <ImageComponent
-        imagen={imagen}
+        imagen={bookImg ? bookImg : imagen}
         title={title}
         customMaxHeight="max-h-32"
         customMinHeight="min-h-32"
