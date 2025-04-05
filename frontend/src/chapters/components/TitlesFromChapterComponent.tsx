@@ -16,6 +16,7 @@ interface Props {
   data?: NewUserInterface;
   isLoggedIn?: boolean;
   bookId: number;
+  bookImg?: string;
   chapterId: number;
 }
 
@@ -58,6 +59,7 @@ export const TitlesFromChapterComponent = ({
   data,
   bookId,
   chapterId,
+  bookImg,
 }: Props) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const router = useRouter();
@@ -92,7 +94,7 @@ export const TitlesFromChapterComponent = ({
   return (
     <article className="flex flex-col w-full px-4 max-w-screen-xl">
       <section className="flex flex-col items-center">
-        <div className="flex flex-col md:flex-row justify-between w-full px-2 mt-4">
+        <div className="flex flex-col md:flex-row justify-between w-full px-2 my-4">
           <h2 className="text-encabezados text-2xl  text-start mb-4 self-start ">
             {bookTitle}
           </h2>
@@ -118,7 +120,7 @@ export const TitlesFromChapterComponent = ({
           )}
         </div>
         <div>
-          <ImageComponent imagen={imagen} title={title} />
+          <ImageComponent imagen={bookImg ? bookImg : imagen} title={title} />
         </div>
       </section>
       <section className="flex flex-col items-center">
