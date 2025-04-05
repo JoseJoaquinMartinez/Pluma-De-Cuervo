@@ -40,13 +40,11 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
 
     setIsCommentOpen(!isCommentOpen);
   };
+
   useEffect(() => {
     const chapterId = chapter.id;
     if (token && data?.user.role === "user") {
-      getUserCommentsOnChapter({
-        chapterId,
-        token,
-      }).then((response) => {
+      getUserCommentsOnChapter({ chapterId, token }).then((response) => {
         const simplifiedComments = response.map((comment: UserComments[0]) => ({
           id: comment.id,
           paragraphId: comment.paragraphId,
@@ -63,7 +61,6 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
       setIsCommentOpen(false);
     }
   };
-
   return (
     <div className="bg-cardsBackground rounded-lg px-3 md:p-4 mt-2">
       {isLoggedIn && isCommentOpen && (
@@ -144,6 +141,57 @@ export const ChapterReadArea = ({ ...chapter }: ChapterProps) => {
                   </tbody>
                 </table>
               </div>
+            </div>
+          );
+        }
+
+        if (paragraphType === "ordered-list") {
+          return (
+            <div className="flex flex-col" key={id}>
+              {isLoggedIn && hasComment && (
+                <span
+                  className="self-end text-2xl md:text-3xl text-encabezados"
+                  onClick={() => handleOpenComment(id)}
+                >
+                  <MessageCircle />
+                </span>
+              )}
+
+              <ol
+                className="list-decimal text-mainText pl-6 mb-4 space-y-2 [&_ol]:pl-6 [&_ol]:space-y-2 [&_ol]:list-[circle]"
+                onClick={() => handleOpenComment(id)}
+                dangerouslySetInnerHTML={{ __html: paragraphText }}
+              />
+            </div>
+          );
+        }
+
+        if (paragraphType === "unordered-list") {
+          return (
+            <div className="flex flex-col" key={id}>
+              {isLoggedIn && hasComment && (
+                <span
+                  className="self-end text-2xl md:text-3xl text-encabezados"
+                  onClick={() => handleOpenComment(id)}
+                >
+                  <MessageCircle />
+                </span>
+              )}
+
+              <ul
+                className="
+               list-disc
+               pl-6
+               mb-4
+               space-y-2
+               [&_ul]:pl-6
+               [&_ul]:space-y-2
+              [&_ul]:list-[circle]
+               text-mainText
+             "
+                onClick={() => handleOpenComment(id)}
+                dangerouslySetInnerHTML={{ __html: paragraphText }}
+              />
             </div>
           );
         }

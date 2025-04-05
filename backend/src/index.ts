@@ -10,9 +10,8 @@ const corsOptions = {
   origin: [
     "https://pluma-de-cuervo.vercel.app",
     "https://pluma-de-cuervo-h5js.vercel.app",
-    "https://pluma-de-cuervo-production.up.railway.app/",
-    "http://localhost:3001",
-    "http://localhost:3000",
+    "https://pluma-de-cuervo-production.up.railway.app",
+    "https://www.plumadecuervo.com",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: [
@@ -52,6 +51,8 @@ import putExistingChapter from "./server/books/post-put/modifyExistingChapter";
 import deleteChapter from "./server/books/delete/deleteChapter";
 import getLastTenChapters from "./server/books/get/getLastTenChapters";
 import getLastFiveChapters from "./server/books/get/getLastFiveChaptersFromABook";
+import nextChapter from "./server/chapters/get/nextChapter";
+import previousChapter from "./server/chapters/get/previousChapter";
 
 // BLOGS
 import postNewBlogPost from "./server/blogs/post-put/postNewBlogPost";
@@ -128,6 +129,8 @@ app.use("/book", putExistingChapter);
 //GET
 app.use("/book", getAllBooks);
 app.use("/book", getSingleBook);
+app.use("/book", nextChapter);
+app.use("/book", previousChapter);
 
 app.use("/book", getSingleChapter);
 app.use("/book", getAllChaptersFromBook);

@@ -69,7 +69,11 @@ export const CommentCard = ({
   user,
   replies,
   onDelete,
-}: FormattedComment & { onDelete: (commentId: number) => void }) => {
+  refreshComments, // NUEVA PROP
+}: FormattedComment & {
+  onDelete: (commentId: number) => void;
+  refreshComments: () => void;
+}) => {
   const [responding, setResponding] = useState<boolean>(false);
   const [response, setResponse] = useState<string>("");
   const [markAsRead, setMarkAsRead] = useState<boolean>(initialReadState);
@@ -83,15 +87,12 @@ export const CommentCard = ({
       setMarkAsRead(newState);
       try {
         await updateCommentRead(id, newState, token);
-        router.refresh();
+        // Llamamos a la función del padre para refrescar los comentarios
+        refreshComments();
       } catch (error) {
-        setTimeout(() => {
-          <ErrorToast
-            message={
-              error instanceof Error ? error.message : "Error desconocido"
-            }
-          />;
-        }, 1000);
+        <ErrorToast
+          message={error instanceof Error ? error.message : "Error desconocido"}
+        />;
         setMarkAsRead(!newState);
       }
     }
@@ -183,7 +184,12 @@ export const CommentCard = ({
       {replies.length > 0 && (
         <div className="ml-6 mt-4 border-l-2 border-encabezados pl-4">
           {replies.map((reply) => (
-            <CommentCard key={reply.id} {...reply} onDelete={onDelete} />
+            <CommentCard
+              key={reply.id}
+              {...reply}
+              onDelete={onDelete}
+              refreshComments={refreshComments}
+            />
           ))}
         </div>
       )}

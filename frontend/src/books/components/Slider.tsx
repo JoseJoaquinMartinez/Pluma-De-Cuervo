@@ -60,28 +60,32 @@ const Slider = ({ books }: { books: BookCardComponentProps[] }) => {
       </article>
 
       <article className="flex justify-between items-center gap-5 mt-2">
-        <button
-          onClick={clickPrev}
-          className="p-2 bg-cardsBackground rounded-full shadow hover:bg-cardsBackground/50"
-        >
-          <Image
-            alt="arrow left"
-            src="/shared/arrow-left.png"
-            width={30}
-            height={30}
-          />
-        </button>
-        <button
-          onClick={clickNext}
-          className="p-2 bg-cardsBackground rounded-full shadow hover:bg-cardsBackground/50"
-        >
-          <Image
-            alt="arrow right"
-            src="/shared/arrow-right.png"
-            width={30}
-            height={30}
-          />
-        </button>
+        {books.length > 1 && (
+          <>
+            <button
+              onClick={clickPrev}
+              className="p-2 bg-cardsBackground rounded-full shadow hover:bg-cardsBackground/50"
+            >
+              <Image
+                alt="arrow left"
+                src="/shared/arrow-left.png"
+                width={30}
+                height={30}
+              />
+            </button>
+            <button
+              onClick={clickNext}
+              className="p-2 bg-cardsBackground rounded-full shadow hover:bg-cardsBackground/50"
+            >
+              <Image
+                alt="arrow right"
+                src="/shared/arrow-right.png"
+                width={30}
+                height={30}
+              />
+            </button>
+          </>
+        )}
       </article>
     </section>
   );

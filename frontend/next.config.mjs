@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        // Todas las rutas que empiecen con /api/ se redirigen al backend
+        source: "/api/:path*",
+        destination: process.env.NEXT_PUBLIC_BACKEND_URL
+          ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/:path*`
+          : "http://localhost:3000/:path*",
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

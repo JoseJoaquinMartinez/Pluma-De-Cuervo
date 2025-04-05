@@ -1,19 +1,44 @@
 import mammoth from "mammoth";
+import * as cheerio from "cheerio";
 
-export async function extractContentFromWord(filePath: string) {
+interface ContentItem {
+  type: "paragraph" | "table" | "unordered-list" | "ordered-list";
+  value: string;
+}
+
+export async function extractContentFromWord(
+  filePath: string
+): Promise<ContentItem[]> {
   const convertedTextToHTML = await mammoth.convertToHtml({ path: filePath });
-  const content: { type: string; value: string }[] = [];
+  const html: string = convertedTextToHTML.value;
+  const content: ContentItem[] = [];
 
-  const regex = /<table[\s\S]*?<\/table>|<p[\s\S]*?<\/p>/gi;
-  let match: RegExpExecArray | null;
+  const $ = cheerio.load(html);
 
-  while ((match = regex.exec(convertedTextToHTML.value)) !== null) {
-    if (match[0].startsWith("<table")) {
-      content.push({ type: "table", value: match[0] });
-    } else if (match[0].startsWith("<p")) {
-      content.push({ type: "paragraph", value: match[0] });
+  $("table, ul, ol, p").each((i, elem) => {
+    const tagName = elem.tagName ? elem.tagName.toLowerCase() : "";
+    let type: ContentItem["type"] = "paragraph";
+
+    if (tagName === "table") {
+      type = "table";
+    } else if (tagName === "ul") {
+      type = "unordered-list";
+    } else if (tagName === "ol") {
+      type = "ordered-list";
+    } else if (tagName === "p") {
+      type = "paragraph";
     }
-  }
 
+    let value = "";
+    if (tagName === "ul" || tagName === "ol") {
+      value = $(elem).html() || "";
+    } else {
+      value = $.html(elem);
+    }
+
+    content.push({ type, value });
+  });
+
+  console.log(content);
   return content;
 }

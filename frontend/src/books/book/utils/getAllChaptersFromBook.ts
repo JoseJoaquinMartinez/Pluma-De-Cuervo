@@ -1,4 +1,4 @@
-import { BookProps, Chapter } from "@/books/interfaces/bookData";
+import { Chapter } from "@/books/interfaces/bookData";
 
 export const getAllChaptersFromABook = async (
   bookId: number
@@ -11,8 +11,7 @@ export const getAllChaptersFromABook = async (
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
 
-    const book: BookProps = await response.json();
-    const chaptersArray: Chapter[] = book.chapter;
+    const chaptersArray: Chapter[] = await response.json();
 
     const formatedChapters = chaptersArray.map((chapter) => ({
       ...chapter,

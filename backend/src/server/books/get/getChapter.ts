@@ -18,7 +18,9 @@ router.get("/get-chapter/:bookId/:chapterId", async (req, res) => {
         bookId: bookId,
       },
       include: {
-        paragraph: true,
+        paragraph: {
+          orderBy: { paragraphNumber: "asc" },
+        },
       },
     });
     if (!existingChapter) {

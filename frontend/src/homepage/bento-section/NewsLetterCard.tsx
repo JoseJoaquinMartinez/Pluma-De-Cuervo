@@ -86,7 +86,7 @@ export const NewsLetterCard: React.FC = () => {
         {succesMessage && (
           <SuccessToast message={succesMessage} duration={2000} />
         )}
-        <MainButton name="!Únete¡" type="submit" />
+        <MainButton name="¡Únete!" type="submit" />
       </form>
     </article>
   );

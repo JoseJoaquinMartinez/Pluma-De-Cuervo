@@ -1,7 +1,10 @@
 export const createNewUser = async (token: string) => {
-  const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/registration?token=${token}`;
+  const URL = `/api/auth/registration?token=${token}`;
   try {
-    const response = await fetch(URL);
+    const response = await fetch(URL, {
+      method: "GET",
+      credentials: "include",
+    });
 
     if (!response.ok) {
       throw new Error("Error creando el usuario");

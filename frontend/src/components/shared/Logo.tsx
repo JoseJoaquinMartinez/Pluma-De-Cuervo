@@ -11,7 +11,7 @@ export default function Logo() {
         className="hover:drop-shadow-[0_0_10px_rgba(255,255,255,255.8)] transition-all duration-300"
       />
       <span
-        className={`self-center text-sm md:text-2xl font-semibold whitespace-nowrap text-whiteText hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all duration-300`}
+        className={`self-center text-2xl font-semibold whitespace-nowrap text-whiteText hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-all duration-300`}
         style={{ fontFamily: "Mystery Quest" }}
       >
         Pluma de Cuervo

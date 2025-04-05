@@ -1,10 +1,8 @@
 import { AuthProps } from "../data/singup";
 
-const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`;
-
 export const loginUser = async ({ email, password }: AuthProps) => {
   try {
-    const response = await fetch(URL, {
+    const response = await fetch("/api/auth/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -15,7 +13,6 @@ export const loginUser = async ({ email, password }: AuthProps) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-
       throw new Error(errorData.message || "Error iniciando sesión");
     }
 

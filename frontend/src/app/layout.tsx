@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "Pluma de Cuervo",
     description:
       "Explora las obras literarias de Gabriel P. en Pluma de Cuervo.",
-    url: "https://pluma-de-cuervo-h5js.vercel.app/",
+    url: "https://www.plumadecuervo.com/",
     siteName: "Pluma de Cuervo",
     images: [
       {
@@ -52,6 +52,10 @@ export const metadata: Metadata = {
     "Escritor",
     "Obras literarias",
     "Libros",
+    "LitRPG",
+    "Fantasía",
+    "Ciencia ficción",
+    "RPGLit",
   ],
 };
 
