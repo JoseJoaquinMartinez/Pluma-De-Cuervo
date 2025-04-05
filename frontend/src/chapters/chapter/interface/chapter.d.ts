@@ -7,6 +7,7 @@ export interface ChapterProps {
   bookId: number;
   paragraph: Paragraph[];
   bookTitle: string;
+  bookImage: string;
 }
 
 export interface Paragraph {

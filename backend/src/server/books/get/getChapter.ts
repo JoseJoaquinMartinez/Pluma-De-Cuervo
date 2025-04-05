@@ -9,7 +9,7 @@ router.get("/get-chapter/:bookId/:chapterId", async (req, res) => {
   try {
     const book = await prisma.book.findFirst({
       where: { id: bookId },
-      select: { id: true, title: true },
+      select: { id: true, title: true, imagen: true },
     });
 
     const existingChapter = await prisma.chapter.findFirst({
@@ -29,6 +29,7 @@ router.get("/get-chapter/:bookId/:chapterId", async (req, res) => {
     return res.status(200).json({
       ...existingChapter,
       bookTitle: book?.title,
+      bookImg: book?.imagen,
     });
   } catch (error) {
     if (error instanceof Error) {
