@@ -15,7 +15,7 @@ export async function extractContentFromWord(
 
   const $ = cheerio.load(html);
 
-  $("table, ul, ol, p").each((i, elem) => {
+  $("table, ul, ol, p:not(table p)").each((i, elem) => {
     const tagName = elem.tagName ? elem.tagName.toLowerCase() : "";
     let type: ContentItem["type"] = "paragraph";
 
