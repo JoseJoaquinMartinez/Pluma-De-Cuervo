@@ -12,10 +12,12 @@ const OtherWorksCard: React.FC<OtherWorkComponentProps> = ({
 }) => {
   return (
     <div className="bg-cardsBackground rounded-xl flex flex-col mlg:flex-row h-full w-full">
-      <div className=" flex flex-col mlg:flex-row  items-center gap-2 pr-6  py-2">
-        <article className="flex flex-col pl-10 pr-5">
-          <h2 className="text-xl font-bold text-encabezados">{title}</h2>
-          <p className="my-2 text-mainText">{workText}</p>
+      <div className=" flex flex-col mlg:flex-row  items-center md:pr-6  py-2">
+        <article className="flex flex-col md:pl-10 md:pr-5">
+          <h2 className="text-xl font-bold text-encabezados text-center md:text-left">
+            {title}
+          </h2>
+          <p className="my-2 text-mainText px-2">{workText}</p>
         </article>
         <div className="flex flex-col items-center justify-center ">
           <MainButton
