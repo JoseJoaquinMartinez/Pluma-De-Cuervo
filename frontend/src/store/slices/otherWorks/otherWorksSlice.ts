@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchOtherWorks } from "@/store/slices/otherWorks/thunks/fetchOtherWorks";
+import { deleteOtherWork } from "@/store/slices/otherWorks/thunks/deleteOtherWorks";
 import type { OtherWorkComponentProps } from "@/homepage/other-works/interface/other-works-interface";
+import { revalidatePath } from "next/cache";
 
 const initialState: {
   data: OtherWorkComponentProps[];
@@ -34,6 +36,21 @@ const otherWorksSlice = createSlice({
         state.error = action.payload as string;
         state.loading = false;
         state.fetched = true;
+      })
+      .addCase(deleteOtherWork.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteOtherWork.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.data = state.data.filter(
+          (otherWork) => otherWork.id !== action.payload.id
+        );
+      })
+      .addCase(deleteOtherWork.rejected, (state, action) => {
+        state.error = action.payload as string;
+        state.loading = false;
       });
   },
 });

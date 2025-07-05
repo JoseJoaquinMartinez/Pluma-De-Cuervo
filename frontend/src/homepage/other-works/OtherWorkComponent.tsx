@@ -26,7 +26,11 @@ export const OtherWorkComponent = () => {
   }, [dispatch, fetched]);
 
   if (loading) {
-    return <BookLoaderComponent />;
+    return (
+      <div className="flex items-center justify-center w-full ">
+        <BookLoaderComponent />
+      </div>
+    );
   }
 
   if (error) {
