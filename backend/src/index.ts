@@ -12,6 +12,7 @@ const corsOptions = {
     "https://pluma-de-cuervo-h5js.vercel.app",
     "https://pluma-de-cuervo-production.up.railway.app",
     "https://www.plumadecuervo.com",
+    "http://localhost:3001",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: [
@@ -83,6 +84,13 @@ import putSetMessageToRead from "./server/contact-form/put/putMessageAsRead";
 import replyToContactMessage from "./server/contact-form/post/sendReplyToMessage";
 import markContactMessageAsRead from "./server/contact-form/patch/markContactMessageAsRead";
 import deleteContactMessage from "./server/contact-form/delete/deleteContactMessage";
+
+//OTHER WORKS
+import getOtherWorks from "./server/other-works/get/getOtherWorks";
+import postOtherWork from "./server/other-works/post/postOtherWork";
+import putOtherWork from "./server/other-works/put/putOtherWork";
+import deleteOtherWork from "./server/other-works/delete/delete-other-work";
+import getOtherWorkById from "./server/other-works/get/getOtherWorkById";
 
 app.get("/health", (req, res) => {
   res.status(200).send("OK");
@@ -197,5 +205,12 @@ app.use("/contact", markContactMessageAsRead);
 
 //DELETE
 app.use("/contact", deleteContactMessage);
+
+//OTHER WORKS
+app.use("/other-works", getOtherWorks);
+app.use("/other-works", postOtherWork);
+app.use("/other-works", putOtherWork);
+app.use("/other-works", deleteOtherWork);
+app.use("/other-works", getOtherWorkById);
 
 export default app;

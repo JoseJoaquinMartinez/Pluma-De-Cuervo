@@ -1,6 +1,5 @@
 import { lastFiveBlogInterface } from "../interfaces/blog";
 
-//TODO ver porque falla a veces esta call
 export default async function getLastFiveBlogs() {
   try {
     const response = await fetch(

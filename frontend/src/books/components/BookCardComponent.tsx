@@ -38,7 +38,7 @@ const BookCardComponent = () => {
       <div className="hidden mlg:flex mlg:flex-row items-center gap-5 mt-2">
         <CardDisplay books={books} />
       </div>
-      <div className="w-full mlg:hidden">
+      <div className="mlg:hidden">
         <Slider books={books} />
       </div>
     </>
