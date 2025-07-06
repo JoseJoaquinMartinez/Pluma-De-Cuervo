@@ -9,6 +9,9 @@ router.get("/get-other-work/:id", async (req, res) => {
   try {
     const otherWork = await prisma.otherWorks.findUnique({
       where: { id: numberId },
+      include: {
+        buttons: true,
+      },
     });
     if (!otherWork) {
       throw new Error("Other works not found");

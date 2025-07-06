@@ -20,7 +20,7 @@ export default function MainButton({
     <Link
       href={disabled ? "#" : link}
       target={target}
-      rel={rel}
+      rel={rel || (target === "_blank" ? "noopener noreferrer" : undefined)}
       className={`${buttonClasses} inline-block`}
       aria-disabled={disabled}
       onClick={onClick}

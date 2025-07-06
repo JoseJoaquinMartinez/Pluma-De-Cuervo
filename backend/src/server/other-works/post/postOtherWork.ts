@@ -11,22 +11,38 @@ router.post(
   upload.single("imagen"),
   uploadToCloudinary,
   async (req, res) => {
-    const { title, workText, buttonLink, buttonText } = req.body;
+    const { title, workText } = req.body;
     const imagen = req.body.cloudinaryUrl || undefined;
 
+    // Parseamos botones (por si vienen como string en multipart/form-data)
+    let buttons: { text: string; link: string }[] = [];
+
     try {
+      if (req.body.buttons) {
+        // Puede venir como string si es multipart/form-data
+        buttons =
+          typeof req.body.buttons === "string"
+            ? JSON.parse(req.body.buttons)
+            : req.body.buttons;
+      }
+
       const otherWork = await prisma.otherWorks.create({
         data: {
           title,
           imagen,
           workText,
-          buttonLink,
-          buttonText,
+          buttons: {
+            create: buttons,
+          },
+        },
+        include: {
+          buttons: true,
         },
       });
 
       return res.status(200).json({ otherWork });
     } catch (error) {
+      console.error(error);
       if (error instanceof Error) {
         return res.status(400).json({ message: error.message });
       } else {

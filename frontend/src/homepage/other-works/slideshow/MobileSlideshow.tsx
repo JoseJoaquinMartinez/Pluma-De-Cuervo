@@ -38,8 +38,7 @@ export const MobileSlideshow = ({ otherWorks, className }: Props) => {
               id={otherWork.id}
               title={otherWork.title}
               workText={otherWork.workText}
-              buttonLink={otherWork.buttonLink}
-              buttonText={otherWork.buttonText}
+              buttons={otherWork.buttons}
               imagen={otherWork.imagen}
             />
           </SwiperSlide>

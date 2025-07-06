@@ -7,6 +7,9 @@ router.get("/get-other-works", async (req, res) => {
   try {
     const otherWorks = await prisma.otherWorks.findMany({
       orderBy: { id: "asc" },
+      include: {
+        buttons: true,
+      },
     });
     if (!otherWorks) {
       throw new Error("Other works not found");
