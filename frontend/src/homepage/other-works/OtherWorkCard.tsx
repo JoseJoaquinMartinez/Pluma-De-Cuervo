@@ -1,7 +1,7 @@
 import React from "react";
 import type { OtherWorkComponentProps } from "./interface/other-works-interface";
 import MainButton from "@/components/shared/mainButton";
-import Image from "next/image";
+
 import { ImageComponent } from "@/components/shared/ImageComponent";
 
 const OtherWorksCard: React.FC<OtherWorkComponentProps> = ({
