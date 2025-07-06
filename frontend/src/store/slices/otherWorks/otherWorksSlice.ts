@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchOtherWorks } from "@/store/slices/otherWorks/thunks/fetchOtherWorks";
 import { deleteOtherWork } from "@/store/slices/otherWorks/thunks/deleteOtherWorks";
 import type { OtherWorkComponentProps } from "@/homepage/other-works/interface/other-works-interface";
-import { revalidatePath } from "next/cache";
+
 
 const initialState: {
   data: OtherWorkComponentProps[];
