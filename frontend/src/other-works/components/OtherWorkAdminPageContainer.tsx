@@ -34,6 +34,10 @@ export const OtherWorkAdminPageContainer = () => {
   if (!otherWorks || otherWorks.length === 0) {
     return (
       <div className="flex items-center justify-center h-screen">
+        <MainButton
+          link="/admin/otros-trabajos/crear"
+          name="Crear otro trabajo"
+        />
         <h1 className="text-2xl text-gray-500">
           No hay otros trabajos disponibles
         </h1>
