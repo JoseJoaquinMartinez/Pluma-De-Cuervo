@@ -3,9 +3,9 @@ import { OtherWorkAdminPageContainer } from "@/other-works/components/OtherWorkA
 
 export default function OtherWorksPage() {
   return (
-    <div className="flex flex-col items-center justify-center  pb-8 px-4">
+    <div className="flex flex-col  items-center justify-center  pb-8 px-4">
       <SectionComponent
-        title="Crear otro trabajo"
+        title="Otras obras"
         content={<OtherWorkAdminPageContainer />}
       />
     </div>

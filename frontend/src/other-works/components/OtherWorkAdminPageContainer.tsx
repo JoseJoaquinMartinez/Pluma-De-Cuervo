@@ -47,20 +47,12 @@ export const OtherWorkAdminPageContainer = () => {
     dispatch(deleteOtherWork(id));
     dispatch(fetchOtherWorks());
   };
-  //todo: add endpoint to update other works
-  const onEdit = () => {};
+
   return (
-    <section className="flex flex-col items-center justify-center w-full">
-      <div className="flex flex-col mlg:flex-row mlg:justify-between px-10 items-center justify-center w-full mt-5">
-        <h1 className="text-2xl text-encabezados font-bold ">Otros Trabajos</h1>
-        <MainButton
-          link="/admin/otros-trabajos/crear"
-          name="Crear otro trabajo"
-        />
-      </div>
+    <section className="flex flex-col items-center justify-center ">
       <div
         className="grid grid-cols-1 mlg:grid-cols-2 items-center gap-5 mt-10
-     mx-5 px-2"
+     mx-5 px-2 py-5"
       >
         {otherWorks.map((otherWork, index) => {
           return (
@@ -68,11 +60,14 @@ export const OtherWorkAdminPageContainer = () => {
               key={index}
               otherWork={otherWork}
               onDelete={onDelete}
-              onEdit={onEdit}
             />
           );
         })}
       </div>
+      <MainButton
+        link="/admin/otros-trabajos/crear"
+        name="Crear otro trabajo"
+      />
     </section>
   );
 };

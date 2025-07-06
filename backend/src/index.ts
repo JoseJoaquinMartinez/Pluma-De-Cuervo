@@ -90,6 +90,7 @@ import getOtherWorks from "./server/other-works/get/getOtherWorks";
 import postOtherWork from "./server/other-works/post/postOtherWork";
 import putOtherWork from "./server/other-works/put/putOtherWork";
 import deleteOtherWork from "./server/other-works/delete/delete-other-work";
+import getOtherWorkById from "./server/other-works/get/getOtherWorkById";
 
 app.get("/health", (req, res) => {
   res.status(200).send("OK");
@@ -210,5 +211,6 @@ app.use("/other-works", getOtherWorks);
 app.use("/other-works", postOtherWork);
 app.use("/other-works", putOtherWork);
 app.use("/other-works", deleteOtherWork);
+app.use("/other-works", getOtherWorkById);
 
 export default app;

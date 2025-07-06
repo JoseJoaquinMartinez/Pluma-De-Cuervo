@@ -1,27 +1,28 @@
+"use client";
 import MainButton from "@/components/shared/mainButton";
 import { OtherWorkComponentProps } from "@/homepage/other-works/interface/other-works-interface";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface OtherWorkCardProps {
   otherWork: OtherWorkComponentProps;
   onDelete: (id: number) => void;
-  onEdit: (id: number) => void;
 }
 
 export const OtherWorkAdminCard = ({
   otherWork,
   onDelete,
-  onEdit,
 }: OtherWorkCardProps) => {
+  const router = useRouter();
   return (
     <article className="bg-cardsBackground rounded-xl w-full px-4 py-2 flex flex-col mlg:flex-row pb-10">
-      <div className="flex items-center justify-center mr-2 ">
+      <div className="flex items-center justify-center mr-2 h-full">
         <Image
           src={otherWork.imagen}
           alt={otherWork.title}
-          width={200}
-          height={200}
+          width={300}
+          height={300}
           className="rounded-xl"
         />
       </div>
@@ -39,7 +40,9 @@ export const OtherWorkAdminCard = ({
           />
           <MainButton
             name="Editar"
-            onClick={() => onEdit(otherWork.id)}
+            onClick={() =>
+              router.push(`/admin/otros-trabajos/editar/${otherWork.id}`)
+            }
             type="button"
           />
         </div>
