@@ -1,8 +1,14 @@
+export interface OtherWorkButton {
+  id: number;
+  text: string;
+  link: string;
+  otherWorkId: number;
+}
+
 export interface OtherWorkComponentProps {
   id: number;
   title: string;
   workText: string;
-  buttonLink: string;
-  buttonText: string;
   imagen: string;
+  buttons: OtherWorkButton[];
 }

@@ -1,15 +1,14 @@
 import React from "react";
 import type { OtherWorkComponentProps } from "./interface/other-works-interface";
 import MainButton from "@/components/shared/mainButton";
-import Image from "next/image";
+
 import { ImageComponent } from "@/components/shared/ImageComponent";
 
 const OtherWorksCard: React.FC<OtherWorkComponentProps> = ({
   title,
   workText,
-  buttonLink,
-  buttonText,
   imagen,
+  buttons,
 }) => {
   return (
     <div className="bg-cardsBackground rounded-xl flex flex-col mlg:flex-row h-full w-full">
@@ -20,13 +19,16 @@ const OtherWorksCard: React.FC<OtherWorkComponentProps> = ({
           </h2>
           <p className="my-2 text-mainText px-2">{workText}</p>
         </article>
-        <div className="flex flex-col items-center justify-center ">
-          <MainButton
-            link={buttonLink}
-            name={buttonText}
-            target="_blank"
-            rel="noopener noreferrer"
-          />
+        <div className="flex flex-col items-center justify-center gap-2">
+          {buttons.map((button) => (
+            <MainButton
+              key={button.id}
+              link={button.link}
+              name={button.text}
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+          ))}
         </div>
       </div>
       <div className="flex w-full h-full items-center justify-center mlg:justify-end">

@@ -161,6 +161,16 @@ model OtherWorks {
   title String 
   imagen String? @default("https://res.cloudinary.com/dk9juz4fp/image/upload/v1739611427/Pluma%20de%20Cuervo/igvlg1cr6ntol97a2ct5.jpg")
   workText String
-  buttonLink String
-  buttonText String
+  
+
+  buttons OtherWorksButton[]
+}
+
+model OtherWorksButton{
+  id Int @id @default(autoincrement())
+ text String
+ link String
+
+  otherWorks OtherWorks @relation(fields: [otherWorksId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  otherWorksId Int
 }
