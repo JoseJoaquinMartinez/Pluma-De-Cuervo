@@ -1,12 +1,12 @@
 import { SectionComponent } from "@/homepage/components/SectionComponent";
-import { OtherWorkAdminPageContainer } from "@/other-works/components/OtherWorkAdminPageContainer";
+import { OtherWorkAdminComponent } from "@/other-works/components/OtherWorkAdminComponent";
 
-export default function OtherWorksPage() {
+export default function CreateOtherWorkPage() {
   return (
     <div className="flex flex-col items-center justify-center  pb-8 px-4">
       <SectionComponent
         title="Crear otro trabajo"
-        content={<OtherWorkAdminPageContainer />}
+        content={<OtherWorkAdminComponent />}
       />
     </div>
   );

@@ -11,7 +11,8 @@ router.post(
   upload.single("imagen"),
   uploadToCloudinary,
   async (req, res) => {
-    const { title, imagen, workText, buttonLink, buttonText } = req.body;
+    const { title, workText, buttonLink, buttonText } = req.body;
+    const imagen = req.body.cloudinaryUrl || undefined;
 
     try {
       const otherWork = await prisma.otherWorks.create({
