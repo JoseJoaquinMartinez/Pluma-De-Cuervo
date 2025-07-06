@@ -3,7 +3,7 @@ export interface OtherWorkProps {
   text: string;
   buttonLink: string;
   buttonText: string;
-  imageSrc: string;
+  imagen: string;
 }
 
 export const otherWorks: OtherWorkProps[] = [
@@ -13,6 +13,6 @@ export const otherWorks: OtherWorkProps[] = [
     buttonLink:
       "https://www.amazon.es/Omni-cenizas-Gabriel-Pastor-S%C3%A1nchez/dp/8412128796",
     buttonText: "Comprar",
-    imageSrc: "/home-images/OMNI CENIZAS.webp",
+    imagen: "/home-images/OMNI CENIZAS.webp",
   },
 ];
