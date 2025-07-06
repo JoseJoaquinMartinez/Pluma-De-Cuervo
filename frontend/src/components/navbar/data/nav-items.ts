@@ -30,7 +30,7 @@ export const adminNavItems = [
     name: "Comentarios",
   },
   { link: "/admin/contacto", name: "Contacto" },
-  { link: "admin/otros-trabajos", name: "Otros Trabajos" },
+  { link: "/admin/otros-trabajos", name: "Otros Trabajos" },
 ];
 export const regularNavItems = [
   {
