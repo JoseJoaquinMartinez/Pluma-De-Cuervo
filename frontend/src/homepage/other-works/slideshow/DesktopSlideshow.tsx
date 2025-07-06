@@ -63,7 +63,7 @@ export const DesktopSlideshow = ({ otherWorks, className }: Props) => {
         className="mySwiper transition-all duration-500 ease-in-out"
       >
         {otherWorks.map((otherWork) => (
-          <SwiperSlide key={otherWork.id}>
+          <SwiperSlide key={otherWork.id} className="!h-full">
             <OtherWorkCard
               id={otherWork.id}
               title={otherWork.title}
