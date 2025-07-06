@@ -2,6 +2,7 @@ import React from "react";
 import type { OtherWorkComponentProps } from "./interface/other-works-interface";
 import MainButton from "@/components/shared/mainButton";
 import Image from "next/image";
+import { ImageComponent } from "@/components/shared/ImageComponent";
 
 const OtherWorksCard: React.FC<OtherWorkComponentProps> = ({
   title,
@@ -29,13 +30,7 @@ const OtherWorksCard: React.FC<OtherWorkComponentProps> = ({
         </div>
       </div>
       <div className="flex w-full h-full items-center justify-center mlg:justify-end">
-        <Image
-          src={imagen}
-          alt={title}
-          width={300}
-          height={300}
-          className="rounded-xl"
-        />
+        <ImageComponent imagen={imagen} title={title} />
       </div>
     </div>
   );
